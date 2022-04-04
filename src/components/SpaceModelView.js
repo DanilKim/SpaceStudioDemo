@@ -17,16 +17,16 @@ export default function SpaceModelView() {
     const [firstMed, setMed] = useState(null);
 
     return (
-        <Box sx={{ height: '94vh', display: 'flex'}}>
-            <Card variant='elevation' sx={{ width: '20%', height: '97.5%', m:'1.25%', bgcolor: '#5f5f5f', borderRadius: 5 }}>
-                <CardHeader title="City Modeling" sx={{color: 'white'}} />
+        <Box sx={{ height: '94vh', display: 'flex', bgcolor: 'white'}}>
+            <Card variant='elevation' sx={{ width: '20%', height: '97.5%', m:'1.25%', bgcolor: 'white', borderRadius: 5, border: 0.5, borderColor: '#dbdbdb' }}>
+                <CardHeader title="City Modeling" sx={{color: '#5f5f5f'}} />
                 <CardContent>
-                    <Card variant='elevation' sx={{ bgcolor: '#939393', borderRadius: 5, display: 'flex', flexDirection: 'row', boxShadow: 0, mt: -2 }}>
-                        <Typography variant="body1" sx={{ ml: 2, flexGrow: 1, color: 'white' }}>
-                            도시 모델
+                    <Card variant='elevation' sx={{ bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', boxShadow: 0, mt: -2 }}>
+                        <Typography variant="body1" sx={{ ml: 2, flexGrow: 1, color: '#5f5f5f' }}>
+                            [도시 모델]
                         </Typography>
-                        <Typography variant="body1" sx={{ mr: 2, color: 'white' }}>
-                            "hi"
+                        <Typography variant="body1" sx={{ mr: 2, color: '#5f5f5f' }}>
+                            옵션을 선택하세요.
                         </Typography>
                     </Card>
                     <GeojsonUploadCard/>

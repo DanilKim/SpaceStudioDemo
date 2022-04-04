@@ -23,7 +23,7 @@ import CreateModel from './CreateModel';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
-const BoxSx = { color: 'inherit', width: 1, height: 1/3, mt:3, bgcolor: '#939393', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center'};
+const BoxSx = { color: 'inherit', width: 1, height: 1/3, mt:3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center'};
 const MenuProps = {
     PaperProps: {
         style: {
