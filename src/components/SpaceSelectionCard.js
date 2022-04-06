@@ -71,8 +71,12 @@ export default function SpaceSelectionCard(props) {
 
 
   const handleSubmit = () => {
-    CreateModel(city, object, props.med, props.setMed).then( val => props.setModel( [...props.models, ...val] ) );
-    //useMemo( () => props.setModel( props.models.push(CreateModel(city, object, props.med, props.setMed), [city, object])));
+    CreateModel(city, object, props.model['firstMed']).then( 
+      val => props.setModel( 
+        { 'components' : [...props.model['components'], ...val['components']], 'firstMed' : val['firstMed'] } 
+      ) 
+    );
+    //useMemo( () => props.setModel( props.model.push(CreateModel(city, object, props.med, props.setMed), [city, object])));
   }
 
   return (

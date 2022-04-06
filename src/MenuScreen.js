@@ -23,11 +23,15 @@ import MenuBtn from './components/MenuBtnView.js'
 import SpaceCreate from './components/SpaceCreate.js';
 import SpaceModelView from './components/SpaceModelView.js';
 
-export default function MenuScreen() {
+export default function MenuScreen(props) {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+    };
+
+    const enterPlayMode = () => {
+        props.sUp(true);
     };
     
     return (
@@ -49,8 +53,8 @@ export default function MenuScreen() {
                 <Tab label="Create" index='1' />
                 <Tab label="Dummy" index='2' />
               </Tabs>
-              <IconButton edge="start" sx={{ mr: 3 }}>
-                <PlayArrow sx={{color: '#7c7c7c'}} />
+              <IconButton edge="start" sx={{ mr: 3 }} onClick={enterPlayMode}>
+                <PlayArrow sx={{color: '#7c7c7c'}}/>
               </IconButton>
               <IconButton edge="start" sx={{ mr: 3 }}>
                 <Settings sx={{color: '#7c7c7c'}} />
@@ -63,7 +67,7 @@ export default function MenuScreen() {
           <Box sx={{ height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', pt: '4.5vh'}}>
             <TabPanel value={value} index={0}>
               <Typography variant="body1" sx={{ mr: 2, color: '#555555' }}>
-                <SpaceModelView/>
+                <SpaceModelView model={props.model} setModel={props.setModel}/>
               </Typography>
             </TabPanel>
             <TabPanel value={value} index={1}>

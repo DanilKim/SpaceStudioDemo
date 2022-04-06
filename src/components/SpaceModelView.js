@@ -8,13 +8,12 @@ import {
     Button,
 } from '@mui/material';
 import { useState, useEffect, useMemo } from 'react';
+import { Canvas } from "@react-three/fiber";
 import GeojsonUploadCard from './GeojsonUploadCard'
 import SpaceSelectionCard from './SpaceSelectionCard'
 import MyWorld from '../world';
 
-export default function SpaceModelView() {
-    const [models, setModel] = useState([]);
-    const [firstMed, setMed] = useState(null);
+export default function SpaceModelView(props) {
 
     return (
         <Box sx={{ height: '94vh', display: 'flex', bgcolor: 'white'}}>
@@ -31,15 +30,15 @@ export default function SpaceModelView() {
                     </Card>
                     <GeojsonUploadCard/>
                     <SpaceSelectionCard 
-                        models={models}
-                        setModel={setModel}
-                        med={firstMed} 
-                        setMed={setMed}
+                        model={props.model}
+                        setModel={props.setModel}
                     />
                 </CardContent>
             </Card>
             <Box sx={{height: '100%', width: '80%'}}>
-                <MyWorld models={models} med={firstMed}/>
+                <Canvas camera={ !props.up && { position : [0,5,10] }}>
+                    <MyWorld key='studio-mode' model={props.model} up={false}/>
+                </Canvas>
             </Box>
         </Box>
     )

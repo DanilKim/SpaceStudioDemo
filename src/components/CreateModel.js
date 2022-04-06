@@ -53,9 +53,9 @@ function getMedianPoint( data ){
 }
 
 
-export default async function CreateModel(city, objects, firstMed, setMed) {
+export default async function CreateModel(city, objects, firstMed) {
     
-    console.log(city, objects);
+    //console.log(city, objects);
     var json,json_road,json_water;
 
     var fast = false
@@ -352,8 +352,9 @@ export default async function CreateModel(city, objects, firstMed, setMed) {
         var groups_by_types=[];
 
         if (!firstMed){
-            setMed(getMedianPoint(offsets));
+            console.log(firstMed);
             var med = getMedianPoint(offsets);
+            firstMed = med;
         } else {
             var med = firstMed;
         }
@@ -427,8 +428,9 @@ export default async function CreateModel(city, objects, firstMed, setMed) {
 
         //var mesh_road = new THREE.Mesh(merged_mesh_road, material_road);
         if (!firstMed){
-            setMed([offset_road.x, offset_road.z]);
+            console.log(firstMed);
             var med = [offset_road.x, offset_road.z];
+            firstMed = med;
         } else {
             var med = firstMed;
         }
@@ -467,8 +469,9 @@ export default async function CreateModel(city, objects, firstMed, setMed) {
 
         //var mesh_water = new THREE.Mesh(merged_mesh_water, material_water);
         if (!firstMed){
-            setMed([offset_water.x, offset_water.z]);
+            //setMed([offset_water.x, offset_water.z]);
             var med = [offset_water.x, offset_water.z];
+            firstMed = med;
         } else {
             var med = firstMed;
         }
@@ -500,8 +503,9 @@ export default async function CreateModel(city, objects, firstMed, setMed) {
     var render_list = [];
 
     await (async () => {for await (const object of objects) {
+
         if (object === '건물') {
-            const data = await getJsonAsync( jsonFile )
+            const data = await getJsonAsync( jsonFile );
             render_list.push(Add_building(data));
         } else if (object === '도로') {
             const data = await getJsonAsync( jsonFile_road );	
@@ -514,6 +518,9 @@ export default async function CreateModel(city, objects, firstMed, setMed) {
     
     })()
 
-    return render_list;
+    return ({
+        'components' : render_list,
+        'firstMed' : firstMed
+    });
 
 }
