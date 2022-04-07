@@ -1,3 +1,12 @@
+# Space Studio Demo
+
+## City Model
+<p align="center"> <img scr="./images/studio.png" width="700px" height="450px" title="studio"> </p>
+
+## Play Mode
+<p align="center"> <img scr="./images/animation.png" width="700px" height="450px" title="animation"> </p>
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
