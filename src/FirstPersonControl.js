@@ -25,10 +25,10 @@ function FirstPersonControl(props) {
         raycaster, // Default raycaster
     } = useThree();
     //---앞에 뭐가 있는지 가리키는 용도(총이라면 과녁 같은 것으로 생각하면 되겠죠.)
-    console.log(camera);
 
     const controlsRef = useRef(null);
     const controls = controlsRef.current;
+    const defaultHeight = camera.position.y;
 
     useEffect(() => {
 
@@ -117,8 +117,8 @@ function FirstPersonControl(props) {
             fp.direction.x = Number(fp.moveRight) - Number(fp.moveLeft);
             fp.direction.normalize(); // this ensures consistent fp.movements in all fp.directions
 
-            if (fp.moveForward || fp.moveBackward) fp.velocity.z -= fp.direction.z * 400.0 * delta;
-            if (fp.moveLeft || fp.moveRight) fp.velocity.x -= fp.direction.x * 400.0 * delta;
+            if (fp.moveForward || fp.moveBackward) fp.velocity.z -= fp.direction.z * 40.0 * delta;
+            if (fp.moveLeft || fp.moveRight) fp.velocity.x -= fp.direction.x * 40.0 * delta;
 
             controls.moveRight(- fp.velocity.x * delta);
             controls.moveForward(- fp.velocity.z * delta);
@@ -127,9 +127,11 @@ function FirstPersonControl(props) {
 
             if (controls.getObject().position.y < 10) {
                 fp.velocity.y = 0;
-                controls.getObject().position.y = 10;
+                controls.getObject().position.y = defaultHeight;
                 fp.canJump = true;
             }
+        } else {
+            controls.lock();
         }
 
     });
@@ -172,8 +174,12 @@ function FirstPersonControl(props) {
         scene.add(fp.arrowHelper);
     }
 
+    const handleUnlock = () => {
+        props.sUp(false);
+    }
+
     return (
-        <PointerLockControls ref={controlsRef}/>
+        <PointerLockControls ref={controlsRef} onUnlock={handleUnlock} camera={camera}/>
     )
 }
 

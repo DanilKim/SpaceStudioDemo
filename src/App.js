@@ -18,11 +18,11 @@ function App() {
       <Box sx={{width: '100vw', height: '100vh'}}>
         <Canvas
           style={{ background: "#2f2f2f" }}
-          camera={{ position: [0, 1, 10], fov: 50 }}
+          camera={{ position: [0, 0.1, 10], fov: 50 }}
           id="anim-canvas"
         >
-          <FirstPersonControl model={model} sUp={setUserPlaying}/>
-          <MyWorld key='play-mode' model={model} setModel={setModel} up={userPlaying}/>
+          <FirstPersonControl sUp={setUserPlaying}/>
+          <MyWorld key='play-mode' model={model} up={userPlaying}/>
         </Canvas>
       </Box> : 
       <MenuScreen model={model} setModel={setModel} sUp={setUserPlaying}/>}

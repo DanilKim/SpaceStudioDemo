@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import {BufferGeometryUtils} from 'https://cdn.jsdelivr.net/npm/three@0.122.0/examples/jsm/utils/BufferGeometryUtils.js';
-import { render } from '@testing-library/react';
 
 const heightAttr = "층수";
     //heightAttr = "HEIGHT",
@@ -352,7 +351,6 @@ export default async function CreateModel(city, objects, firstMed) {
         var groups_by_types=[];
 
         if (!firstMed){
-            console.log(firstMed);
             var med = getMedianPoint(offsets);
             firstMed = med;
         } else {
@@ -428,7 +426,6 @@ export default async function CreateModel(city, objects, firstMed) {
 
         //var mesh_road = new THREE.Mesh(merged_mesh_road, material_road);
         if (!firstMed){
-            console.log(firstMed);
             var med = [offset_road.x, offset_road.z];
             firstMed = med;
         } else {
@@ -469,7 +466,6 @@ export default async function CreateModel(city, objects, firstMed) {
 
         //var mesh_water = new THREE.Mesh(merged_mesh_water, material_water);
         if (!firstMed){
-            //setMed([offset_water.x, offset_water.z]);
             var med = [offset_water.x, offset_water.z];
             firstMed = med;
         } else {
