@@ -53,7 +53,7 @@ function FirstPersonControl(props) {
                         break;
                     case 'Space':
                         if (fp.canJump === true) {
-                            fp.velocity.y += 150;
+                            fp.velocity.y += 10;
                         }
                         fp.canJump = false;
                         break;
@@ -111,7 +111,7 @@ function FirstPersonControl(props) {
             fp.velocity.x -= fp.velocity.x * 10.0 * delta;
             fp.velocity.z -= fp.velocity.z * 10.0 * delta;
 
-            fp.velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
+            fp.velocity.y -= 9.8 * 5.0 * delta; // 10.0 = mass
 
             fp.direction.z = Number(fp.moveForward) - Number(fp.moveBackward);
             fp.direction.x = Number(fp.moveRight) - Number(fp.moveLeft);
@@ -125,7 +125,7 @@ function FirstPersonControl(props) {
 
             controls.getObject().position.y += (fp.velocity.y * delta); // new behavior
 
-            if (controls.getObject().position.y < 10) {
+            if (controls.getObject().position.y < defaultHeight) {
                 fp.velocity.y = 0;
                 controls.getObject().position.y = defaultHeight;
                 fp.canJump = true;
