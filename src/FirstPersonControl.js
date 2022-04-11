@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useThree, useFrame } from "@react-three/fiber";
 import { PointerLockControls } from "@react-three/drei";
+import { ControlStore } from './stores/ControlStore';
 
 const fp = {
     moveForward: false,
@@ -26,7 +27,7 @@ function FirstPersonControl(props) {
     } = useThree();
     //---앞에 뭐가 있는지 가리키는 용도(총이라면 과녁 같은 것으로 생각하면 되겠죠.)
 
-    const controlsRef = useRef(null);
+    const controlsRef = useRef(ControlStore.controls);
     const controls = controlsRef.current;
     const defaultHeight = camera.position.y;
 
@@ -111,7 +112,7 @@ function FirstPersonControl(props) {
             fp.velocity.x -= fp.velocity.x * 10.0 * delta;
             fp.velocity.z -= fp.velocity.z * 10.0 * delta;
 
-            fp.velocity.y -= 9.8 * 5.0 * delta; // 10.0 = mass
+            fp.velocity.y -= 9.8 * 5.0 * delta; // 5.0 = mass
 
             fp.direction.z = Number(fp.moveForward) - Number(fp.moveBackward);
             fp.direction.x = Number(fp.moveRight) - Number(fp.moveLeft);
@@ -138,6 +139,8 @@ function FirstPersonControl(props) {
 
     const processRaycaster = () => {
         const intersects = raycaster.intersectObjects(fp.objects);
+        console.log('intersects');
+        console.log(intersects);;
         if (intersects.length > 0) {
             if (fp.intersectedObject) {
                 fp.intersectedObject.material.color.setHex(0xffffff);

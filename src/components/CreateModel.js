@@ -1,5 +1,7 @@
+import React, { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import {BufferGeometryUtils} from 'https://cdn.jsdelivr.net/npm/three@0.122.0/examples/jsm/utils/BufferGeometryUtils.js';
+import Building from './Objects/Building';
 
 const heightAttr = "층수";
     //heightAttr = "HEIGHT",
@@ -345,9 +347,15 @@ export default async function CreateModel(city, objects, firstMed) {
     }
 
 
-    function Add_building(data){
+    function Add_building(props){
+        //[active, setActive] = useState(false);
+        //[ref, setRef] = useState(null);
+//
+        //const handleHover = (event) => {
+//
+        //}
 
-        var geom_total = buildShape_building(data);
+        var geom_total = buildShape_building(props.data);
         var groups_by_types=[];
 
         if (!firstMed){
@@ -365,35 +373,37 @@ export default async function CreateModel(city, objects, firstMed) {
 
         // add each of the buildings
         for(var g=0; g<geom_total.length; g++){
+            //buildRef = useRef();
             var color_idx = types.indexOf(building_types[g])
             const material = new THREE.MeshPhongMaterial({ color: pallet[0][color_idx] });
 
-            //var mesh = new THREE.Mesh( geom_total[g], material );
-
             var offset = offsets[g];
 
-            //mesh.position.set( scale_factor * scale_x * (offset[0] - med[0]), 0, scale_factor * scale_y * (offset[1] - med[1]));
-            //mesh.scale.set(scale_factor * scale_x, heightScaler, scale_factor * scale_y); //(10,100,0);//
-
-            //mesh.castShadow = true;
-            //mesh.receiveShadow = true;
-
-            //mesh.updateMatrix(); 
-
-            //mesh.name = building_names[g];
-            
             groups_by_types[color_idx].push(
-                <mesh 
+                <Building 
                     key={g} 
                     geometry={geom_total[g]} 
-                    material={material}
+                    color={pallet[0][color_idx]}
                     position={[scale_factor * scale_x * (offset[0] - med[0]), 0, scale_factor * scale_y * (offset[1] - med[1])]}
                     scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
                     name={building_names[g]}
                     castShadow={true}
                     receiveShadow={true}
                 />
-            );
+            )
+
+            //groups_by_types[color_idx].push(
+            //    <mesh 
+            //        key={g} 
+            //        geometry={geom_total[g]} 
+            //        material={material}
+            //        position={[scale_factor * scale_x * (offset[0] - med[0]), 0, scale_factor * scale_y * (offset[1] - med[1])]}
+            //        scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
+            //        name={building_names[g]}
+            //        castShadow={true}
+            //        receiveShadow={true}
+            //    />
+            //);
         }
 
         return (
@@ -412,8 +422,8 @@ export default async function CreateModel(city, objects, firstMed) {
     }
 
 
-    function Add_road(data){
-        var geom_total_road = buildShape_road(data);
+    function Add_road(props){
+        var geom_total_road = buildShape_road(props.data);
 
         // add road
         const material_road = new THREE.MeshPhongMaterial({ color: 0x121526 });
@@ -452,8 +462,8 @@ export default async function CreateModel(city, objects, firstMed) {
 
     }
 
-    function Add_water(data){
-        var geom_total_water = buildShape_water(data);
+    function Add_water(props){
+        var geom_total_water = buildShape_water(props.data);
         
         // add river
         const material_water = new THREE.MeshPhongMaterial({ color: 0x0AC9FF });
@@ -471,12 +481,7 @@ export default async function CreateModel(city, objects, firstMed) {
         } else {
             var med = firstMed;
         }
-        //mesh_water.position.set( scale_factor * scale_x * (offset_water.x - med[0]), 0, scale_factor * scale_y * (offset_water.z - med[1]));
-        //mesh_water.scale.set(scale_factor * scale_x , heightScaler, scale_factor * scale_y);
-//
-        //mesh_water.name = city + ' river';
-        //mesh_water.castShadow = true;
-        //mesh_water.receiveShadow = true;
+
         return (
             <mesh 
                 geometry={merged_mesh_water} 
@@ -502,13 +507,13 @@ export default async function CreateModel(city, objects, firstMed) {
 
         if (object === '건물') {
             const data = await getJsonAsync( jsonFile );
-            render_list.push(Add_building(data));
+            render_list.push(<Add_building data={data}/>);
         } else if (object === '도로') {
             const data = await getJsonAsync( jsonFile_road );	
-            render_list.push(Add_road(data));
+            render_list.push(<Add_road data={data}/>);
         } else if (object === '강') {
             const data = await getJsonAsync( jsonFile_water );
-            render_list.push(Add_water(data));
+            render_list.push(<Add_water data={data}/>);
         }
     }
     
