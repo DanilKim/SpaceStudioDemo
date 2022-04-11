@@ -1,14 +1,21 @@
 import { useFrame } from '@react-three/fiber';
 import React, { useState, useRef } from 'react';
 
+
 export default function Building(props) {
     const buildRef = useRef();
     const [active, setActive] = useState(false);
+    const [open, setOpen] = useState(false);
 
     var velocity = 0;
 
-    const handleClick = (event) => {
+    const handleClick = (e) => {
         console.log(props.name);
+        setOpen(true);
+    }
+
+    const handleClose = (e) => {
+        setOpen(false);
     }
 
     useFrame( (_, delta) => {
@@ -25,7 +32,7 @@ export default function Building(props) {
         }
     })
 
-    return (
+    return (<>
         <mesh 
             ref={buildRef}
             key={props.key} 
@@ -48,7 +55,32 @@ export default function Building(props) {
                 color={active ? "hotpink" : props.color}
             />
         </mesh>
-
+        
+        </>
     );
     
 };
+
+
+//import Button from '@mui/material/Button';
+//import Dialog from '@mui/material/Dialog';
+//import DialogActions from '@mui/material/DialogActions';
+//import DialogContent from '@mui/material/DialogContent';
+//import DialogContentText from '@mui/material/DialogContentText';
+//import DialogTitle from '@mui/material/DialogTitle';
+
+
+//<Dialog open={open} onClose={handleClose}>
+//    <DialogTitle>공공데이터 업로드</DialogTitle>
+//    <DialogContent>
+//    <DialogContentText>
+//        {props.name} 건물의 실내로 들어가겠습니까?
+//    </DialogContentText>
+//    </DialogContent>
+//    <DialogActions>
+//    <Button component="label">
+//        실내 공간 작업 시작
+//    </Button>
+//    <Button onClick={handleClose}>취소</Button>
+//    </DialogActions>
+//</Dialog>

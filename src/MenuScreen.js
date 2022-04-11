@@ -49,9 +49,8 @@ export default function MenuScreen(props) {
                 Tivine Space Studio
               </Typography>
               <Tabs value={value} onChange={handleChange} sx={{ flexGrow: 1 }} textColor="secondary" indicatorColor="secondary">
-                <Tab label="Space Modeling" index='0' />
-                <Tab label="Create" index='1' />
-                <Tab label="Dummy" index='2' />
+                <Tab label="실외 공간 생성" index='0' />
+                <Tab label="실내 공간 생성" index='1' />
               </Tabs>
               <IconButton edge="start" sx={{ mr: 3 }} onClick={enterPlayMode}>
                 <PlayArrow sx={{color: '#7c7c7c'}}/>
@@ -73,11 +72,6 @@ export default function MenuScreen(props) {
             <TabPanel value={value} index={1}>
               <Typography variant="body1" sx={{ mr: 2, color: '#555555' }}>
                 <SpaceCreate/>
-              </Typography>
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <Typography variant="body1" sx={{ mr: 2, color: '#555555' }}>
-                TabPanel 3
               </Typography>
             </TabPanel>
             <Box direction='row' justifySelf='flex-end' sx={{ width: '15vw', bgcolor: '#e4ddfa', p:3}}>
