@@ -1,5 +1,6 @@
-import { useFrame } from '@react-three/fiber';
-import React, { useState, useRef } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import React, { useState, useRef, useEffect } from 'react';
+
 
 
 export default function Building(props) {
@@ -9,23 +10,20 @@ export default function Building(props) {
 
     var velocity = 0;
 
-    const handleClick = (e) => {
-        console.log(props.name);
-        setOpen(true);
+    const handleClick = (event) => {
+        event.stopPropagation();
+        alert(props.name);
     }
 
-    const handleClose = (e) => {
-        setOpen(false);
-    }
-
-    useFrame( (_, delta) => {
+    useFrame((_, delta) => {
         if (active) {
-            if (buildRef.current.position.y < 0.01) {
-                velocity = 2;
-            } else {
-                velocity -= 0.1;
-            }
-            buildRef.current.position.y += velocity * delta;
+            buildRef.current.rotation.x += 0.01;
+            // if (buildRef.current.position.y < 0.01) {
+            //     velocity = 2;
+            // } else {
+            //     velocity -= 0.1;
+            // }
+            // buildRef.current.position.y += velocity * delta;
         } else {
             buildRef.current.position.y = 0;
             velocity = 0;
@@ -33,19 +31,21 @@ export default function Building(props) {
     })
 
     return (<>
-        <mesh 
+        <mesh
             ref={buildRef}
-            key={props.key} 
-            geometry={props.geometry} 
+            key={props.key}
+            geometry={props.geometry}
             position={props.position}
             scale={props.scale}
             name={props.name}
             castShadow={props.castShadow}
             receiveShadow={props.recieveShadow}
-            onPointerOver={() => {
+            onPointerOver={(event) => {
+                event.stopPropagation();
                 setActive(true);
             }}
-            onPointerOut={() => {
+            onPointerOut={(event) => {
+                event.stopPropagation();
                 setActive(false);
             }}
             onClick={handleClick}
@@ -55,10 +55,10 @@ export default function Building(props) {
                 color={active ? "hotpink" : props.color}
             />
         </mesh>
-        
-        </>
+
+    </>
     );
-    
+
 };
 
 

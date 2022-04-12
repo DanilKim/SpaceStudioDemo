@@ -392,18 +392,19 @@ export default async function CreateModel(city, objects, firstMed) {
                 />
             )
 
-            // groups_by_types[color_idx].push(
-            //     <mesh
-            //         key={g}
-            //         geometry={geom_total[g]}
-            //         material={material}
-            //         position={[scale_factor * scale_x * (offset[0] - med[0]), 0, scale_factor * scale_y * (offset[1] - med[1])]}
-            //         scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
-            //         name={building_names[g]}
-            //         castShadow={true}
-            //         receiveShadow={true}
-            //     />
-            // );
+            //groups_by_types[color_idx].push(
+            //    <mesh
+            //        key={g}
+            //        geometry={geom_total[g]}
+            //        material={material}
+            //        position={[scale_factor * scale_x * (offset[0] - med[0]), 0, scale_factor * scale_y * (offset[1] - med[1])]}
+            //        scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
+            //        name={building_names[g]}
+            //        castShadow={true}
+            //        receiveShadow={true}
+            //        onClick={() => console.log("click!")}
+            //    />
+            //);
         }
 
         return (

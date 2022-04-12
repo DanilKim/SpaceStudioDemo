@@ -4,29 +4,32 @@ import MenuScreen from './MenuScreen';
 import FirstPersonControl from './FirstPersonControl';
 import { Canvas } from "@react-three/fiber";
 import MyWorld from './world';
+import { useThree } from "@react-three/fiber"
+
 
 //<FirstPersonControl model={model} sUp={setUserPlaying} controlsRef={controlsRef}/>
 //<PointerLockControls ref={controlsRef}/>
 function App() {
-  const [model, setModel] = useState({ components : [], firstMed : null});
+  const [model, setModel] = useState({ components: [], firstMed: null });
   const [userPlaying, setUserPlaying] = useState(false);
 
   //const controlsRef = useRef(null);
 
-  return ( <>
-    {userPlaying ? 
-      <Box sx={{width: '100vw', height: '100vh'}}>
+
+  return (<>
+    {userPlaying ?
+      <Box sx={{ width: '100vw', height: '100vh' }}>
         <Canvas
           style={{ background: "#2f2f2f" }}
           camera={{ position: [0, 0.1, 10], fov: 50 }}
           id="anim-canvas"
         >
-          <FirstPersonControl sUp={setUserPlaying}/>
-          <MyWorld key='play-mode' model={model} up={userPlaying}/>
+          <FirstPersonControl sUp={setUserPlaying} />
+          <MyWorld key='play-mode' model={model} up={userPlaying} />
         </Canvas>
-      </Box> : 
-      <MenuScreen model={model} setModel={setModel} sUp={setUserPlaying}/>}
-    </>
+      </Box> :
+      <MenuScreen model={model} setModel={setModel} sUp={setUserPlaying} />}
+  </>
   );
 }
 
