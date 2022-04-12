@@ -17,13 +17,12 @@ export default function Building(props) {
 
     useFrame((_, delta) => {
         if (active) {
-            buildRef.current.rotation.x += 0.01;
-            // if (buildRef.current.position.y < 0.01) {
-            //     velocity = 2;
-            // } else {
-            //     velocity -= 0.1;
-            // }
-            // buildRef.current.position.y += velocity * delta;
+            if (buildRef.current.position.y < 0.01) {
+                velocity = 2;
+            } else {
+                velocity -= 0.1;
+            }
+            buildRef.current.position.y += velocity * delta;
         } else {
             buildRef.current.position.y = 0;
             velocity = 0;
