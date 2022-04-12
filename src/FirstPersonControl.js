@@ -27,7 +27,7 @@ function FirstPersonControl(props) {
     } = useThree();
     //---앞에 뭐가 있는지 가리키는 용도(총이라면 과녁 같은 것으로 생각하면 되겠죠.)
 
-    const controlsRef = useRef(ControlStore.controls);
+    const controlsRef = useRef(null);
     const controls = controlsRef.current;
     const defaultHeight = camera.position.y;
 
@@ -182,7 +182,7 @@ function FirstPersonControl(props) {
     }
 
     return (
-        <PointerLockControls ref={controlsRef} onUnlock={handleUnlock} camera={camera}/>
+        <PointerLockControls ref={controlsRef} onUnlock={handleUnlock} camera={camera} />
     )
 }
 
