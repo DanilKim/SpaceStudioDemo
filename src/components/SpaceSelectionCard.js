@@ -103,6 +103,10 @@ export default function SpaceSelectionCard(props) {
               <ListItemText primary={obj} />
             </MenuItem>
           ))}
+          <MenuItem value="">
+            <Checkbox disabled />
+            <ListItemText primary="지형 (미구현)" />
+          </MenuItem>
         </Select>
       </FormControl>
       <Button onClick={handleSubmit} sx={{ mb: 0.5, ml: 7, width: 0.5, color: 'inherit', border: 0.7}} >
