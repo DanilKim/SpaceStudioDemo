@@ -412,7 +412,7 @@ export default async function CreateModel(city, objects, firstMed) {
                 {types.map((g, id) => (
                     <group key={"group" + String(id)}>
                         {
-                            groups_by_types.map((m) => (
+                            groups_by_types[id].map((m) => (
                                 m
                             ))
                         }
