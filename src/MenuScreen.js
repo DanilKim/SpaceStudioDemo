@@ -45,7 +45,7 @@ export default function MenuScreen(props) {
               <IconButton edge="start" sx={{ mr: 5 }}>
                 <Redo sx={{color: '#7c7c7c'}} />
               </IconButton>
-              <Typography variant="h6" sx={{ mr: 10 ,color: '#7c7c7c' }}>
+              <Typography component={'div'} variant="h6" sx={{ mr: 10 ,color: '#7c7c7c' }}>
                 Tivine Space Studio
               </Typography>
               <Tabs value={value} onChange={handleChange} sx={{ flexGrow: 1 }} textColor="secondary" indicatorColor="secondary">
@@ -65,17 +65,17 @@ export default function MenuScreen(props) {
           </AppBar>
           <Box sx={{ height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', pt: '4.5vh'}}>
             <TabPanel value={value} index={0}>
-              <Typography variant="body1" sx={{ mr: 2, color: '#555555' }}>
+              <Typography component={'div'} variant="body1" sx={{ mr: 2, color: '#555555' }}>
                 <SpaceModelView model={props.model} setModel={props.setModel}/>
               </Typography>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <Typography variant="body1" sx={{ mr: 2, color: '#555555' }}>
+              <Typography component={'div'} variant="body1" sx={{ mr: 2, color: '#555555' }}>
                 <SpaceCreate/>
               </Typography>
             </TabPanel>
             <Box direction='row' justifySelf='flex-end' sx={{ width: '15vw', bgcolor: '#e4ddfa', p:3}}>
-              <Typography variant="body1" sx={{ mr: 2, color: '#555555' }}>
+              <Typography component={'div'} variant="body1" sx={{ mr: 2, color: '#555555' }}>
                 Design Assets
               </Typography>
             </Box>
