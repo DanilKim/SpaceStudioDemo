@@ -13,7 +13,7 @@ import GeojsonUploadCard from './GeojsonUploadCard'
 import SpaceSelectionCard from './SpaceSelectionCard'
 import MyWorld from '../world';
 
-export default function SpaceModelView(props) {
+export default (props) => {
 
     return (
         <Box sx={{ height: '94vh', display: 'flex', bgcolor: 'white' }}>

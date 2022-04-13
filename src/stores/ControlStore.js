@@ -3,7 +3,7 @@ import { action, makeObservable, observable } from "mobx";
 export class ControlStore {
     rootStore;
 
-    controls;
+    controls = null;
 
     constructor(root) {
         makeObservable(this, {
@@ -12,7 +12,7 @@ export class ControlStore {
 
         this.rootStore = root;
 
-        this.controls = null;
+        //this.controls = null;
 
     }
 

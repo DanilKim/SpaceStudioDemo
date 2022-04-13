@@ -11,6 +11,8 @@ import Checkbox from '@mui/material/Checkbox';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { ListSubheader } from '@mui/material';
 import CreateModel from './CreateModel';
+import { useStores } from '../stores/Context';
+import { observer } from 'mobx-react';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -32,10 +34,12 @@ const districts = [
 const objectList = ['건물', '도로', '강'];
 
 
-export default function SpaceSelectionCard(props) {
+export default observer( (props) => {
 
   const [city, setCity] = React.useState('');
   const [object, setObject] = React.useState([]);
+
+  const { ModelStore } = useStores();
 
 
   const renderDongSelect = (dist) => {
@@ -63,10 +67,13 @@ export default function SpaceSelectionCard(props) {
 
 
   const handleSubmit = () => {
-    CreateModel(city, object, props.model['firstMed']).then( 
-      val => props.setModel( 
-        { 'components' : [...props.model['components'], ...val['components']], 'firstMed' : val['firstMed'] } 
-      ) 
+    //CreateModel(city, object, props.model['firstMed']).then( 
+    //  val => props.setModel( 
+    //    { 'components' : [...props.model['components'], ...val['components']], 'firstMed' : val['firstMed'] } 
+    //  ) 
+    //);
+    CreateModel(city, object, ModelStore.model['firstMed']).then( 
+      val => ModelStore.addModel(val)
     );
     //useMemo( () => props.setModel( props.model.push(CreateModel(city, object, props.med, props.setMed), [city, object])));
   }
@@ -114,4 +121,4 @@ export default function SpaceSelectionCard(props) {
       </Button>
     </Box>
   );
-}
+})

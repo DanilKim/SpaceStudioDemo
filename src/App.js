@@ -4,16 +4,12 @@ import MenuScreen from './MenuScreen';
 import FirstPersonControl from './FirstPersonControl';
 import { Canvas } from "@react-three/fiber";
 import MyWorld from './world';
-import { useThree } from "@react-three/fiber"
-
 
 //<FirstPersonControl model={model} sUp={setUserPlaying} controlsRef={controlsRef}/>
 //<PointerLockControls ref={controlsRef}/>
-function App() {
+export default function App() {
   const [model, setModel] = useState({ components: [], firstMed: null });
   const [userPlaying, setUserPlaying] = useState(false);
-
-  //const controlsRef = useRef(null);
 
 
   return (<>
@@ -32,5 +28,3 @@ function App() {
   </>
   );
 }
-
-export default App;
