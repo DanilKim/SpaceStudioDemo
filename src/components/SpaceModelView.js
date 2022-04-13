@@ -22,10 +22,10 @@ export default function SpaceModelView(props) {
                 <CardHeader title="City Modeling" sx={{ color: '#5f5f5f' }} />
                 <CardContent>
                     <Card variant='elevation' sx={{ bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', boxShadow: 0, mt: -2 }}>
-                        <Typography variant="body1" sx={{ ml: 2, flexGrow: 1, color: '#5f5f5f' }}>
+                        <Typography component={'div'} variant="body1" sx={{ ml: 2, flexGrow: 1, color: '#5f5f5f' }}>
                             [도시 모델]
                         </Typography>
-                        <Typography variant="body1" sx={{ mr: 2, color: '#5f5f5f' }}>
+                        <Typography component={'div'} variant="body1" sx={{ mr: 2, color: '#5f5f5f' }}>
                             옵션을 선택하세요.
                         </Typography>
                     </Card>

@@ -2,7 +2,6 @@ import { useFrame, useThree } from '@react-three/fiber';
 import React, { useState, useRef, useEffect } from 'react';
 
 
-
 export default function Building(props) {
     const buildRef = useRef();
     const [active, setActive] = useState(false);
@@ -14,7 +13,7 @@ export default function Building(props) {
         event.stopPropagation();
         alert(props.name);
     }
-
+    var time = 0;
     useFrame((_, delta) => {
         if (active) {
             if (buildRef.current.position.y < 0.01) {
