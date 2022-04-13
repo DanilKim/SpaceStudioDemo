@@ -139,8 +139,6 @@ function FirstPersonControl(props) {
 
     const processRaycaster = () => {
         const intersects = raycaster.intersectObjects(fp.objects);
-        console.log('intersects');
-        console.log(intersects);;
         if (intersects.length > 0) {
             if (fp.intersectedObject) {
                 fp.intersectedObject.material.color.setHex(0xffffff);

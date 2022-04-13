@@ -2,7 +2,6 @@ import { useFrame, useThree } from '@react-three/fiber';
 import React, { useState, useRef, useEffect } from 'react';
 
 
-
 export default function Building(props) {
     const buildRef = useRef();
     const [active, setActive] = useState(false);
@@ -14,7 +13,7 @@ export default function Building(props) {
         event.stopPropagation();
         alert(props.name);
     }
-
+    var time = 0;
     useFrame((_, delta) => {
         if (active) {
             if (buildRef.current.position.y < 0.01) {
@@ -32,13 +31,12 @@ export default function Building(props) {
     return (<>
         <mesh
             ref={buildRef}
-            key={props.key}
             geometry={props.geometry}
             position={props.position}
             scale={props.scale}
             name={props.name}
-            castShadow={props.castShadow}
-            receiveShadow={props.recieveShadow}
+            castShadow
+            receiveShadow
             onPointerOver={(event) => {
                 event.stopPropagation();
                 setActive(true);
@@ -49,7 +47,7 @@ export default function Building(props) {
             }}
             onClick={handleClick}
         >
-            <meshPhongMaterial
+            <meshStandardMaterial
                 attach="material"
                 color={active ? "hotpink" : props.color}
             />
