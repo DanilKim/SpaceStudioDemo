@@ -387,8 +387,6 @@ export default async function CreateModel(city, objects, firstMed) {
                     position={[scale_factor * scale_x * (offset[0] - med[0]), 0, scale_factor * scale_y * (offset[1] - med[1])]}
                     scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
                     name={building_names[g]}
-                    castShadow={true}
-                    receiveShadow={true}
                 />
             )
 
@@ -412,7 +410,7 @@ export default async function CreateModel(city, objects, firstMed) {
                 {types.map((g, id) => (
                     <group key={"group" + String(id)}>
                         {
-                            groups_by_types.map((m) => (
+                            groups_by_types[id].map((m) => (
                                 m
                             ))
                         }

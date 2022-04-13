@@ -12,6 +12,7 @@ import { Canvas } from "@react-three/fiber";
 import GeojsonUploadCard from './GeojsonUploadCard'
 import SpaceSelectionCard from './SpaceSelectionCard'
 import MyWorld from '../world';
+import { Plane } from '@react-three/drei'
 
 export default function SpaceModelView(props) {
 
@@ -36,7 +37,8 @@ export default function SpaceModelView(props) {
                 </CardContent>
             </Card>
             <Box sx={{ height: '100%', width: '80%' }}>
-                <Canvas camera={!props.up && { position: [0, 5, 10] }} >
+                <Canvas shadows
+                    camera={!props.up && { position: [0, 5, 10] }} >
                     <MyWorld key='studio-mode' model={props.model} up={false} />
                 </Canvas>
             </Box>
