@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useThree, useFrame } from "@react-three/fiber";
 import { PointerLockControls } from "@react-three/drei";
-import { ControlStore } from './stores/ControlStore';
 
 const fp = {
     moveForward: false,
@@ -19,7 +18,6 @@ const fp = {
 //---1인칭 플레이에서 사용할 변수들
 
 function FirstPersonControl(props) {
-
     const {
         scene, // Default scene
         camera, // Default camera
@@ -95,7 +93,7 @@ function FirstPersonControl(props) {
 
             document.addEventListener('keydown', (event) => {
                 if (event.key === "Escape") {
-                    props.sUp(false);
+                    props.exit();
                 }
             });
         }
@@ -176,7 +174,7 @@ function FirstPersonControl(props) {
     }
 
     const handleUnlock = () => {
-        props.sUp(false);
+        props.exit();
     }
 
     return (

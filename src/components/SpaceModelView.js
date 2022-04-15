@@ -5,13 +5,11 @@ import {
     Card,
     CardHeader,
     CardContent,
-    Button,
 } from '@mui/material';
-import { useState, useEffect, useMemo } from 'react';
-import { Canvas } from "@react-three/fiber";
 import GeojsonUploadCard from './GeojsonUploadCard'
 import SpaceSelectionCard from './SpaceSelectionCard'
 import MyWorld from '../world';
+
 
 export default (props) => {
 
@@ -29,16 +27,11 @@ export default (props) => {
                         </Typography>
                     </Card>
                     <GeojsonUploadCard />
-                    <SpaceSelectionCard
-                        model={props.model}
-                        setModel={props.setModel}
-                    />
+                    <SpaceSelectionCard/>
                 </CardContent>
             </Card>
             <Box sx={{ height: '100%', width: '80%' }}>
-                <Canvas camera={!props.up && { position: [0, 5, 10] }} >
-                    <MyWorld key='studio-mode' model={props.model} up={false} />
-                </Canvas>
+                <MyWorld key='studio-mode' model={props.model} up={false} />
             </Box>
         </Box>
     )

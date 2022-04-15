@@ -24,20 +24,20 @@ export class PlaymodeStore {
 
     }
 
-    pause() {
+    pause = () => {
         this.pauseState = true;
-    }
+    };
 
-    play() {
+    play = () => {
         this.pauseState = false;
-    }
+    };
 
-    enterPm() {
+    enterPm = () => {
         this.playMode = true;
-    }
+    };
 
-    exitPm() {
+    exitPm = () => {
         this.playMode = false;
-    }
+    };
     
 }

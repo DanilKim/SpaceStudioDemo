@@ -7,7 +7,7 @@ export class ControlStore {
 
     constructor(root) {
         makeObservable(this, {
-            controls : observable
+            controls : observable,
         })
 
         this.rootStore = root;
