@@ -3,8 +3,8 @@ import { action, makeObservable, observable } from "mobx";
 export class PlaymodeStore {
     rootStore;
 
-    playMode;
-    pauseState;
+    playMode = false;
+    pauseState = false;
 
     constructor(root) {
         makeObservable(this, {
@@ -19,25 +19,25 @@ export class PlaymodeStore {
 
         this.rootStore = root;
 
-        this.playMode = false;
-        this.pauseState = false;
+        //this.playMode = false;
+        //this.pauseState = false;
 
     }
 
-    pause() {
+    pause = () => {
         this.pauseState = true;
-    }
+    };
 
-    play() {
+    play = () => {
         this.pauseState = false;
-    }
+    };
 
-    enterPm() {
-        this.playState = true;
-    }
+    enterPm = () => {
+        this.playMode = true;
+    };
 
-    exitPm() {
-        this.playState = false;
-    }
+    exitPm = () => {
+        this.playMode = false;
+    };
     
 }

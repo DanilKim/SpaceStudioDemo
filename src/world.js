@@ -1,16 +1,24 @@
-import React, { Suspense, useEffect } from "react";
-import * as THREE from 'three';
-import { useThree } from "@react-three/fiber";
-import { OrbitControls, PointerLockControls, FirstPersonControls } from "@react-three/drei";
-import { Plane } from "@react-three/drei";
+import React  from "react";
+import { OrbitControls, Plane } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useStores } from './stores/Context';
+import { observer } from 'mobx-react';
+import FirstPersonControl from './FirstPersonControl';
 
 
-export default function MyWorld(props) {
+function MyWorld() {
+    const { ModelStore, PlaymodeStore } = useStores();
+
+    const canvas_style = PlaymodeStore.playMode ? { background: "#2f2f2f" } : { background: "white" };
+    const camera_settings = PlaymodeStore.playMode ? { position: [0, 0.1, 10], fov: 50 } : { position: [0, 5, 10] };
 
     return (
-        <>
-            {/* <axesHelper args={[1000]} /> */}
-            {!props.up && <OrbitControls />}
+        <Canvas
+          style={canvas_style}
+          camera={camera_settings}
+          id="canvas"
+        >
+            {PlaymodeStore.playMode ? <FirstPersonControl exit={PlaymodeStore.exitPm}/> : <OrbitControls />}
             <ambientLight intensity={0.1} />
             <Plane
                 receiveShadow={true}
@@ -34,7 +42,11 @@ export default function MyWorld(props) {
                 shadow-blurSamples={5}
                 position={[15, 22, 10]}
                 intensity={1} />
-            {props.model['components']}
-        </>
+            {ModelStore.model}
+        </Canvas>
     )
 } 
+
+export default observer(MyWorld);
+
+//{props.model['components']}

@@ -3,16 +3,16 @@ import { action, makeObservable, observable } from "mobx";
 export class ControlStore {
     rootStore;
 
-    controls;
+    controls = null;
 
     constructor(root) {
         makeObservable(this, {
-            controls : observable
+            controls : observable,
         })
 
         this.rootStore = root;
 
-        this.controls = null;
+        //this.controls = null;
 
     }
 
