@@ -35,8 +35,8 @@ export default function Building(props) {
             position={props.position}
             scale={props.scale}
             name={props.name}
-            castShadow={props.castShadow}
-            receiveShadow={props.recieveShadow}
+            castShadow
+            receiveShadow
             onPointerOver={(event) => {
                 event.stopPropagation();
                 setActive(true);
@@ -47,7 +47,7 @@ export default function Building(props) {
             }}
             onClick={handleClick}
         >
-            <meshPhongMaterial
+            <meshStandardMaterial
                 attach="material"
                 color={active ? "hotpink" : props.color}
             />

@@ -1,19 +1,19 @@
-import { 
-    IconButton, 
-    Box, 
-    AppBar, 
-    Toolbar, 
-    Typography, 
-    Tabs, 
-    Tab,
+import {
+  IconButton,
+  Box,
+  AppBar,
+  Toolbar,
+  Typography,
+  Tabs,
+  Tab,
 } from '@mui/material';
 
-import { 
-    Undo, 
-    Redo,
-    PlayArrow,
-    Settings,
-    ExitToApp,
+import {
+  Undo,
+  Redo,
+  PlayArrow,
+  Settings,
+  ExitToApp,
 } from '@mui/icons-material';
 
 
