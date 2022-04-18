@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+//import App from './ComponentTest';
 
 import { StoreProvider } from "./stores/Context";
 import { RootStore } from "./stores/RootStore";
