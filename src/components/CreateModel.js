@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import Building from './Objects/Building';
 
 const heightAttr = "층수";
@@ -425,7 +426,7 @@ export default async function CreateModel(city, objects, firstMed) {
 
         // add road
         const material_road = new THREE.MeshPhongMaterial({ color: 0x121526 });
-        const merged_mesh_road = THREE.BufferGeometry.BufferGeometryUtils.mergeBufferGeometries(geom_total_road, true); // 도로 각각의 geometry를 하나로 합치는 과정
+        const merged_mesh_road = BufferGeometryUtils.mergeBufferGeometries(geom_total_road, true); // 도로 각각의 geometry를 하나로 합치는 과정
 
         merged_mesh_road.computeBoundingBox();
         merged_mesh_road.rotateX(-0.5 * Math.PI);
@@ -465,7 +466,7 @@ export default async function CreateModel(city, objects, firstMed) {
 
         // add river
         const material_water = new THREE.MeshPhongMaterial({ color: 0x0AC9FF });
-        const merged_mesh_water = THREE.BufferGeometry.BufferGeometryUtils.mergeBufferGeometries(geom_total_water, true); // 강 각각의 geometry를 하나로 합치는 과정
+        const merged_mesh_water = BufferGeometryUtils.mergeBufferGeometries(geom_total_water, true); // 강 각각의 geometry를 하나로 합치는 과정
 
         merged_mesh_water.computeBoundingBox();
         merged_mesh_water.rotateX(-0.5 * Math.PI);

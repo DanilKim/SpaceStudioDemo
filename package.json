@@ -19,7 +19,7 @@
     "build-demo": "webpack --config public/webpack.config.js --mode production",
     "build": "npm run clean && npm run build-demo",
     "clean": "rimraf public/dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx http-server -p 8080"
   },
   "eslintConfig": {
     "extends": [
