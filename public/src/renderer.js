@@ -5,7 +5,7 @@ import {
   App,
   StoreProvider,
   RootStore
-} from 'outdoor-planner';
+} from 'outdoor-modeling';
 
 const rootStore = new RootStore();
 
