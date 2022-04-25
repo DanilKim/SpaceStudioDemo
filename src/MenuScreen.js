@@ -22,7 +22,8 @@ import TabPanel from './components/TabPanelView'
 import MenuBtn from './components/MenuBtnView.js'
 import SpaceCreate from './components/SpaceCreate.js';
 import SpaceModelView from './components/SpaceModelView.js';
-import { observer } from 'mobx-react-lite';
+import OutdoorSidebar from './components/OutdoorSidebar';
+import { observer } from 'mobx-react';
 import { useStores } from './stores/Context';
 
 
@@ -69,21 +70,15 @@ function MenuScreen(props) {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Box sx={{ height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', pt: '4.5vh'}}>
+        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', pt: '4.5vh'}}>
           <TabPanel value={value} index={0}>
-            <Typography component={'div'} variant="body1" sx={{ mr: 2, color: '#555555' }}>
-              <SpaceModelView/>
-            </Typography>
+            <SpaceModelView/>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <Typography component={'div'} variant="body1" sx={{ mr: 2, color: '#555555' }}>
-              <SpaceCreate/>
-            </Typography>
+            <SpaceCreate/>
           </TabPanel>
-          <Box direction='row' justifySelf='flex-end' sx={{ width: '15vw', bgcolor: '#e4ddfa', p:3}}>
-            <Typography component={'div'} variant="body1" sx={{ mr: 2, color: '#555555' }}>
-              Design Assets
-            </Typography>
+          <Box direction='row' justifySelf='flex-end' sx={{ width: '16vw'}}>
+            <OutdoorSidebar/>
           </Box>
         </Box>
       </Box>

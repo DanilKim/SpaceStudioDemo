@@ -9,14 +9,13 @@ import {
 import GeojsonUploadCard from './GeojsonUploadCard'
 import SpaceSelectionCard from './SpaceSelectionCard'
 import MyWorld from '../world';
-import { Plane } from '@react-three/drei'
 
 
-export default (props) => {
+export default () => {
 
     return (
-        <Box sx={{ height: '94vh', display: 'flex', bgcolor: 'white' }}>
-            <Card variant='elevation' sx={{ width: '20%', height: '97.5%', m: '1.25%', bgcolor: 'white', borderRadius: 5, border: 0.5, borderColor: '#dbdbdb' }}>
+        <Box sx={{ height: '95vh', display: 'flex', bgcolor: 'white', mt:2}}>
+            <Card variant='elevation' sx={{ width: '20%', height: '98%', m: '0.5%', bgcolor: 'white', borderRadius: 5, border: 0.5, borderColor: '#dbdbdb' }}>
                 <CardHeader title="City Modeling" sx={{ color: '#5f5f5f' }} />
                 <CardContent>
                     <Card variant='elevation' sx={{ bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', boxShadow: 0, mt: -2 }}>
@@ -31,7 +30,7 @@ export default (props) => {
                     <SpaceSelectionCard/>
                 </CardContent>
             </Card>
-            <Box sx={{ height: '100%', width: '80%' }}>
+            <Box sx={{ height: '100%', width: '80%', mr:1}}>
                 <MyWorld key='studio-mode'/>
             </Box>
         </Box>

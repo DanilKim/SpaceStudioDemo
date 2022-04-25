@@ -39,7 +39,7 @@ export default observer( () => {
   const [city, setCity] = React.useState('');
   const [object, setObject] = React.useState([]);
 
-  const { ModelStore } = useStores();
+  const { ModelStore, SidebarStore } = useStores();
 
 
   const renderDongSelect = (dist) => {
@@ -75,9 +75,14 @@ export default observer( () => {
 
     CreateModel(city, object, ModelStore.firstMed).then( 
       val => {ModelStore.addModel(val);}
-    );
-    
+    );    
     //useMemo( () => props.setModel( props.model.push(CreateModel(city, object, props.med, props.setMed), [city, object])));
+  }
+
+  const handleSBT = () => {
+    SidebarStore.select(
+      'test', 'test', 'test', {x:1,y:2,z:3}, {x:3,y:2,z:1}
+    );
   }
 
   return (
@@ -120,6 +125,9 @@ export default observer( () => {
       </FormControl>
       <Button onClick={handleSubmit} sx={{ mb: 0.5, ml: 7, width: 0.5, color: 'inherit', border: 0.7}} >
         생성
+      </Button>
+      <Button onClick={handleSBT} sx={{ mb: 0.5, ml: 7, width: 0.5, color: 'inherit', border: 0.7}} >
+        Sidebar Test
       </Button>
     </Box>
   );

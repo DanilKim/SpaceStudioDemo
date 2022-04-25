@@ -1,19 +1,36 @@
-import { useFrame, useThree } from '@react-three/fiber';
-import React, { useState, useRef, useEffect } from 'react';
+import { useFrame } from '@react-three/fiber';
+import React, { useState, useRef, useCallback } from 'react';
+import { observer } from 'mobx-react';
+import { useStores } from '../../stores/Context';
 
 
-export default function Building(props) {
+export default observer( (props) => {
+    const { SidebarStore } = useStores();
+
     const buildRef = useRef();
     const [active, setActive] = useState(false);
-    const [open, setOpen] = useState(false);
+    //const [open, setOpen] = useState(false);
 
     var velocity = 0;
 
-    const handleClick = (event) => {
+    const handleClick = useCallback((event) => {
         event.stopPropagation();
-        alert(props.name);
-    }
-    var time = 0;
+        SidebarStore.select(
+            buildRef.current.userData.id,
+            buildRef.current.name,
+            buildRef.current.userData.category,
+            buildRef.current.position,
+            buildRef.current.scale,
+        )
+        //alert(buildRef.current.name);
+        //setOpen(true);
+    }, []);
+
+    const handleClose = useCallback((event) => {
+        event.stopPropagation();
+        //setOpen(false);
+    }, []);
+
     useFrame((_, delta) => {
         if (active) {
             if (buildRef.current.position.y < 0.01) {
@@ -31,6 +48,7 @@ export default function Building(props) {
     return (<>
         <mesh
             ref={buildRef}
+            userData={{id:props.key, category:props.category}}
             geometry={props.geometry}
             position={props.position}
             scale={props.scale}
@@ -52,13 +70,13 @@ export default function Building(props) {
                 color={active ? "hotpink" : props.color}
             />
         </mesh>
-
     </>
     );
 
-};
+})
 
 
+//import { Html } from '@react-three/drei';
 //import Button from '@mui/material/Button';
 //import Dialog from '@mui/material/Dialog';
 //import DialogActions from '@mui/material/DialogActions';
@@ -66,12 +84,12 @@ export default function Building(props) {
 //import DialogContentText from '@mui/material/DialogContentText';
 //import DialogTitle from '@mui/material/DialogTitle';
 
-
+//<Html>
 //<Dialog open={open} onClose={handleClose}>
 //    <DialogTitle>공공데이터 업로드</DialogTitle>
 //    <DialogContent>
 //    <DialogContentText>
-//        {props.name} 건물의 실내로 들어가겠습니까?
+//        {buildRef.current.name} 건물의 실내로 들어가겠습니까?
 //    </DialogContentText>
 //    </DialogContent>
 //    <DialogActions>
@@ -81,3 +99,4 @@ export default function Building(props) {
 //    <Button onClick={handleClose}>취소</Button>
 //    </DialogActions>
 //</Dialog>
+//</Html>
