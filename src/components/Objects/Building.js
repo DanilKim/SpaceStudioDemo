@@ -5,7 +5,7 @@ import { useStores } from '../../stores/Context';
 
 
 export default observer( (props) => {
-    const { SidebarStore } = useStores();
+    const { SidebarStore, PlaymodeStore } = useStores();
 
     const buildRef = useRef();
     const [active, setActive] = useState(false);
@@ -57,11 +57,11 @@ export default observer( (props) => {
             receiveShadow
             onPointerOver={(event) => {
                 event.stopPropagation();
-                setActive(true);
+                if (!PlaymodeStore.playMode) {setActive(true);};
             }}
             onPointerOut={(event) => {
                 event.stopPropagation();
-                setActive(false);
+                if (!PlaymodeStore.playMode) {setActive(false);};
             }}
             onClick={handleClick}
         >

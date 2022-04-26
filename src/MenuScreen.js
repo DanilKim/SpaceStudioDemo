@@ -70,14 +70,14 @@ function MenuScreen(props) {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', pt: '4.5vh'}}>
+        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', pt: '5vh'}}>
           <TabPanel value={value} index={0}>
             <SpaceModelView/>
           </TabPanel>
           <TabPanel value={value} index={1}>
             <SpaceCreate/>
           </TabPanel>
-          <Box direction='row' justifySelf='flex-end' sx={{ width: '16vw'}}>
+          <Box sx={{ width: '16vw'}}>
             <OutdoorSidebar/>
           </Box>
         </Box>

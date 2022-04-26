@@ -14,8 +14,8 @@ import MyWorld from '../world';
 export default () => {
 
     return (
-        <Box sx={{ height: '95vh', display: 'flex', bgcolor: 'white', mt:2}}>
-            <Card variant='elevation' sx={{ width: '20%', height: '98%', m: '0.5%', bgcolor: 'white', borderRadius: 5, border: 0.5, borderColor: '#dbdbdb' }}>
+        <Box sx={{ height: '95vh', display: 'flex', bgcolor: 'white'  }}>
+            <Card variant='elevation' sx={{ width: '20%', height: '99%', m: '0.5%', bgcolor: 'white', borderRadius: 5, border: 0.5, borderColor: '#dbdbdb' }}>
                 <CardHeader title="City Modeling" sx={{ color: '#5f5f5f' }} />
                 <CardContent>
                     <Card variant='elevation' sx={{ bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', boxShadow: 0, mt: -2 }}>

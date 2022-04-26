@@ -452,7 +452,7 @@ export default async function CreateModel(city, objects, firstMed) {
                 material={material_road}
                 position={[scale_factor * scale_x * (offset_road.x - med[0]), 0, scale_factor * scale_y * (offset_road.z - med[1])]}
                 scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
-                key={city + ' road'}
+                name={city + ' road'}
                 castShadow={true}
                 receiveShadow={true}
             />
@@ -486,7 +486,7 @@ export default async function CreateModel(city, objects, firstMed) {
                 material={material_water}
                 position={[scale_factor * scale_x * (offset_water.x - med[0]), 0, scale_factor * scale_y * (offset_water.z - med[1])]}
                 scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
-                key={city + ' river'}
+                name={city + ' river'}
                 castShadow={true}
                 receiveShadow={true}
             />
