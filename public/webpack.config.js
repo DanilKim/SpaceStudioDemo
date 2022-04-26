@@ -28,7 +28,7 @@ module.exports = (env, self) => {
     devServer: {
       open: true,
       port: port,
-      static: path.join(__dirname, './dist'),
+      static: path.resolve(__dirname),
     },
     resolve: {
       extensions: ['.js', '.jsx'],
@@ -46,9 +46,22 @@ module.exports = (env, self) => {
         },
       },
       {
+        test: /\.(jpe?g|png|gif|mtl|obj)$/i,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            hash: 'sha512',
+            digest: 'hex',
+            name: '[path][name].[ext]',
+            context: 'demo/src'
+          }
+        }]
+      },
+      {
         test: /\.css$/,
         use: [
           { loader: 'style-loader' },
+          { loader: 'css-loader'}
         ]
       }]
     },
