@@ -11,7 +11,7 @@ const BASE_URL_HDRI = window.location.protocol + '//' + window.location.hostname
 const HDRI = 'je_gray_park_4k.hdr'
 
 function Decorator() {
-    const { scene, renderer } = useThree();
+    const { scene, gl } = useThree();
     const { PlaymodeStore } = useStores();
 
     useEffect(() => {
@@ -39,10 +39,10 @@ function Decorator() {
                 const filepath = BASE_URL_HDRI + HDRI;
                 console.log('setBackground: loading... ' + filepath);
                 new RGBELoader()
-                    .setDataType(THREE.UnsignedByteType)
+                    //.setDataType(THREE.UnsignedByteType)
                     .setPath(BASE_URL_HDRI)
-                    .load('small_harbor_01_1k.hdr', (texture) => {
-                        const pmremGenerator = new THREE.PMREMGenerator(renderer);
+                    .load(HDRI, (texture) => {
+                        const pmremGenerator = new THREE.PMREMGenerator(gl);
                         const envMap = pmremGenerator.fromEquirectangular(texture).texture;
                         pmremGenerator.compileEquirectangularShader();
 
