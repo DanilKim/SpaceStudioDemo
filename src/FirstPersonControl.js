@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import PortalPopup from './components/PortalPopup';
 import { useThree, useFrame } from "@react-three/fiber";
 import { PointerLockControls, Html } from "@react-three/drei";
+import { observer } from 'mobx-react';
+import { useStores } from './stores/Context';
 
 const fp = {
     moveForward: false,
@@ -26,7 +28,8 @@ function FirstPersonControl(props) {
     } = useThree();
     //---앞에 뭐가 있는지 가리키는 용도(총이라면 과녁 같은 것으로 생각하면 되겠죠.)
 
-    const [portal, setPortal] = useState(null);
+    //const [portal, setPortal] = useState(null);
+    const { PortalStore } = useStores();
 
     const controlsRef = useRef(null);
     const controls = controlsRef.current;
@@ -108,7 +111,7 @@ function FirstPersonControl(props) {
 
     useFrame((_, delta) => {
         if (controls.isLocked === true) {
-            drawRaycaster();
+            //drawRaycaster();
             detectCollision();
 
             fp.velocity.x -= fp.velocity.x * 10.0 * delta;
@@ -167,13 +170,18 @@ function FirstPersonControl(props) {
     }
 
     const detectCollision = () => {
+        raycaster.set(camera.getWorldPosition(new THREE.Vector3()), camera.getWorldDirection(new THREE.Vector3()));
+
+        raycaster.ray.origin.y = 0.1;
+        raycaster.ray.direction.y = 0;
+
         var intersects = raycaster.intersectObject(scene, true);
         if (intersects.length > 0 && intersects[0].distance < 1 && intersects[0].object.userData.category) {
             //console.log(intersects[0].object.userData.category);
-            setPortal(intersects[0].object.name);
+            PortalStore.setPortal(intersects[0].object.name);
             //console.log(portal)
         } else {
-            setPortal(null);
+            PortalStore.setPortal(null);
         }
     }
 
@@ -192,13 +200,15 @@ function FirstPersonControl(props) {
         props.exit();
     }
 
-    return ( <>
+    return (
         <PointerLockControls ref={controlsRef} onUnlock={handleUnlock} camera={camera} />
-        { portal && 
-            <Html><PortalPopup name={portal}/></Html>
-        }
-        </>
     )
 }
 
-export default FirstPersonControl;
+export default observer(FirstPersonControl);
+
+/*
+{ portal && 
+    <Html><PortalPopup name={portal}/></Html>
+}
+*/

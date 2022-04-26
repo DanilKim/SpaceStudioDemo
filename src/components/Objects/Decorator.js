@@ -37,7 +37,7 @@ function Decorator() {
         const setBackground = () => {
             if (HDRI) {
                 const filepath = BASE_URL_HDRI + HDRI;
-                console.log('setBackground: loading... ' + filepath);
+                //console.log('setBackground: loading... ' + filepath);
                 new RGBELoader()
                     //.setDataType(THREE.UnsignedByteType)
                     .setPath(BASE_URL_HDRI)

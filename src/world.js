@@ -5,16 +5,17 @@ import { useStores, StoreProvider, StoreConsumer } from './stores/Context';
 import { observer } from 'mobx-react';
 import FirstPersonControl from './FirstPersonControl';
 import Decorator from './components/Objects/Decorator';
+import PortalPopup from "./components/PortalPopup";
 
 
 function MyWorld() {
-    const { ModelStore, PlaymodeStore } = useStores();
+    const { ModelStore, PlaymodeStore, PortalStore } = useStores();
     console.log(ModelStore.model);
 
     const canvas_style = PlaymodeStore.playMode ? { background: "#2f2f2f" } : { background: "white" };
     const camera_settings = PlaymodeStore.playMode ? { position: [0, 0.1, 10], fov: 50 } : { position: [0, 5, 10] };
 
-    return (
+    return ( <>
         <StoreConsumer>
         { value => (
             <Canvas
@@ -30,6 +31,8 @@ function MyWorld() {
             </Canvas>
         )}
         </StoreConsumer>
+        { (PlaymodeStore.playMode && PortalStore.portal) && <PortalPopup/>}
+        </>
     )
 } 
 
