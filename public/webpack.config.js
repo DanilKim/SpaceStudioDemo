@@ -1,8 +1,9 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const webpack = require('webpack');
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
-const PAGE_TITLE = 'Outdoor Modeling';
+const PAGE_TITLE = 'Tmax metaverse';
 const VENDORS_LIBRARIES = ['react', 'react-dom', 'three'];
 
 module.exports = (env, self) => {
@@ -33,7 +34,7 @@ module.exports = (env, self) => {
     resolve: {
       extensions: ['.js', '.jsx'],
       alias: {
-        'outdoor-modeling': path.join(__dirname, '../src/export')
+        'space-studio': path.join(__dirname, '../src/export')
       }
     },
     module: {
@@ -66,6 +67,7 @@ module.exports = (env, self) => {
       }]
     },
     plugins: [
+      new NodePolyfillPlugin(),
       new HtmlWebPackPlugin({
         title: PAGE_TITLE,
         template: './src/index.html',
