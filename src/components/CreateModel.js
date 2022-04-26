@@ -426,7 +426,15 @@ export default async function CreateModel(city, objects, firstMed) {
 
         // add road
         const material_road = new THREE.MeshPhongMaterial({ color: 0x121526 });
-        const merged_mesh_road = BufferGeometryUtils.mergeBufferGeometries(geom_total_road, true); // 도로 각각의 geometry를 하나로 합치는 과정
+        // ----------------- three.js < 0.125.0 ------------------- //
+        const merged_mesh_road = new THREE.Geometry();
+        for (var i = 0; i < geom_total_road.length + 0; i++) {
+            merged_mesh_road.merge(geom_total_road[i]);
+        }
+
+
+        // ----------------- three >= 0.125.0 ------------------- //
+        // const merged_mesh_road = BufferGeometryUtils.mergeBufferGeometries(geom_total_road, true); // 도로 각각의 geometry를 하나로 합치는 과정
 
         merged_mesh_road.computeBoundingBox();
         merged_mesh_road.rotateX(-0.5 * Math.PI);
@@ -466,7 +474,14 @@ export default async function CreateModel(city, objects, firstMed) {
 
         // add river
         const material_water = new THREE.MeshPhongMaterial({ color: 0x0AC9FF });
-        const merged_mesh_water = BufferGeometryUtils.mergeBufferGeometries(geom_total_water, true); // 강 각각의 geometry를 하나로 합치는 과정
+        // ----------------- three.js < 0.125.0 ------------------- //
+        const merged_mesh_water = new THREE.Geometry();
+        for (var i = 0; i < geom_total_water.length; i++) {
+            merged_mesh_water.merge(geom_total_water[i]);
+        }
+
+        // ----------------- three >= 0.125.0 사용가능 ------------------- //
+        // const merged_mesh_water = BufferGeometryUtils.mergeBufferGeometries(geom_total_water, true); // 강 각각의 geometry를 하나로 합치는 과정
 
         merged_mesh_water.computeBoundingBox();
         merged_mesh_water.rotateX(-0.5 * Math.PI);
