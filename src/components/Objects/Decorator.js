@@ -1,7 +1,7 @@
 import React, { useEffect, Suspense } from 'react';
 import * as THREE from 'three';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
-import { useThree, useLoader } from '@react-three/fiber';
+import { useThree } from '@react-three/fiber';
 import { Plane, Environment, useProgress, Html } from '@react-three/drei';
 import { useStores  } from '../../stores/Context';
 import { observer } from 'mobx-react';
@@ -18,7 +18,6 @@ function Loader() {
 function Decorator() {
     const { scene, gl } = useThree();
     const { PlaymodeStore } = useStores();
-    const hdri = useLoader(RGBELoader, BASE_URL_HDRI + HDRI);
 
     useEffect(() => {
 

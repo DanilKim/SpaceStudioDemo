@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import FirstPersonControl from './FirstPersonControl';
 import Decorator from './components/Objects/Decorator';
 import PortalPopup from "./components/PortalPopup";
-
+import Asset from "./components/Objects/Asset";
 
 function Loader() {
     const { progress } = useProgress();
@@ -34,6 +34,7 @@ function MyWorld() {
                     {PlaymodeStore.playMode ? <FirstPersonControl exit={PlaymodeStore.exitPm}/> : <OrbitControls />}
                     <Decorator/>
                     {ModelStore.model}
+                    <Asset/>
                 </Suspense>
             </StoreProvider>
             </Canvas>

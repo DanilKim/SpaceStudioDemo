@@ -39,6 +39,14 @@ export default function AssetMenu(props) {
                     <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_effects.png'} variant='rounded'/>
                     <Typography>effects</Typography>
                 </IconButton>
+                <IconButton value={'cars'} onClick={handleClick} sx={IconbuttonSX}>
+                    <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_buildings.png'} variant='rounded'/>
+                    <Typography>buildings</Typography>
+                </IconButton>
+                <IconButton value={'cars'} onClick={handleClick} sx={IconbuttonSX}>
+                    <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_roads.png'} variant='rounded'/>
+                    <Typography>roads</Typography>
+                </IconButton>
                 
             </Box>
             <Box sx={{ minWidth: '150px', width: '60%', heigth: '95%', justifyContent: 'center', flexGrow: 1 }}>
@@ -53,3 +61,5 @@ export default function AssetMenu(props) {
 // <a target="_blank" href="https://icons8.com/icon/15126/car">Car</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 // <a target="_blank" href="https://icons8.com/icon/OL4KnqW4o3W0/forest">Forest</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 // <a target="_blank" href="https://icons8.com/icon/Qk1uLRAj70EH/rainbow">Rainbow</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+// <a target="_blank" href="https://icons8.com/icon/9x4BLGMFfDI9/real-estate">Real Estate</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+// <a target="_blank" href="https://icons8.com/icon/19807/road">Road</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
