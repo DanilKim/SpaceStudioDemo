@@ -1,38 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import * as THREE from 'three';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
-import { useThree } from '@react-three/fiber';
-import { Plane } from '@react-three/drei';
+import { useThree, useLoader } from '@react-three/fiber';
+import { Plane, Environment, useProgress, Html } from '@react-three/drei';
 import { useStores  } from '../../stores/Context';
 import { observer } from 'mobx-react';
 
-const BASE_URL_HDRI = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/hdri/';
-//const BASE_URL_HDRI = '../../../hdri/';
-const HDRI = 'je_gray_park_4k.hdr'
+const BASE_URL_HDRI = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+const HDRI = '/hdri/je_gray_park_4k.hdr'
+
+function Loader() {
+    const { progress } = useProgress();
+    return <Html center> <h1>Loading Sky... {progress.toFixed(2)}%</h1></Html>
+}
+
 
 function Decorator() {
     const { scene, gl } = useThree();
     const { PlaymodeStore } = useStores();
+    const hdri = useLoader(RGBELoader, BASE_URL_HDRI + HDRI);
 
     useEffect(() => {
-        //const setLight = ({ scene }) => {
-        //    scene.add(new THREE.AmbientLight(0xff52ff, 0.6));
-        //}
-        //---전체적으로 잘 보이게 이상적인 AmbientLight를 넣습니다.
-
-        //const setGround = (props) => {
-        //    let floorGeometry = new THREE.PlaneGeometry(100, 100, 10, 10);
-        //    let floorMaterial= new THREE.MeshPhongMaterial({
-    	//        color: 0xffffff, opacity: 0.1, transparent: true
-        //    });
-        //
-        //    let floor = new THREE.Mesh(floorGeometry, floorMaterial);
-        //    floor.rotation.x = -0.5 * Math.PI;
-        //    floor.receiveShadow = true;
-        //    props.scene.add(floor);
-        //}
-        //---바닥을 그려줍니다.
-
 
         const setBackground = () => {
             if (HDRI) {
@@ -64,7 +52,7 @@ function Decorator() {
         //setLight(props);
         //setGround(props);
         if ( PlaymodeStore.playMode ) {
-            setBackground();
+            //setBackground();
         }
 
     }, []);
@@ -94,6 +82,11 @@ function Decorator() {
             shadow-blurSamples={5}
             position={[15, 22, 10]}
             intensity={1} />
+        { PlaymodeStore.playMode &&
+            <Suspense fallback={<Loader/>}>
+                <Environment files={HDRI} path={BASE_URL_HDRI} background/>
+            </Suspense>
+        }
     </>);
 }
 

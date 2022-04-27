@@ -4,7 +4,7 @@ export default function TabPanel(props) {
     return (
         <div>
             {props.value === props.index && 
-            <Box sx={{ p: 0, m: 0, width: '85vw' }}>
+            <Box sx={{ p: 0, m: 0, width: props.width }}>
                 {props.children}
             </Box>}
         </div> 

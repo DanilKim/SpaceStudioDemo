@@ -71,13 +71,13 @@ function MenuScreen(props) {
           </Toolbar>
         </AppBar>
         <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', pt: '5vh'}}>
-          <TabPanel value={value} index={0}>
+          <TabPanel value={value} index={0} width='84vw'>
             <SpaceModelView/>
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          <TabPanel value={value} index={1} width='84vw'>
             <SpaceCreate/>
           </TabPanel>
-          <Box sx={{ width: '16vw'}}>
+          <Box sx={{ minWidth: '200px', width: '15vw'}}>
             <OutdoorSidebar/>
           </Box>
         </Box>

@@ -16,7 +16,7 @@ export default function GeojsonUploadCard() {
 
   return (
     <Box>
-      <Button color='inherit' sx={{ width: 1, height: 1/3, mt:3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'column'}} onClick={handleClickOpen} >
+      <Button color='inherit' sx={{ width: 1, height: 1/3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'column'}} onClick={handleClickOpen} >
         <Add sx={{color: '#5f5f5f', mt: 5}} />
         <Typography variant="body1" sx={{color: '#5f5f5f', mb: 5}}>
           공공데이터로 도시 모델 만들기
