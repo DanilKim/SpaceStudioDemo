@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { SizeMe } from 'react-sizeme';
 import Immutable, {Map} from 'immutable';
 import immutableDevtools from 'immutable-devtools';
 import {createStore} from 'redux';
@@ -27,7 +28,7 @@ let AppState = Map({
 //define reducer
 let reducer = (state, action) => {
   state = state || AppState;
-  state = state.update('react-planner', plannerState => PlannerReducer(plannerState, action));
+  state = state.update('space-studio', plannerState => PlannerReducer(plannerState, action));
   return state;
 };
 
@@ -80,14 +81,26 @@ let toolbarButtons = [
 const rootStore = new RootStore();
 
 ReactDOM.render(
-  <React.StrictMode>
+  (
+    <React.StrictMode>
     <StoreProvider value={rootStore}>
       <App />
     </StoreProvider>
-  </React.StrictMode>,
+    </React.StrictMode>
+    // <Provider store={store}>
+    //   <SizeMe monitorHeight>
+    //     {({size}) =>
+    //       <ReactPlanner
+    //         catalog={MyCatalog}
+    //         width={size.width}
+    //         height={960}
+    //         plugins={plugins}
+    //         toolbarButtons={toolbarButtons}
+    //         stateExtractor={state => state.get('space-studio')}
+    //       />
+    //     }
+    //   </SizeMe>
+    // </Provider>
+  ),
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

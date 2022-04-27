@@ -92,7 +92,6 @@ export default function Viewer2D(
   { state, width, height },
   { viewer2DActions, linesActions, holesActions, verticesActions, itemsActions, areaActions, projectActions, catalog }) {
 
-
   let { viewer2D, mode, scene } = state;
 
   let layerID = scene.selectedLayer;
@@ -294,7 +293,7 @@ export default function Viewer2D(
     }
   };
 
-  let { e, f, SVGWidth, SVGHeight } = state.get('viewer2D').toJS();
+  let { e, f, SVGWidth, SVGHeight } = state.get('viewer2D');
 
   let rulerSize = 15; //px
   let rulerUnitPixelSize = 100;
@@ -306,6 +305,16 @@ export default function Viewer2D(
   let sceneZoom = state.zoom || 1;
   let rulerXElements = Math.ceil( sceneWidth / rulerUnitPixelSize ) + 1;
   let rulerYElements = Math.ceil( sceneHeight / rulerUnitPixelSize ) + 1;
+  const miniatureProps = {
+    miniaturePosition: "left",
+    miniatureBackground: "#fff",
+    miniatureWidth: 100,
+    miniatureHeight: 80
+  }
+  
+  const toolbarProps = {
+    toolbarPosition: "right"
+  }
 
   return (
     <div style={{
@@ -351,7 +360,7 @@ export default function Viewer2D(
         style={{ gridColumn: 2, gridRow: 2 }}
         width={width - rulerSize}
         height={height - rulerSize}
-        value={viewer2D.isEmpty() ? null : viewer2D.toJS()}
+        value={viewer2D === null ? null : viewer2D}
         onChangeValue={onChangeValue}
         tool={mode2Tool(mode)}
         onChangeTool={onChangeTool}
@@ -359,8 +368,8 @@ export default function Viewer2D(
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
-        miniaturePosition="none"
-        toolbarPosition="none"
+        toolbarProps={toolbarProps}
+        miniatureProps={miniatureProps}
       >
 
         <svg width={scene.width} height={scene.height}>

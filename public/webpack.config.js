@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 const PAGE_TITLE = 'Tmax metaverse';
-const VENDORS_LIBRARIES = ['react', 'react-dom', 'three'];
+const VENDORS_LIBRARIES = ['immutable', 'react', 'react-dom', 'react-redux', 'redux', 'three'];
 
 module.exports = (env, self) => {
   let isProduction = self.hasOwnProperty('mode') ? ( self.mode === 'production' ) : true;
@@ -62,7 +62,7 @@ module.exports = (env, self) => {
         test: /\.css$/,
         use: [
           { loader: 'style-loader' },
-          { loader: 'css-loader'}
+          { loader: 'css-loader' }
         ]
       }]
     },

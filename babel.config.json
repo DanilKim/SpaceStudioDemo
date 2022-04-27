@@ -5,6 +5,6 @@
   ],
   "plugins":[
     "@babel/plugin-transform-runtime",
-    "import-glob",
+    "import-glob"
   ]
 }
