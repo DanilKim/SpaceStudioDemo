@@ -43,7 +43,7 @@ function MenuScreen(props) {
   
   return (
       <Box sx={{ bgcolor: 'white', width: '100vw', height: '100vh' }}>
-        <AppBar position='absolute' sx={{ bgcolor: '#fafafa', borderBottom: 1, borderColor: '#eaeaea' }}>
+        <AppBar sx={{ bgcolor: '#fafafa', borderBottom: 1, borderColor: '#eaeaea' }}>
           <Toolbar variant="dense">
             <MenuBtn/>
             <IconButton edge="start" sx={{ mr: 2 }}>

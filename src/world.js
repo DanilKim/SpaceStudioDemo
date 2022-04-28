@@ -34,7 +34,6 @@ function MyWorld() {
                     {PlaymodeStore.playMode ? <FirstPersonControl exit={PlaymodeStore.exitPm}/> : <OrbitControls />}
                     <Decorator/>
                     {ModelStore.model}
-                    <Asset/>
                 </Suspense>
             </StoreProvider>
             </Canvas>
