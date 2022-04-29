@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 const PAGE_TITLE = 'Tmax metaverse';
-const VENDORS_LIBRARIES = ['immutable', 'react', 'react-dom', 'react-redux', 'redux', 'three'];
 
 module.exports = (env, self) => {
   let isProduction = self.hasOwnProperty('mode') ? ( self.mode === 'production' ) : true;
@@ -16,7 +15,6 @@ module.exports = (env, self) => {
     context: path.resolve(__dirname),
     entry: {
       app: './src/renderer.js',
-      vendor: VENDORS_LIBRARIES
     },
     output: {
       path: path.join(__dirname, 'dist'),
