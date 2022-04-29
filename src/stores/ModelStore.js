@@ -10,6 +10,7 @@ export class ModelStore {
         makeObservable(this, {
             model : observable,
             addModel : action,
+            addAsset : action
         })
 
         this.rootStore = root;
@@ -18,6 +19,10 @@ export class ModelStore {
     addModel = (newModel) => {
         this.model = [...this.model, ...newModel['components']];
         this.firstMed = newModel['firstMed'];
+    }
+
+    addAsset = (newAsset) => {
+        this.model = [...this.model, newAsset];
     }
 
 }

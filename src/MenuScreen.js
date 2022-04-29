@@ -22,7 +22,8 @@ import TabPanel from './components/TabPanelView'
 import MenuBtn from './components/MenuBtnView.js'
 import SpaceCreate from './components/SpaceCreate.js';
 import SpaceModelView from './components/SpaceModelView.js';
-import { observer } from 'mobx-react-lite';
+import OutdoorSidebar from './components/OutdoorSidebar';
+import { observer } from 'mobx-react';
 import { useStores } from './stores/Context';
 
 
@@ -42,7 +43,7 @@ function MenuScreen(props) {
   
   return (
       <Box sx={{ bgcolor: 'white', width: '100vw', height: '100vh' }}>
-        <AppBar position='absolute' sx={{ bgcolor: '#fafafa', borderBottom: 1, borderColor: '#eaeaea' }}>
+        <AppBar sx={{ bgcolor: '#fafafa', borderBottom: 1, borderColor: '#eaeaea' }}>
           <Toolbar variant="dense">
             <MenuBtn/>
             <IconButton edge="start" sx={{ mr: 2 }}>
@@ -69,24 +70,19 @@ function MenuScreen(props) {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Box sx={{ height: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', pt: '4.5vh'}}>
-          <TabPanel value={value} index={0}>
-            <Typography component={'div'} variant="body1" sx={{ mr: 2, color: '#555555' }}>
-              <SpaceModelView/>
-            </Typography>
+        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', pt: '5vh'}}>
+          <TabPanel value={value} index={0} width='84vw'>
+            <SpaceModelView/>
           </TabPanel>
-          <TabPanel value={value} index={1}>
-            <Typography component={'div'} variant="body1" sx={{ mr: 2, color: '#555555' }}>
-              <SpaceCreate/>
-            </Typography>
+          <TabPanel value={value} index={1} width='84vw'>
+            <SpaceCreate/>
           </TabPanel>
-          <Box direction='row' justifySelf='flex-end' sx={{ width: '15vw', bgcolor: '#e4ddfa', p:3}}>
-            <Typography component={'div'} variant="body1" sx={{ mr: 2, color: '#555555' }}>
-              Design Assets
-            </Typography>
+          <Box sx={{ minWidth: '200px', width: '15vw'}}>
+            <OutdoorSidebar/>
           </Box>
         </Box>
       </Box>
+      
   );
 }
 

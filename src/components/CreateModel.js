@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import * as THREE from 'three';
 import { BufferGeometryUtils } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import Building from './Objects/Building';
 
 const heightAttr = "층수";
-//heightAttr = "HEIGHT",
-//heightFn = function(val){ return Math.pow(parseFloat(val), root); }, 
 const heightFn = function (val) { return val }; // identity function
 const max = 40;
 const z_max = 200;
@@ -111,7 +109,7 @@ export default async function CreateModel(city, objects, firstMed) {
                 var good = true;
                 var points = [];
                 //Check if the geometry has at least two coordinates
-                if (json.features[s].properties.명칭 != null && json.features[s].properties.종류 != '무벽건물' && json.features[s].properties.종류 != '가건물' && json.features[s].properties.종류 != '기타' && json.features[s].properties.종류 != '온실') {
+                if (json.features[s].properties.명칭 !== null && json.features[s].properties.종류 !== '무벽건물' && json.features[s].properties.종류 !== '가건물' && json.features[s].properties.종류 !== '기타' && json.features[s].properties.종류 !== '온실') {
                     for (var j = 0; j < json.features[s].geometry.coordinates.length; j++) {   // multipolygon 에서 각 polygon들 뽑아냄
                         if (json.features[s].geometry.coordinates[j].length < 1 || json.features[s].geometry.coordinates[j][0] < 1 || json.features[s].geometry.coordinates[j][0].length < 4) {
                             good = false;
@@ -158,7 +156,7 @@ export default async function CreateModel(city, objects, firstMed) {
                     }
 
                     //Remove all objects that have no height information for faster rendering
-                    if (h == 0 && fast) {
+                    if (h === 0 && fast) {
                         good = false;
                     }
                 }
@@ -240,7 +238,7 @@ export default async function CreateModel(city, objects, firstMed) {
                     }
 
                     //Remove all objects that have no height information for faster rendering
-                    if (h == 0 && fast) {
+                    if (h === 0 && fast) {
                         good = false;
                     }
                 }
@@ -321,7 +319,7 @@ export default async function CreateModel(city, objects, firstMed) {
                     }
 
                     //Remove all objects that have no height information for faster rendering
-                    if (h == 0 && fast) {
+                    if (h === 0 && fast) {
                         good = false;
                     }
                 }
@@ -381,7 +379,8 @@ export default async function CreateModel(city, objects, firstMed) {
 
             groups_by_types[color_idx].push(
                 <Building
-                    key={g}
+                    key={city+'_'+g}
+                    category={building_types[g]}
                     geometry={geom_total[g]}
                     color={pallet[0][color_idx]}
                     position={[scale_factor * scale_x * (offset[0] - med[0]), 0, scale_factor * scale_y * (offset[1] - med[1])]}
@@ -461,7 +460,7 @@ export default async function CreateModel(city, objects, firstMed) {
                 material={material_road}
                 position={[scale_factor * scale_x * (offset_road.x - med[0]), 0, scale_factor * scale_y * (offset_road.z - med[1])]}
                 scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
-                key={city + ' road'}
+                name={city + ' road'}
                 castShadow={true}
                 receiveShadow={true}
             />
@@ -502,7 +501,7 @@ export default async function CreateModel(city, objects, firstMed) {
                 material={material_water}
                 position={[scale_factor * scale_x * (offset_water.x - med[0]), 0, scale_factor * scale_y * (offset_water.z - med[1])]}
                 scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
-                key={city + ' river'}
+                name={city + ' river'}
                 castShadow={true}
                 receiveShadow={true}
             />

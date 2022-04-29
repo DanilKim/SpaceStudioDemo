@@ -1,7 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import PortalPopup from './components/PortalPopup';
 import { useThree, useFrame } from "@react-three/fiber";
-import { PointerLockControls } from "@react-three/drei";
+import { PointerLockControls, Html } from "@react-three/drei";
+import { observer } from 'mobx-react';
+import { useStores } from './stores/Context';
 
 const fp = {
     moveForward: false,
@@ -24,6 +27,9 @@ function FirstPersonControl(props) {
         raycaster, // Default raycaster
     } = useThree();
     //---앞에 뭐가 있는지 가리키는 용도(총이라면 과녁 같은 것으로 생각하면 되겠죠.)
+
+    //const [portal, setPortal] = useState(null);
+    const { PortalStore } = useStores();
 
     const controlsRef = useRef(null);
     const controls = controlsRef.current;
@@ -52,7 +58,7 @@ function FirstPersonControl(props) {
                         break;
                     case 'Space':
                         if (fp.canJump === true) {
-                            fp.velocity.y += 10;
+                            fp.velocity.y += 2;
                         }
                         fp.canJump = false;
                         break;
@@ -105,19 +111,20 @@ function FirstPersonControl(props) {
 
     useFrame((_, delta) => {
         if (controls.isLocked === true) {
-            drawRaycaster();
+            //drawRaycaster();
+            detectCollision();
 
             fp.velocity.x -= fp.velocity.x * 10.0 * delta;
             fp.velocity.z -= fp.velocity.z * 10.0 * delta;
 
-            fp.velocity.y -= 9.8 * 5.0 * delta; // 5.0 = mass
+            fp.velocity.y -= 9.8 * 1.0 * delta; // 5.0 = mass
 
             fp.direction.z = Number(fp.moveForward) - Number(fp.moveBackward);
             fp.direction.x = Number(fp.moveRight) - Number(fp.moveLeft);
             fp.direction.normalize(); // this ensures consistent fp.movements in all fp.directions
 
-            if (fp.moveForward || fp.moveBackward) fp.velocity.z -= fp.direction.z * 40.0 * delta;
-            if (fp.moveLeft || fp.moveRight) fp.velocity.x -= fp.direction.x * 40.0 * delta;
+            if (fp.moveForward || fp.moveBackward) fp.velocity.z -= fp.direction.z * 8.0 * delta;
+            if (fp.moveLeft || fp.moveRight) fp.velocity.x -= fp.direction.x * 8.0 * delta;
 
             controls.moveRight(- fp.velocity.x * delta);
             controls.moveForward(- fp.velocity.z * delta);
@@ -162,6 +169,22 @@ function FirstPersonControl(props) {
         }
     }
 
+    const detectCollision = () => {
+        raycaster.set(camera.getWorldPosition(new THREE.Vector3()), camera.getWorldDirection(new THREE.Vector3()));
+
+        raycaster.ray.origin.y = 0.1;
+        raycaster.ray.direction.y = 0;
+
+        var intersects = raycaster.intersectObject(scene, true);
+        if (intersects.length > 0 && intersects[0].distance < 1 && intersects[0].object.userData.category) {
+            //console.log(intersects[0].object.userData.category);
+            PortalStore.setPortal(intersects[0].object.name);
+            //console.log(portal)
+        } else {
+            PortalStore.setPortal(null);
+        }
+    }
+
     const drawRaycaster = () => {
         raycaster.set(camera.getWorldPosition(new THREE.Vector3()), camera.getWorldDirection(new THREE.Vector3()));
         scene.remove(fp.arrowHelper);
@@ -182,4 +205,10 @@ function FirstPersonControl(props) {
     )
 }
 
-export default FirstPersonControl;
+export default observer(FirstPersonControl);
+
+/*
+{ portal && 
+    <Html><PortalPopup name={portal}/></Html>
+}
+*/

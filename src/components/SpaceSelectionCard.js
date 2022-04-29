@@ -1,14 +1,17 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import Select  from '@mui/material/Select';
-import { ListSubheader } from '@mui/material';
+import { 
+  Box,
+  Button,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  OutlinedInput,
+  ListItemText,
+  Checkbox,
+  Select,
+  ListSubheader,
+  Typography
+} from '@mui/material';
 import CreateModel from './CreateModel';
 import { useStores } from '../stores/Context';
 import { observer } from 'mobx-react';
@@ -17,7 +20,7 @@ import { observer } from 'mobx-react';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
-const BoxSx = { color: 'inherit', width: 1, height: 1/3, mt:3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center'};
+const BoxSx = { color: 'inherit', width: 1, height: 1/3, mt:3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'};
 const MenuProps = {
     PaperProps: {
         style: {
@@ -75,14 +78,17 @@ export default observer( () => {
 
     CreateModel(city, object, ModelStore.firstMed).then( 
       val => {ModelStore.addModel(val);}
-    );
-    
+    );    
     //useMemo( () => props.setModel( props.model.push(CreateModel(city, object, props.med, props.setMed), [city, object])));
   }
 
+
   return (
     <Box sx={BoxSx}>
-      <FormControl sx={{ m: 1, width: 120 }}>
+      <Typography component={'div'} variant="body1" sx={{ mb: 1, mt: 2, flexGrow: 1, color: 'purple', fontWeight: 500, textAlign: 'center' }}>
+          Select District (Dong) and Objects
+      </Typography>
+      <FormControl sx={{ m: 1, width: 100, flexGrow: 1 }}>
         <InputLabel htmlFor="dong-select">District</InputLabel>
         <Select 
           defaultValue="" 
@@ -97,7 +103,7 @@ export default observer( () => {
           {districts.map((dist) => (renderDongSelect(dist)))}
         </Select>
       </FormControl>
-      <FormControl sx={{ m: 1, width: 120 }}>
+      <FormControl sx={{ m: 1, width: 100, flexGrow: 1 }}>
         <InputLabel id="object-select">Object</InputLabel>
         <Select
           labelId="object-select"
@@ -121,7 +127,7 @@ export default observer( () => {
           </MenuItem>
         </Select>
       </FormControl>
-      <Button onClick={handleSubmit} sx={{ mb: 0.5, ml: 7, width: 0.5, color: 'inherit', border: 0.7}} >
+      <Button onClick={handleSubmit} sx={{ mt: 1, mb: 2, width: 0.5, color: 'inherit', border: 0.7}} >
         생성
       </Button>
     </Box>

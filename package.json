@@ -29,7 +29,8 @@
     "react-svg-pan-zoom": "^3.11.0",
     "react-tabs": "^4.2.0",
     "redux": "^4.2.0",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "react-async": "^10.0.1"
   },
   "scripts": {
     "start": "webpack-dev-server --config public/webpack.config.js --port 3000 --mode development",
