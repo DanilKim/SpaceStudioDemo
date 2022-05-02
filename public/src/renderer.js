@@ -1,36 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { SizeMe } from 'react-sizeme';
-import Immutable, {Map} from 'immutable';
+import Immutable from 'immutable';
 import immutableDevtools from 'immutable-devtools';
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
 
-import MyCatalog from './catalog/mycatalog';
+import App from './App';
 
-import ToolbarScreenshotButton from './ui/toolbar-screenshot-button';
 
 import {
-  App,
   StoreProvider,
   RootStore,
-  Models as PlannerModels,
-  reducer as PlannerReducer,
-  ReactPlanner,
-  Plugins as PlannerPlugins,
 } from 'space-studio';
 
-//define state
-let AppState = Map({
-  'space-studio': new PlannerModels.State()
-});
-
-//define reducer
-let reducer = (state, action) => {
-  state = state || AppState;
-  state = state.update('space-studio', plannerState => PlannerReducer(plannerState, action));
-  return state;
-};
 
 let blackList = isProduction === true ? [] : [
   'UPDATE_MOUSE_COORDS',
@@ -44,66 +24,31 @@ if( !isProduction ) {
   immutableDevtools( Immutable );
 }
 
-//init store
-let store = createStore(
-  reducer,
-  null,
-  !isProduction && window.devToolsExtension ?
-    window.devToolsExtension({
-      features: {
-        pause   : true,     // start/pause recording of dispatched actions
-        lock    : true,     // lock/unlock dispatching actions and side effects
-        persist : true,     // persist states on page reloading
-        export  : true,     // export history of actions in a file
-        import  : 'custom', // import history of actions from a file
-        jump    : true,     // jump back and forth (time travelling)
-        skip    : true,     // skip (cancel) actions
-        reorder : true,     // drag and drop actions in the history list
-        dispatch: true,     // dispatch custom actions or action creators
-        test    : true      // generate tests for the selected actions
-      },
-      actionsBlacklist: blackList,
-      maxAge: 999999
-    }) :
-    f => f
-);
-
-let plugins = [
-  PlannerPlugins.Keyboard(),
-  PlannerPlugins.Autosave('react-planner_v0'),
-  PlannerPlugins.ConsoleDebugger(),
-];
-
-let toolbarButtons = [
-  ToolbarScreenshotButton,
-];
 
 const rootStore = new RootStore();
 
 ReactDOM.render(
   (
-    // <React.StrictMode>
-    //   <StoreProvider value={rootStore}>
-    //     <Provider store={store}>
-    //       <App />
-    //     </Provider>
-    //   </StoreProvider>
-    // </React.StrictMode>
+    <React.StrictMode>
+      <StoreProvider value={rootStore}>
+        <App />
+      </StoreProvider>
+    </React.StrictMode>
 
-    <Provider store={store}>
-      <SizeMe monitorHeight>
-        {({size}) =>
-          <ReactPlanner
-            catalog={MyCatalog}
-            width={size.width}
-            height={960}
-            plugins={plugins}
-            toolbarButtons={toolbarButtons}
-            stateExtractor={state => state.get('space-studio')}
-          />
-        }
-      </SizeMe>
-    </Provider>
+    // <Provider store={store}>
+    //   <SizeMe monitorHeight>
+    //     {({size}) =>
+    //       <ReactPlanner
+    //         catalog={MyCatalog}
+    //         width={size.width}
+    //         height={960}
+    //         plugins={plugins}
+    //         toolbarButtons={toolbarButtons}
+    //         stateExtractor={state => state.get('space-studio')}
+    //       />
+    //     }
+    //   </SizeMe>
+    // </Provider>
   ),
   document.getElementById('root')
 );
