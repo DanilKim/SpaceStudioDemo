@@ -23,7 +23,7 @@ export default () => {
     };  
 
     return (
-        <Box sx={{ height: '95vh', display: 'flex', bgcolor: 'white'  }}>
+        <Box sx={{ width: '84vw', height: '95vh', display: 'flex', bgcolor: 'white'  }}>
             <Card variant='elevation' sx={{ minWidth:'300px', width: '20%',height: '99%', m: '0.5%', bgcolor: 'white', borderRadius: 5, border: 0.5, borderColor: '#dbdbdb' }}>
                 <Tabs value={value} onChange={handleChange} sx={{ flexGrow: 1 }} variant='fullWidth' textColor="secondary" indicatorColor="secondary" centered>
                     <Tab label="Space" index='0' />

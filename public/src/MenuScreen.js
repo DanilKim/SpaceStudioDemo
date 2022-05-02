@@ -129,10 +129,13 @@ function MenuScreen(props) {
           </Toolbar>
         </AppBar>
         <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', pt: '5vh'}}>
-          <TabPanel value={value} index={0} width='84vw'>
+          <TabPanel value={value} index={0} width='100vw' sx={{display: 'flex', flexFlow: 'row nowrap'}}>
             <SpaceModelView/>
+            <Box sx={{ minWidth: '200px', width: '16vw'}}>
+              <OutdoorSidebar/>
+            </Box>
           </TabPanel>
-          <TabPanel value={value} index={1} width='84vw'>
+          <TabPanel value={value} index={1} width='100vw'>
             <Provider store={store}>
               <SizeMe monitorHeight>
                 {({size}) =>
@@ -148,9 +151,6 @@ function MenuScreen(props) {
               </SizeMe>
             </Provider>
           </TabPanel>
-          <Box sx={{ minWidth: '200px', width: '15vw'}}>
-            <OutdoorSidebar/>
-          </Box>
         </Box>
       </Box>
       
