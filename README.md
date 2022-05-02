@@ -1,10 +1,10 @@
 # Space Studio Demo
 
 ## City Model
-<p align="center"> <img src="./images/studio.png" width="700px" height="450px" title="studio"> </p>
+<p align="center"> <img src="./images/studio.png" width="720px" height="450px" title="studio"> </p>
 
 ## Play Mode
-<p align="center"> <img src="./images/animation.png" width="700px" height="450px" title="animation"> </p>
+<p align="center"> <img src="./images/animation.png" width="720px" height="450px" title="animation"> </p>
 
 
 # Getting Started with Create React App
