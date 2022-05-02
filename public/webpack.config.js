@@ -49,10 +49,11 @@ module.exports = (env, self) => {
         use: [{
           loader: 'file-loader',
           options: {
+            esModule: false,
             hash: 'sha512',
             digest: 'hex',
             name: '[path][name].[ext]',
-            context: 'demo/src'
+            context: 'public/src'
           }
         }]
       },
