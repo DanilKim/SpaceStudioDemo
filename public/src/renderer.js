@@ -83,9 +83,11 @@ const rootStore = new RootStore();
 ReactDOM.render(
   (
     <React.StrictMode>
-    <StoreProvider value={rootStore}>
-      <App />
-    </StoreProvider>
+      <StoreProvider value={rootStore}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </StoreProvider>
     </React.StrictMode>
     // <Provider store={store}>
     //   <SizeMe monitorHeight>

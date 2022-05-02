@@ -20,7 +20,7 @@ export default observer( () => {
     const { SidebarStore } = useStores();
 
     return ( <>
-        <Card variant='elevation' sx={{ width: '100%', height: '94%', m: '0%', mt:1, bgcolor: '#e4ddfa'}}>
+        <Card variant='elevation' sx={{ width: '100%', height: '99%', m: '0%', mt:1, bgcolor: '#e4ddfa'}}>
             <CardHeader 
                 title="공간 컴포넌트" 
                 avatar={<Avatar src="../../icons/building_icon.png"/>}

@@ -16,7 +16,7 @@ function AssetMenuTabPanel(props) {
     const addAsset = (item, e) => {
         let fbx_fn = '/assets/' + props.name + '/' + item + '.fbx';
         ModelStore.addAsset(
-            <Asset fn={fbx_fn}/>
+            <Asset fn={fbx_fn} name={props.name}/>
         )
     }
 

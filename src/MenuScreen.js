@@ -16,15 +16,30 @@ import {
   ExitToApp,
 } from '@mui/icons-material';
 
+import * as PlannerPlugins from './plugins/export';
 
 import React, { useState } from 'react'
+import { SizeMe } from 'react-sizeme';
 import TabPanel from './components/TabPanelView'
 import MenuBtn from './components/MenuBtnView.js'
-import SpaceCreate from './components/SpaceCreate.js';
+import IndoorStudio from './react-planner';
 import SpaceModelView from './components/SpaceModelView.js';
 import OutdoorSidebar from './components/OutdoorSidebar';
 import { observer } from 'mobx-react';
 import { useStores } from './stores/Context';
+
+import MyCatalog from './catalog/catalog';
+import ToolbarScreenshotButton from './ui/toolbar-screenshot-button';
+
+let plugins = [
+  PlannerPlugins.Keyboard(),
+  PlannerPlugins.Autosave('react-planner_v0'),
+  PlannerPlugins.ConsoleDebugger(),
+];
+
+let toolbarButtons = [
+  ToolbarScreenshotButton,
+];
 
 
 function MenuScreen(props) {
@@ -75,7 +90,18 @@ function MenuScreen(props) {
             <SpaceModelView/>
           </TabPanel>
           <TabPanel value={value} index={1} width='84vw'>
-            <SpaceCreate/>
+            <SizeMe monitorHeight>
+              {({size}) =>
+                <IndoorStudio
+                  catalog={MyCatalog}
+                  width={size.width}
+                  height={960}
+                  plugins={plugins}
+                  toolbarButtons={toolbarButtons}
+                  stateExtractor={state => state.get('space-studio')}
+                />
+              }
+            </SizeMe>
           </TabPanel>
           <Box sx={{ minWidth: '200px', width: '15vw'}}>
             <OutdoorSidebar/>

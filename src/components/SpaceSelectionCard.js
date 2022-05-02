@@ -97,9 +97,6 @@ export default observer( () => {
           value={city}
           onChange={cityChange}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
           {districts.map((dist) => (renderDongSelect(dist)))}
         </Select>
       </FormControl>
