@@ -82,25 +82,25 @@ const rootStore = new RootStore();
 
 ReactDOM.render(
   (
-    <React.StrictMode>
-    <StoreProvider value={rootStore}>
-      <App />
-    </StoreProvider>
-    </React.StrictMode>
-    // <Provider store={store}>
-    //   <SizeMe monitorHeight>
-    //     {({size}) =>
-    //       <ReactPlanner
-    //         catalog={MyCatalog}
-    //         width={size.width}
-    //         height={960}
-    //         plugins={plugins}
-    //         toolbarButtons={toolbarButtons}
-    //         stateExtractor={state => state.get('space-studio')}
-    //       />
-    //     }
-    //   </SizeMe>
-    // </Provider>
+    // <React.StrictMode>
+    // <StoreProvider value={rootStore}>
+    //   <App />
+    // </StoreProvider>
+    // </React.StrictMode>
+    <Provider store={store}>
+      <SizeMe monitorHeight>
+        {({size}) =>
+          <ReactPlanner
+            catalog={MyCatalog}
+            width={size.width}
+            height={960}
+            plugins={plugins}
+            toolbarButtons={toolbarButtons}
+            stateExtractor={state => state.get('space-studio')}
+          />
+        }
+      </SizeMe>
+    </Provider>
   ),
   document.getElementById('root')
 );
