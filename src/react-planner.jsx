@@ -42,7 +42,6 @@ class ReactPlanner extends Component {
   componentWillMount() {
     let {store} = this.context;
     let {projectActions, catalog, stateExtractor, plugins, autosaveKey} = this.props;
-    console.log(autosaveKey);
     plugins[0](store, stateExtractor);
     plugins[1](autosaveKey || 'temp', store, stateExtractor);
     plugins[2](store, stateExtractor);
