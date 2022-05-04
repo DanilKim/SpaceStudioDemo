@@ -17,7 +17,11 @@ import { observer } from 'mobx-react';
 import { useStores } from '../stores/Context';
 
 export default observer( () => {
-    const { SidebarStore } = useStores();
+    const { SidebarStore, IndoormodeStore } = useStores();
+
+    const handleClick = () => {
+        IndoormodeStore.setValue();
+    };
 
     return ( <>
         <Card variant='elevation' sx={{ width: '100%', height: '99%', m: '0%', mt:1, bgcolor: '#e4ddfa'}}>
@@ -78,7 +82,7 @@ export default observer( () => {
                             </Table>
                         </TableContainer>
                     </Card>
-                    <Button sx={{ color: 'inherit', width: 1, height: 1/3, mt:3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center'}}>
+                    <Button onClick={handleClick} sx={{ color: 'inherit', width: 1, height: 1/3, mt:3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center'}}>
                         실내 공간 스튜디오
                     </Button>
                 </CardContent>
