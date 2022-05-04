@@ -85,20 +85,23 @@ let store = createStore(
     f => f
 );
 
+const localStorage = window.hasOwnProperty('localStorage') ? window.localStorage : false;
 
 function MenuScreen(props) {
   const { PlaymodeStore, SidebarStore, IndoormodeStore } = useStores();
 
-  const localStorage = window.hasOwnProperty('localStorage') ? window.localStorage : false;
-
   const handleChange = () => {
-      IndoormodeStore.setValue();
+    IndoormodeStore.setValue();
   };
 
   const enterPlayMode = () => {
     PlaymodeStore.enterPm();
       //props.sUp(true);
   };
+
+  const localStorageClear = () => {
+    localStorage.clear();
+  }
   
   return (
       <Box sx={{ bgcolor: 'white', width: '100vw', height: '100vh' }}>
@@ -118,7 +121,7 @@ function MenuScreen(props) {
               <Tab label="실외 공간 생성" index='0' />
               <Tab label="실내 공간 생성" index='1' />
             </Tabs>
-            <IconButton edge="start" sx={{ mr: 3 }} onClick={localStorage.clear()}>
+            <IconButton edge="start" sx={{ mr: 3 }} onClick={localStorageClear}>
               <RestartAlt sx={{color: '#7c7c7c'}}/>
             </IconButton>         
             <IconButton edge="start" sx={{ mr: 3 }} onClick={enterPlayMode}>
