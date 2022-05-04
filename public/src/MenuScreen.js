@@ -98,7 +98,7 @@ function MenuScreen(props) {
     PlaymodeStore.enterPm();
       //props.sUp(true);
   };
-  
+
   return (
       <Box sx={{ bgcolor: 'white', width: '100vw', height: '100vh' }}>
         <AppBar sx={{ bgcolor: '#fafafa', borderBottom: 1, borderColor: '#eaeaea' }}>
