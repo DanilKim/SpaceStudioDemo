@@ -86,7 +86,7 @@ let store = createStore(
 
 
 function MenuScreen(props) {
-  const { PlaymodeStore } = useStores();
+  const { PlaymodeStore, SidebarStore } = useStores();
 
   const [value, setValue] = useState(0);
 
@@ -145,6 +145,7 @@ function MenuScreen(props) {
                     height={960}
                     plugins={plugins}
                     toolbarButtons={toolbarButtons}
+                    autosaveKey={SidebarStore.building && SidebarStore.building.name}
                     stateExtractor={state => state.get('space-studio')}
                   />
                 }

@@ -41,8 +41,12 @@ class ReactPlanner extends Component {
 
   componentWillMount() {
     let {store} = this.context;
-    let {projectActions, catalog, stateExtractor, plugins} = this.props;
-    plugins.forEach(plugin => plugin(store, stateExtractor));
+    let {projectActions, catalog, stateExtractor, plugins, autosaveKey} = this.props;
+    console.log(autosaveKey);
+    plugins[0](store, stateExtractor);
+    plugins[1](autosaveKey || 'temp', store, stateExtractor);
+    plugins[2](store, stateExtractor);
+    // plugins.forEach(plugin => plugin(store, stateExtractor));
     projectActions.initCatalog(catalog);
   }
 
@@ -56,8 +60,7 @@ class ReactPlanner extends Component {
   }
 
   render() {
-    let {width, height, state, stateExtractor, ...props} = this.props;
-
+    let {width, height, state, stateExtractor, autosaveKey, ...props} = this.props;
     let contentW = width - toolbarW - sidebarW;
     let toolbarH = height - footerBarH;
     let contentH = height - footerBarH;
@@ -113,6 +116,7 @@ ReactPlanner.defaultProps = {
   sidebarComponents: [],
   footerbarComponents: [],
   customContents: {},
+  autosaveKey: 'temp'
 };
 
 //redux connect

@@ -7,8 +7,9 @@ let timeout = null;
 
 export default function autosave(autosaveKey, delay) {
 
-  return (store, stateExtractor) => {
-
+  return (key ,store, stateExtractor) => {
+    autosaveKey = key;
+    console.log(autosaveKey);
     delay = delay || TIMEOUT_DELAY;
 
     if (!autosaveKey) return;
