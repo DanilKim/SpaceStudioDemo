@@ -142,7 +142,7 @@ export default class CatalogItem extends Component {
       >
         <b style={ !hover ? STYLE_TITLE : STYLE_TITLE_HOVER }>{element.info.title}</b>
         <div style={ STYLE_IMAGE_CONTAINER }>
-          <div style={{...( !hover ? STYLE_IMAGE: STYLE_IMAGE_HOVER ), backgroundImage: 'url('+element.info.image.default+')' }}>
+          <div style={{...( !hover ? STYLE_IMAGE: STYLE_IMAGE_HOVER ), backgroundImage: 'url('+element.info.image+')' }}>
             { hover ? <IconAdd style={STYLE_PLUS_HOVER} /> : null }
           </div>
         </div>
