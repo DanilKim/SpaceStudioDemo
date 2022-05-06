@@ -149,7 +149,7 @@ function MenuScreen(props) {
                   <ReactPlanner
                     catalog={MyCatalog}
                     width={size.width}
-                    height={960}
+                    height={890}
                     plugins={plugins}
                     toolbarButtons={toolbarButtons}
                     autosaveKey={SidebarStore.building && SidebarStore.building.name}
