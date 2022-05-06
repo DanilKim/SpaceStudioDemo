@@ -118,7 +118,7 @@ function MenuScreen(props) {
               <Tab label="실외 공간 생성" index='0' />
               <Tab label="실내 공간 생성" index='1' />
             </Tabs>
-            <IconButton edge="start" sx={{ mr: 3 }} onClick={localStorage.clear()}>
+            <IconButton edge="start" sx={{ mr: 3 }} onClick={() => {localStorage.clear()}}>
               <RestartAlt sx={{color: '#7c7c7c'}}/>
             </IconButton>         
             <IconButton edge="start" sx={{ mr: 3 }} onClick={enterPlayMode}>

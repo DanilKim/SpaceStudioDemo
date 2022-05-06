@@ -23,7 +23,7 @@ export default function autosave(autosaveKey, delay) {
     else {
       store.dispatch(newProject());
     }
-
+    
     //update
     store.subscribe(() => {
       if (timeout) clearTimeout(timeout);
