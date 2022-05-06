@@ -15,6 +15,7 @@ function AssetMenuTabPanel(props) {
 
     const addAsset = (item, e) => {
         let fbx_fn = '/assets/' + props.name + '/' + item + '.fbx';
+        console.log(fbx_fn)
         ModelStore.addAsset(
             <Asset fn={fbx_fn} name={props.name}/>
         )
@@ -24,8 +25,9 @@ function AssetMenuTabPanel(props) {
 
     { props.items.map( (item) => { ItemList.push(
         <IconButton onClick={(e) => {addAsset(item,e)}} sx={IconbuttonSX}>
-            <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e9e7e5' }} src={'../../icons/asset_'+props.name+'.png'} variant='circular'/>
+            <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e9e7e5' }} src={'../../preview_assets/'+props.type+'/'+item+'.jpg'} variant='circular'/>
         </IconButton>
+        
     )})}
 
     return ItemList;
