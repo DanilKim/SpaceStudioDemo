@@ -1,6 +1,5 @@
 import React from 'react';
 import * as THREE from 'three';
-import { BufferGeometryUtils } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import Building from './Objects/Building';
 
 const heightAttr = "층수";
@@ -81,6 +80,7 @@ export default async function CreateModel(city, objects, firstMed) {
 
     async function getJsonAsync(file) {
         const config = {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -90,6 +90,7 @@ export default async function CreateModel(city, objects, firstMed) {
         try {
             let response = await fetch(file, config);
             let data = await response.json()
+            console.log(data);
             return data;
         } catch (err) {
             console.log("Json Fetch Error!!");
@@ -510,6 +511,7 @@ export default async function CreateModel(city, objects, firstMed) {
     }
 
 
+    //var jsonFile = "http://192.168.153.97:8080/" + String(city) + "/building"// + String(city) + "_building.geojson"
     var jsonFile = "../../data/" + String(city) + "_building.geojson"
     var jsonFile_road = "../../data/" + String(city) + "_road.geojson"
     var jsonFile_water = "../../data/" + String(city) + "_water.geojson"

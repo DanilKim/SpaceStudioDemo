@@ -13,7 +13,7 @@ function getFloorShape(geometry) {
         avg.add(line.v1);
     })
     avg.divideScalar(lineCurves.length);
-    console.log(avg);
+    
     let lineSegments = [];
     lineCurves.forEach(line => {
         lineSegments.push( [
@@ -21,7 +21,6 @@ function getFloorShape(geometry) {
             new Vector2( line.v2.x - avg.x, line.v2.y - avg.y )
         ] );
     })
-    console.log(lineSegments);
     return lineSegments;
 };
 
