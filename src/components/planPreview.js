@@ -62,6 +62,34 @@ const getLine = function (selectedLayer, widthRatio, heightRatio, height) {
   return lineComponent;
 }
 
+const getArea = function (selectedLayer, widthRatio, heightRatio, height) {
+  let STYLE_AREA = SharedStyle.MATERIAL_COLORS[500].grey;
+  const areaComponent = [];
+  for (var area in selectedLayer.areas) {
+    let path = '';
+    selectedLayer.areas[area].vertices.forEach((vertexID, ind) => {
+      let vertex = selectedLayer.vertices[vertexID];
+      path += (ind ? 'L' : 'M') + (vertex.x * widthRatio) + ' ' + (height - vertex.y * heightRatio) + ' ';
+    });
+    areaComponent.push(
+      <g
+      data-id={area.id}>
+        <path d={path} fill={STYLE_AREA} />
+      </g>
+    );
+  }
+  return areaComponent;
+  //add holes
+  // element.holes.forEach(areaID => {
+  //   let area = layer.areas.get(areaID);
+
+  //   area.vertices.reverse().forEach((vertexID, ind) => {
+  //     let vertex = layer.vertices.get(vertexID);
+  //     path += (ind ? 'L' : 'M') + vertex.x + ' ' + vertex.y + ' ';
+  //   });
+
+  // });  
+}
 
 export default function PlanPreview(props) {
   const [width, setWidth] = useState(0);
@@ -71,6 +99,7 @@ export default function PlanPreview(props) {
 
   let plannerState = getPlannerState(props.buildingName);
   let selectedLayer = getLayer(plannerState);
+  // console.log(selectedLayer);
 
   const ref = useRef(null);
 
@@ -84,6 +113,7 @@ export default function PlanPreview(props) {
   return (
     <div ref={ref}>
       <svg>
+        {getArea(selectedLayer, widthRatio, heightRatio, height)}
         {getLine(selectedLayer, widthRatio, heightRatio, height)} 
         {getVertex(selectedLayer, widthRatio, heightRatio, height)}
       </svg>
