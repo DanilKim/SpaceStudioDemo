@@ -3,6 +3,7 @@ import { ControlStore } from "./ControlStore";
 import { ModelStore } from "./ModelStore";
 import { SidebarStore } from "./SidebarStore";
 import { PortalStore } from "./PortalStore";
+import { IndoormodeStore } from "./IndoormodeStore";
 
 export class RootStore{
     PlaymodeStore;
@@ -10,6 +11,7 @@ export class RootStore{
     ModelStore;
     SidebarStore;
     PortalStore;
+    IndoormodeStore;
     // 다른 Store들 여기에 계속 추가
 
     constructor() {
@@ -18,5 +20,6 @@ export class RootStore{
         this.ModelStore = new ModelStore(this);
         this.SidebarStore = new SidebarStore(this);
         this.PortalStore = new PortalStore(this);
+        this.IndoormodeStore = new IndoormodeStore(this);
     }
 }

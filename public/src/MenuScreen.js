@@ -14,6 +14,7 @@ import {
   PlayArrow,
   Settings,
   ExitToApp,
+  RestartAlt
 } from '@mui/icons-material';
 
 import {
@@ -84,20 +85,23 @@ let store = createStore(
     f => f
 );
 
+const localStorage = window.hasOwnProperty('localStorage') ? window.localStorage : false;
 
 function MenuScreen(props) {
-  const { PlaymodeStore } = useStores();
+  const { PlaymodeStore, SidebarStore, IndoormodeStore } = useStores();
 
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event, newValue) => {
-      setValue(newValue);
+  const handleChange = () => {
+    IndoormodeStore.setValue();
   };
 
   const enterPlayMode = () => {
     PlaymodeStore.enterPm();
       //props.sUp(true);
   };
+
+  const localStorageClear = () => {
+    localStorage.clear();
+  }
   
   return (
       <Box sx={{ bgcolor: 'white', width: '100vw', height: '100vh' }}>
@@ -113,10 +117,13 @@ function MenuScreen(props) {
             <Typography component={'div'} variant="h6" sx={{ mr: 10 ,color: '#7c7c7c' }}>
               Tivine Space Studio
             </Typography>
-            <Tabs value={value} onChange={handleChange} sx={{ flexGrow: 1 }} textColor="secondary" indicatorColor="secondary">
+            <Tabs value={IndoormodeStore.value} onChange={handleChange} sx={{ flexGrow: 1 }} textColor="secondary" indicatorColor="secondary">
               <Tab label="실외 공간 생성" index='0' />
               <Tab label="실내 공간 생성" index='1' />
             </Tabs>
+            <IconButton edge="start" sx={{ mr: 3 }} onClick={localStorageClear}>
+              <RestartAlt sx={{color: '#7c7c7c'}}/>
+            </IconButton>         
             <IconButton edge="start" sx={{ mr: 3 }} onClick={enterPlayMode}>
               <PlayArrow sx={{color: '#7c7c7c'}}/>
             </IconButton>
@@ -129,22 +136,24 @@ function MenuScreen(props) {
           </Toolbar>
         </AppBar>
         <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', pt: '5vh'}}>
-          <TabPanel value={value} index={0} width='100vw' sx={{display: 'flex', flexFlow: 'row nowrap'}}>
+          <TabPanel value={IndoormodeStore.value} index={0} width='100vw' sx={{display: 'flex', flexFlow: 'row nowrap'}}>
             <SpaceModelView/>
             <Box sx={{ minWidth: '200px', width: '16vw'}}>
               <OutdoorSidebar/>
             </Box>
           </TabPanel>
-          <TabPanel value={value} index={1} width='100vw'>
+          <TabPanel value={IndoormodeStore.value} index={1} width='100vw'>
             <Provider store={store}>
               <SizeMe monitorHeight>
                 {({size}) =>
                   <ReactPlanner
                     catalog={MyCatalog}
                     width={size.width}
-                    height={960}
+                    height={890}
                     plugins={plugins}
                     toolbarButtons={toolbarButtons}
+                    autosaveKey={SidebarStore.selected ? SidebarStore.building.name : 'temp'}
+                    initialObject={SidebarStore.selected && SidebarStore.building.floorShape}
                     stateExtractor={state => state.get('space-studio')}
                   />
                 }

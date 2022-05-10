@@ -10,7 +10,7 @@ import * as constants from '../constants';
 
 export default function Content({width, height, state, customContents}) {
   let mode = state.get('mode');
-
+  
   switch (mode) {
     case constants.MODE_3D_VIEW:
       return <Viewer3D state={state} width={width} height={height}/>;
