@@ -84,17 +84,9 @@ export default function PlanPreview(props) {
   return (
     <div ref={ref}>
       <svg>
-        <defs>
-          <pattern id="diagonalFill" patternUnits="userSpaceOnUse" width="4" height="4" fill="#FFF">
-            <rect x="0" y="0" width="4" height="4" fill="#FFF" />
-            <path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" style={{ stroke: '#8E9BA2', strokeWidth: 1 }} />
-          </pattern>
-        </defs>
-        <g>
-          {getLine(selectedLayer, widthRatio, heightRatio, height)} 
-          {getVertex(selectedLayer, widthRatio, heightRatio, height)}
-        </g>
+        {getLine(selectedLayer, widthRatio, heightRatio, height)} 
+        {getVertex(selectedLayer, widthRatio, heightRatio, height)}
       </svg>
     </div>
   )
-  }
+}

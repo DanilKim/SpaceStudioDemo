@@ -83,7 +83,7 @@ export default observer( () => {
                             </Table>
                         </TableContainer>
                     </Card>
-                    <Card variant='elevation' sx={{ bgcolor: '#dbdbdb', display: 'flex', flexDirection: 'row', boxShadow: 0,  mt:2}}>
+                    <Card variant='elevation' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'row', boxShadow: 0,  mt:2}}>
                         {
                             localStorage.getItem(SidebarStore.building.name) !== null ?
                             <PlanPreview buildingName={SidebarStore.building.name} /> :
