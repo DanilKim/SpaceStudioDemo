@@ -33,7 +33,8 @@ import {
   ADD_CIRCULAR_GUIDE,
   REMOVE_HORIZONTAL_GUIDE,
   REMOVE_VERTICAL_GUIDE,
-  REMOVE_CIRCULAR_GUIDE
+  REMOVE_CIRCULAR_GUIDE,
+  INIT_FLOOR
 } from '../constants';
 
 import { Project } from '../class/export';
@@ -148,6 +149,9 @@ export default function (state, action) {
 
     case REMOVE_CIRCULAR_GUIDE:
       return Project.removeCircularGuide(state, action.guideID).updatedState;
+
+    case INIT_FLOOR:
+      return Project.initFloor(state, action.floor).updatedState;
 
     default:
       return state;

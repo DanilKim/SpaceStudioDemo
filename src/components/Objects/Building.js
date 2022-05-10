@@ -2,6 +2,28 @@ import { useFrame } from '@react-three/fiber';
 import React, { useState, useRef, useCallback } from 'react';
 import { observer } from 'mobx-react';
 import { useStores } from '../../stores/Context';
+import { Vector2 } from 'three';
+
+function getFloorShape(geometry) {
+    const lineCurves = geometry.parameters.shapes.curves;
+
+    // compute mean vector
+    let avg = new Vector2(0, 0);
+    lineCurves.forEach(line => {
+        avg.add(line.v1);
+    })
+    avg.divideScalar(lineCurves.length);
+    console.log(avg);
+    let lineSegments = [];
+    lineCurves.forEach(line => {
+        lineSegments.push( [
+            new Vector2( line.v1.x - avg.x, line.v1.y - avg.y ),
+            new Vector2( line.v2.x - avg.x, line.v2.y - avg.y )
+        ] );
+    })
+    console.log(lineSegments);
+    return lineSegments;
+};
 
 
 export default observer( (props) => {
@@ -15,12 +37,14 @@ export default observer( (props) => {
 
     const handleClick = useCallback((event) => {
         event.stopPropagation();
+
         SidebarStore.select(
             buildRef.current.userData.id,
             buildRef.current.name,
             buildRef.current.userData.category,
             buildRef.current.position,
             buildRef.current.scale,
+            getFloorShape(buildRef.current.geometry)
         )
         //alert(buildRef.current.name);
         //setOpen(true);

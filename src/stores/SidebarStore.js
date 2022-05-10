@@ -6,13 +6,15 @@ class BuildingInfo {
     category;
     position;
     scale;
+    floorShape;
 
-    constructor(id, name, category, position, scale) {
+    constructor(id, name, category, position, scale, floorShape) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.position = position;
         this.scale = scale;
+        this.floorShape = floorShape;
     }
 }
 
@@ -33,9 +35,9 @@ export class SidebarStore {
         this.rootStore = root;
     }
 
-    select = (id, name, category, position, scale) => {
+    select = (id, name, category, position, scale, floorShape) => {
         this.selected = true;
-        this.building = new BuildingInfo(id, name, category, position, scale);
+        this.building = new BuildingInfo(id, name, category, position, scale, floorShape);
     }
 
     unselect = () => {

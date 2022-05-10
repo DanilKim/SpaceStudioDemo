@@ -83,7 +83,7 @@ export default async function CreateModel(city, objects, firstMed) {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
             }
         }
 

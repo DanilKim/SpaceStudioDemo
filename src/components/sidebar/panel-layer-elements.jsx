@@ -97,6 +97,7 @@ export default class PanelLayerElement extends Component {
       holes: layer.holes,
       items: layer.items,
     };
+    console.log(elements);
 
     if (this.state.matchString !== '') {
       let regexp = new RegExp(this.state.matchString, 'i');
