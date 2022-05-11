@@ -1,10 +1,13 @@
 # Space Studio Demo
 
-## City Model
-<p align="center"> <img src="./images/studio.png" width="700px" height="450px" title="studio"> </p>
+## Outdoor Studio
+<p align="center"> <img src="./images/outdoor_studio.gif" width="600px" height="360px" title="outdoor studio"> </p>
 
-## Play Mode
-<p align="center"> <img src="./images/animation.png" width="700px" height="450px" title="animation"> </p>
+## Outdoor PlayMode
+<p align="center"> <img src="./images/outdoor_playmode.gif" width="600px" height="360px" title="outdoor playmode"> </p>
+
+## Indoor Studio
+<p align="center"> <img src="./images/indoor_studio.gif" width="600px" height="360px" title="indoor studio"> </p>
 
 
 # Getting Started with Create React App

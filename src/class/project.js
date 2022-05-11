@@ -277,6 +277,33 @@ class Project{
     return { updatedState: state };
   }
 
+  static initFloor( state, floor ){
+    if (floor.length === 0) return { updatedState: state };
+    if (state.scene.layers.size > 1) return { updatedState: state };
+
+    const layerID = state.scene.selectedLayer;
+    const W = state.scene.width / 2;
+    const H = state.scene.height / 2;
+    const scale = 50;
+
+    let layer = state.scene.layers.get(layerID);
+    if (layer.lines.length + layer.holes.length + layer.items.length > 0) return { updatedState: state };
+
+    floor.forEach( (edge) => {
+      console.log(edge);
+      const [x0, y0] = [edge[0].x * scale + W, edge[0].y * scale + H];
+      const [x1, y1] = [edge[1].x * scale + W, edge[1].y * scale + H];
+
+      let { updatedState: stateL, line } = Line.create( 
+        state, layerID, 'wall', x0 , y0, x1, y1 
+      );      
+      state = Line.select( stateL, layerID, line.id ).updatedState;
+    });
+    state = Layer.detectAndUpdateAreas( state, layerID ).updatedState;
+
+    return { updatedState: state };
+  }
+
 }
 
 export { Project as default };

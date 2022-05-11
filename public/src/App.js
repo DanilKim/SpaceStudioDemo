@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react'
+import React  from 'react'
 import { Box } from '@mui/material';
 import MenuScreen from './MenuScreen';
-import MyWorld from './world';
+import MyWorld from './PlayWorld';
 import { observer } from 'mobx-react';
 
 import {
@@ -17,7 +17,7 @@ function App() {
   return (<>
     {PlaymodeStore.playMode ?
       <Box sx={{ width: '100vw', height: '100vh' }}>
-        <MyWorld key='play-mode'/>
+        <MyWorld />
       </Box> :
       <MenuScreen/>}
   </>

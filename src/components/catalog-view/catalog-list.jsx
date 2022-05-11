@@ -79,7 +79,6 @@ export default class CatalogList extends Component {
 
   constructor(props, context) {
     super(props);
-
     let page = props.state.catalog.page;
     let currentCategory = context.catalog.getCategory(page);
     let categoriesToDisplay = currentCategory.categories;

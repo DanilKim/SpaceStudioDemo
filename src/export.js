@@ -1,4 +1,3 @@
-import App from './App';
 import { StoreProvider, StoreConsumer, useStores } from "./stores/Context";
 import { RootStore } from "./stores/RootStore";
 import Catalog from './catalog/catalog';
@@ -25,7 +24,6 @@ import PortalPopup from "./components/PortalPopup";
 import Asset from "./components/Objects/Asset";
 
 export {
-  App,
   StoreProvider,
   StoreConsumer,
   RootStore,
