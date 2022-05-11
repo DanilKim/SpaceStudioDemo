@@ -12,7 +12,7 @@ import TabPanel from './TabPanelView'
 import GeojsonUploadCard from './GeojsonUploadCard'
 import SpaceSelectionCard from './SpaceSelectionCard'
 import AssetMenu from "./AssetMenu";
-import MyWorld from '../world';
+import MyWorld from '../StudioWorld';
 
 
 export default () => {
@@ -42,7 +42,7 @@ export default () => {
                 
             </Card>
             <Box sx={{ height: '100%', width: '80%', mr:1}}>
-                <MyWorld key='studio-mode'/>
+                <MyWorld />
             </Box>
         </Box>
     )

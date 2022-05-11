@@ -15,9 +15,14 @@ import {
 } from '@mui/material';
 import { observer } from 'mobx-react';
 import { useStores } from '../stores/Context';
+import { Catalog } from '../models';
+import PlanPreview from './planPreview';
 
-export default observer( () => {
+export default observer( (props) => {
     const { SidebarStore, IndoormodeStore } = useStores();
+
+    const catalog = new Catalog(props.catalog);
+    console.log(catalog);
 
     const handleClick = () => {
         IndoormodeStore.setValue();
@@ -81,6 +86,13 @@ export default observer( () => {
                                 </TableBody>
                             </Table>
                         </TableContainer>
+                    </Card>
+                    <Card variant='elevation' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'row', boxShadow: 0,  mt:2}}>
+                        {
+                            localStorage.getItem(SidebarStore.building.name) !== null ?
+                            <PlanPreview buildingName={SidebarStore.building.name} /> :
+                            <g></g>
+                        }
                     </Card>
                     <Button onClick={handleClick} sx={{ color: 'inherit', width: 1, height: 1/3, mt:3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center'}}>
                         실내 공간 스튜디오
