@@ -91,6 +91,15 @@ const getArea = function (selectedLayer, widthRatio, heightRatio, height) {
   // });  
 }
 
+const getItem = function (selectedLayer, widthRatio, heightRatio, height) {
+  const itemComponent = [];
+  for (var item in selectedLayer.itmes) {
+    // let 
+    let renderedItem = catalog.getElement(item.type).render2D(item, layer, scene);
+    selectedLayer.items[item];
+  }
+}
+
 export default function PlanPreview(props) {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
@@ -99,7 +108,7 @@ export default function PlanPreview(props) {
 
   let plannerState = getPlannerState(props.buildingName);
   let selectedLayer = getLayer(plannerState);
-  // console.log(selectedLayer);
+  console.log(selectedLayer);
 
   const ref = useRef(null);
 

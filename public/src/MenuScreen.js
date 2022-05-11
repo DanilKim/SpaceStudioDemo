@@ -139,7 +139,7 @@ function MenuScreen(props) {
           <TabPanel value={IndoormodeStore.value} index={0} width='100vw' sx={{display: 'flex', flexFlow: 'row nowrap'}}>
             <SpaceModelView/>
             <Box sx={{ minWidth: '200px', width: '16vw'}}>
-              <OutdoorSidebar/>
+              <OutdoorSidebar catalog={MyCatalog}/>
             </Box>
           </TabPanel>
           <TabPanel value={IndoormodeStore.value} index={1} width='100vw'>

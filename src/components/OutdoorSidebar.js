@@ -15,10 +15,14 @@ import {
 } from '@mui/material';
 import { observer } from 'mobx-react';
 import { useStores } from '../stores/Context';
+import { Catalog } from '../models';
 import PlanPreview from './planPreview';
 
-export default observer( () => {
+export default observer( (props) => {
     const { SidebarStore, IndoormodeStore } = useStores();
+
+    const catalog = new Catalog(props.catalog);
+    console.log(catalog);
 
     const handleClick = () => {
         IndoormodeStore.setValue();
