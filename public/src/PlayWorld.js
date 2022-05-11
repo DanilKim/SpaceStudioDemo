@@ -1,5 +1,5 @@
 import React, { Suspense }  from "react";
-import { OrbitControls, useProgress, Html } from "@react-three/drei";
+import { useProgress, Html } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { observer } from 'mobx-react';
 
@@ -22,8 +22,8 @@ function MyWorld() {
     const { ModelStore, PlaymodeStore, PortalStore } = useStores();
     console.log(ModelStore.model);
 
-    const canvas_style = PlaymodeStore.playMode ? { background: "#2f2f2f" } : { background: "white" };
-    const camera_settings = PlaymodeStore.playMode ? { position: [0, 0.1, 10], fov: 50 } : { position: [0, 5, 10] };
+    const canvas_style = { background: "#2f2f2f" };
+    const camera_settings = { position: [0, 0.1, 10], fov: 50 };
 
     return ( <>
         <StoreConsumer>
@@ -35,7 +35,7 @@ function MyWorld() {
             >
             <StoreProvider value={value}>
                 <Suspense fallback={<Loader/>}>
-                    {PlaymodeStore.playMode ? <FirstPersonControl exit={PlaymodeStore.exitPm}/> : <OrbitControls />}
+                    <FirstPersonControl exit={PlaymodeStore.exitPm}/>
                     <Decorator/>
                     {ModelStore.model}
                 </Suspense>
@@ -43,7 +43,7 @@ function MyWorld() {
             </Canvas>
         )}
         </StoreConsumer>
-        { (PlaymodeStore.playMode && PortalStore.portal) && <PortalPopup/>}
+        { PortalStore.portal && <PortalPopup/>}
         </>
     )
 } 
