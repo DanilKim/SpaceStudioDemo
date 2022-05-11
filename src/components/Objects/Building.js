@@ -2,14 +2,32 @@ import { useFrame } from '@react-three/fiber';
 import React, { useState, useRef, useCallback } from 'react';
 import { observer } from 'mobx-react';
 import { useStores } from '../../stores/Context';
+import { useThree } from "react-three-fiber";
+// import { Canvas, useLoader } from '@react-three/fiber'
+// import { TextureLoader } from 'three/src/loaders/TextureLoader'
+// import { useTexture } from "@react-three/drei"
 
-
-export default observer( (props) => {
+export default observer((props) => {
     const { SidebarStore, PlaymodeStore } = useStores();
 
     const buildRef = useRef();
     const [active, setActive] = useState(false);
-    //const [open, setOpen] = useState(false);
+    // const { camera } = useThree();
+
+    // const modalEl = useRef();
+    // const [isOpen, setOpen] = useState(false);
+    // const handleClickOutside = ({ target }) => {
+    //     if (isOpen && !modalEl.current.contains(target)) setOpen(false);
+    // };
+    // useEffect(() => {
+    //     window.addEventListener("click", handleClickOutside);
+    //     return () => {
+    //         window.removeEventListener("click", handleClickOutside);
+    //     };
+    // }, []);
+
+    // const colorMap = useLoader(TextureLoader, 'building_texture.png')
+    // const colorMap = useTexture('BT.jpg')
 
     var velocity = 0;
 
@@ -22,14 +40,19 @@ export default observer( (props) => {
             buildRef.current.position,
             buildRef.current.scale,
         )
+        // event.stopPropagation();
+        SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z)
+
+        // handleChange = ({ target: { value } }) => SidebarStore.distplayer(value);
         //alert(buildRef.current.name);
         //setOpen(true);
     }, []);
 
-    const handleClose = useCallback((event) => {
-        event.stopPropagation();
-        //setOpen(false);
-    }, []);
+    // const handleClose = useCallback((event) => {
+    //     event.stopPropagation();
+    //     SidebarStore.unselect()
+    //     //setOpen(false);
+    // }, []);
 
     useFrame((_, delta) => {
         if (active) {
@@ -48,7 +71,7 @@ export default observer( (props) => {
     return (<>
         <mesh
             ref={buildRef}
-            userData={{id:props.key, category:props.category}}
+            userData={{ id: props.key, category: props.category }}
             geometry={props.geometry}
             position={props.position}
             scale={props.scale}
@@ -57,19 +80,27 @@ export default observer( (props) => {
             receiveShadow
             onPointerOver={(event) => {
                 event.stopPropagation();
-                if (!PlaymodeStore.playMode) {setActive(true);};
+                if (!PlaymodeStore.playMode) { setActive(true); };
             }}
             onPointerOut={(event) => {
                 event.stopPropagation();
-                if (!PlaymodeStore.playMode) {setActive(false);};
+                if (!PlaymodeStore.playMode) { setActive(false); };
+            }}
+            onPointerMissed={(event) => {
+                event.stopPropagation();
+                SidebarStore.unselect();
             }}
             onClick={handleClick}
         >
             <meshStandardMaterial
                 attach="material"
+                // color={props.color}
                 color={active ? "hotpink" : props.color}
+            // map={active ? colorMap : null}
+            // map={colorMap}
             />
         </mesh>
+
     </>
     );
 
