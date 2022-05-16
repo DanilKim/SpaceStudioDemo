@@ -1,7 +1,7 @@
-import React, { useEffect, Suspense } from 'react';
+import React, { useEffect, Suspense, useState } from 'react';
 import * as THREE from 'three';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
-import { useThree } from '@react-three/fiber';
+import { useThree, useFrame } from '@react-three/fiber';
 import { Plane, Environment, useProgress, Html, Sky, Stars, Cloud } from '@react-three/drei';
 import { useStores } from '../../stores/Context';
 import { observer } from 'mobx-react';
@@ -16,8 +16,20 @@ function Loader() {
 
 
 function Decorator() {
-    const { scene, gl } = useThree();
-    const { PlaymodeStore } = useStores();
+    const { scene, gl, camera } = useThree();
+    const { PlaymodeStore, SidebarStore } = useStores();
+
+    const vec = new THREE.Vector3();
+    const step = 0.05;
+
+    useFrame((state) => {
+        if (SidebarStore.selected) {
+            vec.set(SidebarStore.cameraposition[0] + 1, SidebarStore.cameraposition[1] + 3, SidebarStore.cameraposition[2] + 3)
+            state.camera.position.lerp(vec, step);
+            state.camera.lookAt(SidebarStore.cameraposition[0], SidebarStore.cameraposition[1], SidebarStore.cameraposition[2]);
+            state.camera.updateProjectionMatrix();
+        }
+    })
 
     useEffect(() => {
 
