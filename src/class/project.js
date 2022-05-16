@@ -287,10 +287,9 @@ class Project{
     const scale = 50;
 
     let layer = state.scene.layers.get(layerID);
-    if (layer.lines.length + layer.holes.length + layer.items.length > 0) return { updatedState: state };
+    if (layer.lines.size + layer.holes.size + layer.items.size > 0) return { updatedState: state };
 
     floor.forEach( (edge) => {
-      console.log(edge);
       const [x0, y0] = [edge[0].x * scale + W, edge[0].y * scale + H];
       const [x1, y1] = [edge[1].x * scale + W, edge[1].y * scale + H];
 

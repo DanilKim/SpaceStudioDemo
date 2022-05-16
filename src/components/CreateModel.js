@@ -1,6 +1,7 @@
 import React from 'react';
 import * as THREE from 'three';
 import Building from './Objects/Building';
+import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 
 const heightAttr = "층수";
 const heightFn = function (val) { return val }; // identity function
@@ -32,7 +33,7 @@ function addShape(shape, extrude, color, x, y, z, rx, ry, rz, s) {
     };
 
     //Create the geometry
-    var geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    var geometry = new THREE.ExtrudeBufferGeometry(shape, extrudeSettings);
 
     //console.log(geometry)
     return geometry
@@ -89,8 +90,7 @@ export default async function CreateModel(city, objects, firstMed) {
 
         try {
             let response = await fetch(file, config);
-            let data = await response.json()
-            console.log(data);
+            let data = await response.json();
             return data;
         } catch (err) {
             console.log("Json Fetch Error!!");
@@ -427,14 +427,14 @@ export default async function CreateModel(city, objects, firstMed) {
         // add road
         const material_road = new THREE.MeshPhongMaterial({ color: 0x121526 });
         // ----------------- three.js < 0.125.0 ------------------- //
-        const merged_mesh_road = new THREE.Geometry();
-        for (var i = 0; i < geom_total_road.length + 0; i++) {
-            merged_mesh_road.merge(geom_total_road[i]);
-        }
+        //const merged_mesh_road = new THREE.BufferGeometry();
+        //for (var i = 0; i < geom_total_road.length + 0; i++) {
+        //    merged_mesh_road.merge(geom_total_road[i]);
+        //}
 
 
         // ----------------- three >= 0.125.0 ------------------- //
-        // const merged_mesh_road = BufferGeometryUtils.mergeBufferGeometries(geom_total_road, true); // 도로 각각의 geometry를 하나로 합치는 과정
+        const merged_mesh_road = BufferGeometryUtils.mergeBufferGeometries(geom_total_road, true); // 도로 각각의 geometry를 하나로 합치는 과정
 
         merged_mesh_road.computeBoundingBox();
         merged_mesh_road.rotateX(-0.5 * Math.PI);
@@ -475,13 +475,13 @@ export default async function CreateModel(city, objects, firstMed) {
         // add river
         const material_water = new THREE.MeshPhongMaterial({ color: 0x0AC9FF });
         // ----------------- three.js < 0.125.0 ------------------- //
-        const merged_mesh_water = new THREE.Geometry();
-        for (var i = 0; i < geom_total_water.length; i++) {
-            merged_mesh_water.merge(geom_total_water[i]);
-        }
-
+        //const merged_mesh_water = new THREE.Geometry();
+        //for (var i = 0; i < geom_total_water.length; i++) {
+        //    merged_mesh_water.merge(geom_total_water[i]);
+        //}
+//
         // ----------------- three >= 0.125.0 사용가능 ------------------- //
-        // const merged_mesh_water = BufferGeometryUtils.mergeBufferGeometries(geom_total_water, true); // 강 각각의 geometry를 하나로 합치는 과정
+        const merged_mesh_water = BufferGeometryUtils.mergeBufferGeometries(geom_total_water, true); // 강 각각의 geometry를 하나로 합치는 과정
 
         merged_mesh_water.computeBoundingBox();
         merged_mesh_water.rotateX(-0.5 * Math.PI);
@@ -511,7 +511,7 @@ export default async function CreateModel(city, objects, firstMed) {
     }
 
 
-    //var jsonFile = "http://192.168.153.97:8080/" + String(city) + "/building"// + String(city) + "_building.geojson"
+    //var jsonFile = "http://192.168.153.97:8888/" + String(city) + "/building";// + String(city) + "_building.geojson"
     var jsonFile = "../../data/" + String(city) + "_building.geojson"
     var jsonFile_road = "../../data/" + String(city) + "_road.geojson"
     var jsonFile_water = "../../data/" + String(city) + "_water.geojson"
