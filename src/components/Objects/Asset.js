@@ -17,13 +17,28 @@ function Asset(props) {
     let fbx_fn = props.fn ? props.fn : BASE_URL_FBX + TEST_FBX;
     let fbx = useFBX(fbx_fn);
 
+    const handleClick = (event) => {
+        event.stopPropagation();
+        SidebarStore.select(
+            buildRef.current.userData.id,
+            buildRef.current.name,
+            buildRef.current.userData.category,
+            buildRef.current.position,
+            buildRef.current.scale
+        )
+        // event.stopPropagation();
+        SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z)
+
+    }
+
 
     //onpointover=> 
 
     return (
         <mesh
             ref={assetRef}
-            key={props.name} 
+            key={props.name}
+            userData={{ id: props.name , category: 'asset' }} 
             position={props.position ? props.position : [0,3,0]} 
             scale={active ? 0.06 : 0.05}
             onPointerOver={(event) => {
@@ -36,9 +51,7 @@ function Asset(props) {
                 if (!PlaymodeStore.playMode) {setActive(false);};
             }}
             
-            onClick={(event) => {
-                event.stopPropagation();
-            }}
+            onClick={handleClick}
 
             onDoubleClick={(event) => {
                 event.stopPropagation();

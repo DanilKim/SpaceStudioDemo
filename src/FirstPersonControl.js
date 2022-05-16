@@ -31,6 +31,8 @@ function FirstPersonControl(props) {
     //const [portal, setPortal] = useState(null);
     const { PortalStore } = useStores();
 
+    const { SidebarStore } = useStores();
+
     const controlsRef = useRef(null);
     const controls = controlsRef.current;
     const defaultHeight = camera.position.y;
@@ -176,8 +178,11 @@ function FirstPersonControl(props) {
         raycaster.ray.direction.y = 0;
 
         var intersects = raycaster.intersectObject(scene, true);
-        if (intersects.length > 0 && intersects[0].distance < 1 && intersects[0].object.userData.category) {
+        if (intersects.length > 0 && intersects[0].distance < SidebarStore.distance && intersects[0].object.userData.category) {
+            // if (intersects.length > 0 && intersects[0].distance < 1 && intersects[0].object.userData.category) {
             //console.log(intersects[0].object.userData.category);
+            console.log(SidebarStore.distance, "distance choosed by player")
+            fp.moveForward = false;
             PortalStore.setPortal(intersects[0].object.name);
             //console.log(portal)
         } else {
