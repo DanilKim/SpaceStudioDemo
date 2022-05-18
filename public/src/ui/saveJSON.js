@@ -1,29 +1,12 @@
-import React from "react";
-import * as THREE from "three";
-import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
+import { toJS } from 'mobx';
 
-export default function saveGLB(models, name) {
-    const scene = mapModelToScene(models);
-
-    const exporter = new GLTFExporter();
-    exporter.parse(
-        scene,
-        function (result) {
-            saveArrayBuffer(result, '/results/' + name + '.glb');
-        },
-        { binary : true }
-    )
-}
-
-function mapModelToScene(models) {
-    let scene = new THREE.Scene();
-    //r3f component list -> THREE.scene 에 add
-    return scene;
+export default function saveJSON(models, name) {
+    saveArrayBuffer(JSON.stringify(toJS(models)), '/results/' + name + '.json');
 }
 
 
 function saveArrayBuffer(buffer, filename) {
-    //save(new Blob([buffer], { type: 'application/octet-stream' }), filename);
+    save(new Blob([buffer], { type: 'text/plain;charset=utf-8' }), filename);
 }
 
 function save(blob, filename) {

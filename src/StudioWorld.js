@@ -33,7 +33,6 @@ function MyWorld() {
                     <OrbitControls />
                     <Decorator/>
                     {ModelStore.model}
-                    <SaveBot/>
                 </Suspense>
             </StoreProvider>
             </Canvas>

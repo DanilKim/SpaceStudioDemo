@@ -39,6 +39,7 @@ import {createStore} from 'redux';
 import MyCatalog from './catalog/mycatalog';
 import ToolbarScreenshotButton from './ui/toolbar-screenshot-button';
 import saveGLB from './ui/saveGLB';
+import saveJSON from './ui/saveJSON';
 
 let plugins = [
   PlannerPlugins.Keyboard(),
@@ -105,7 +106,7 @@ function MenuScreen(props) {
   }
 
   const exportModel = () => {
-    saveGLB(ModelStore.model, 'city');
+    saveJSON(ModelStore.model, 'city');
   }
   
   return (
