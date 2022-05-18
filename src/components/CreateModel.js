@@ -407,7 +407,7 @@ export default async function CreateModel(city, objects, firstMed) {
         }
 
         return (
-            <>
+            <React.Fragment key={data.name}>
                 {types.map((g, id) => (
                     <group key={"group" + String(id)}>
                         {
@@ -417,7 +417,7 @@ export default async function CreateModel(city, objects, firstMed) {
                         }
                     </group>
                 ))}
-            </>
+            </React.Fragment>
         )
     }
 
@@ -458,6 +458,7 @@ export default async function CreateModel(city, objects, firstMed) {
         //mesh_road.receiveShadow = true;
         return (
             <mesh
+                key={data.name}
                 geometry={merged_mesh_road}
                 material={material_road}
                 position={[scale_factor * scale_x * (offset_road.x - med[0]), 0, scale_factor * scale_y * (offset_road.z - med[1])]}
@@ -499,6 +500,7 @@ export default async function CreateModel(city, objects, firstMed) {
 
         return (
             <mesh
+                key={data.name}
                 geometry={merged_mesh_water}
                 material={material_water}
                 position={[scale_factor * scale_x * (offset_water.x - med[0]), 0, scale_factor * scale_y * (offset_water.z - med[1])]}

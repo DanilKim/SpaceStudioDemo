@@ -3,9 +3,7 @@ import { OrbitControls, useProgress, Html } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useStores, StoreProvider, StoreConsumer } from './stores/Context';
 import { observer } from 'mobx-react';
-import FirstPersonControl from './FirstPersonControl';
 import Decorator from './components/Objects/Decorator';
-import PortalPopup from "./components/PortalPopup";
 import Asset from "./components/Objects/Asset";
 
 function Loader() {
@@ -15,7 +13,7 @@ function Loader() {
 
 
 function MyWorld() {
-    const { ModelStore, PlaymodeStore, PortalStore } = useStores();
+    const { ModelStore } = useStores();
     ModelStore.model;
 
     const canvas_style = { background: "white" };
