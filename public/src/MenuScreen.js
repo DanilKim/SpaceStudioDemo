@@ -135,8 +135,8 @@ function MenuScreen(props) {
             <IconButton edge="start" sx={{ mr: 3 }}>
               <Settings sx={{color: '#7c7c7c'}} />
             </IconButton>
-            <IconButton edge="start" sx={{ mr: 1 }}>
-              <ExitToApp sx={{color: '#7c7c7c'}} onClick={exportModel}/>
+            <IconButton edge="start" sx={{ mr: 1 }} onClick={exportModel}>
+              <ExitToApp sx={{color: '#7c7c7c'}}/>
             </IconButton>
           </Toolbar>
         </AppBar>

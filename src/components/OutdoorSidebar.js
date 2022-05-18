@@ -49,8 +49,6 @@ export default observer((props) => {
     if (SidebarStore.selected) {
         item = SidebarStore.current === 'building' ? SidebarStore.building : SidebarStore.asset;
     }
-    console.log(SidebarStore.current);
-    console.log(item);
 
     return (<>
         <Card variant='elevation' sx={{ width: '100%', height: '99%', m: '0%', mt: 1, bgcolor: '#e4ddfa' }}>

@@ -15,7 +15,7 @@ function Loader() {
 
 function MyWorld() {
     const { ModelStore, PlaymodeStore, PortalStore } = useStores();
-    console.log(ModelStore.model);
+    ModelStore.model;
 
     const canvas_style = { background: "white" };
     const camera_settings = { position: [0, 5, 10] };
