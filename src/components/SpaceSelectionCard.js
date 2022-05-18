@@ -107,8 +107,8 @@ export default observer( () => {
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >
-          {objectList.map((obj) => (
-            <MenuItem key={obj} value={obj}>
+          {objectList.map((obj, index) => (
+            <MenuItem key={index} value={obj}>
               <Checkbox checked={object.indexOf(obj) > -1} />
               <ListItemText primary={obj} />
             </MenuItem>
