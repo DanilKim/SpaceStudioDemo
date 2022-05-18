@@ -19,16 +19,13 @@ import {
 } from '@mui/material';
 import { observer } from 'mobx-react';
 import { useStores } from '../stores/Context';
-import { Catalog } from '../models';
 import PlanPreview from './planPreview';
 
 const actions = ['rotation', 'hover', 'alien atack'];
 
 export default observer((props) => {
     const { SidebarStore, IndoormodeStore } = useStores();
-    const [ act, setAct] = useState();
-
-    const catalog = new Catalog(props.catalog);
+    const [act, setAct] = useState();
 
     const handleClickIndoor = () => {
         IndoormodeStore.setValue();
@@ -127,8 +124,8 @@ export default observer((props) => {
                         <Card variant='elevation' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'row', boxShadow: 0, mt: 2 }}>
                         {
                             localStorage.getItem(SidebarStore.building.name) !== null ?
-                                <PlanPreview buildingName={SidebarStore.building.name} /> :
-                                <g></g>
+                            <PlanPreview buildingName={SidebarStore.building.name} /> :
+                            <></>
                         }
                         </Card>
                     }

@@ -89,8 +89,9 @@ export default observer((props) => {
 
     return (<>
         <mesh
+            key={props.id}
             ref={buildRef}
-            userData={{ id: props.key, category: props.category }}
+            userData={{id:props.id, category:props.category}}
             geometry={props.geometry}
             position={props.position}
             scale={props.scale}

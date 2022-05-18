@@ -14,13 +14,13 @@ function Loader() {
 
 
 function MyWorld() {
-    const { ModelStore, PlaymodeStore, PortalStore } = useStores();
+    const { ModelStore } = useStores();
     ModelStore.model;
 
     const canvas_style = { background: "white" };
     const camera_settings = { position: [0, 5, 10] };
 
-    return ( <>
+    return (
         <StoreConsumer>
         { value => (
             <Canvas
@@ -39,7 +39,6 @@ function MyWorld() {
             </Canvas>
         )}
         </StoreConsumer>
-        </>
     )
 } 
 

@@ -23,8 +23,8 @@ function AssetMenuTabPanel(props) {
 
     var ItemList = [];
 
-    { props.items.map( (item) => { ItemList.push(
-        <IconButton onClick={(e) => {addAsset(item,e)}} sx={IconbuttonSX}>
+    { props.items.map( (item, index) => { ItemList.push(
+        <IconButton key={index} onClick={(e) => {addAsset(item,e)}} sx={IconbuttonSX}>
             <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e9e7e5' }} src={'../../preview_assets/'+props.type+'/'+item+'.jpg'} variant='circular'/>
         </IconButton>
         
