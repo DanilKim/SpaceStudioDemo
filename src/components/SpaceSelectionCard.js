@@ -70,11 +70,6 @@ export default observer( () => {
 
 
   const handleSubmit = () => {
-    //CreateModel(city, object, props.model['firstMed']).then( 
-    //  val => props.setModel( 
-    //    { 'components' : [...props.model['components'], ...val['components']], 'firstMed' : val['firstMed'] } 
-    //  ) 
-    //);
 
     CreateModel(city, object, ModelStore.firstMed).then( 
       val => {ModelStore.addModel(val);}

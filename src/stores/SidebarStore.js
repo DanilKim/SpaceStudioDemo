@@ -18,11 +18,29 @@ class BuildingInfo {
     }
 }
 
+class AssetInfo {
+    id;
+    name;
+    category;
+    position;
+    scale;
+
+    constructor(id, name, category, position, scale) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.position = position;
+        this.scale = scale;
+    }
+}
+
 export class SidebarStore {
     rootStore;
 
     selected = false;
     building = null;
+    asset = null;
+    current = null; // [building, asset];
     distance = 1;
     var;
     cameraposition = [0, 5, 10];
@@ -31,7 +49,10 @@ export class SidebarStore {
         makeObservable(this, {
             selected: observable,
             building: observable,
-            select: action,
+            asset: observable,
+            current: observable,
+            selectBuilding: action,
+            selectAsset: action,
             unselect: action,
             distance: observable,
             distplayer: action,
@@ -43,14 +64,23 @@ export class SidebarStore {
         this.rootStore = root;
     }
 
-    select = (id, name, category, position, scale, floorShape) => {
+    selectBuilding = (id, name, category, position, scale, floorShape) => {
         this.selected = true;
+        this.current = 'building';
         this.building = new BuildingInfo(id, name, category, position, scale, floorShape);
+    }
+
+    selectAsset = (id, name, category, position, scale) => {
+        this.selected = true;
+        this.current = 'asset';
+        this.asset = new AssetInfo(id, name, category, position, scale);
     }
 
     unselect = () => {
         this.selected = false;
+        this.current = null;
         this.building = null;
+        this.asset = null;
     }
 
     distplayer = (val) => {

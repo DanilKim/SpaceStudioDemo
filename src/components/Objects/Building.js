@@ -51,7 +51,7 @@ export default observer((props) => {
     const handleClick = useCallback((event) => {
         event.stopPropagation();
 
-        SidebarStore.select(
+        SidebarStore.selectBuilding(
             buildRef.current.userData.id,
             buildRef.current.name,
             buildRef.current.userData.category,

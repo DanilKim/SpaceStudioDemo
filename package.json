@@ -33,7 +33,7 @@
     "react-async": "^10.0.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --config public/webpack.config.js --port 3000 --mode development",
+    "start": "webpack-dev-server --config public/webpack.config.js --mode development",
     "build-demo": "webpack --config public/webpack.config.js --mode production",
     "build": "npm run clean && npm run build-demo",
     "clean": "rimraf public/dist",
