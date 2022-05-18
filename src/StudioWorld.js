@@ -4,7 +4,8 @@ import { Canvas } from "@react-three/fiber";
 import { useStores, StoreProvider, StoreConsumer } from './stores/Context';
 import { observer } from 'mobx-react';
 import Decorator from './components/Objects/Decorator';
-import Asset from "./components/Objects/Asset";
+import SaveBot from './components/SaveBot';
+
 
 function Loader() {
     const { progress } = useProgress();
@@ -32,6 +33,7 @@ function MyWorld() {
                     <OrbitControls />
                     <Decorator/>
                     {ModelStore.model}
+                    <SaveBot/>
                 </Suspense>
             </StoreProvider>
             </Canvas>

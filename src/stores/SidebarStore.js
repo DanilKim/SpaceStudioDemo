@@ -23,13 +23,21 @@ export class SidebarStore {
 
     selected = false;
     building = null;
+    distance = 1;
+    var;
+    cameraposition = [0, 5, 10];
 
     constructor(root) {
         makeObservable(this, {
             selected: observable,
             building: observable,
             select: action,
-            unselect: action
+            unselect: action,
+            distance: observable,
+            distplayer: action,
+            cameraposition: observable,
+            setcampos: action
+
         })
 
         this.rootStore = root;
@@ -43,6 +51,15 @@ export class SidebarStore {
     unselect = () => {
         this.selected = false;
         this.building = null;
+    }
+
+    distplayer = (val) => {
+        this.distance = val
+    }
+
+    setcampos = (x, y, z) => {
+        // this.cameraposition = val.toArray()
+        this.cameraposition = [x, y, z];
     }
 
 }

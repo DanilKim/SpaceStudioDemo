@@ -13,24 +13,38 @@ function getFloorShape(geometry) {
         avg.add(line.v1);
     })
     avg.divideScalar(lineCurves.length);
-    
+
     let lineSegments = [];
     lineCurves.forEach(line => {
-        lineSegments.push( [
-            new Vector2( line.v1.x - avg.x, line.v1.y - avg.y ),
-            new Vector2( line.v2.x - avg.x, line.v2.y - avg.y )
-        ] );
+        lineSegments.push([
+            new Vector2(line.v1.x - avg.x, line.v1.y - avg.y),
+            new Vector2(line.v2.x - avg.x, line.v2.y - avg.y)
+        ]);
     })
     return lineSegments;
 };
 
-
-export default observer( (props) => {
+export default observer((props) => {
     const { SidebarStore, PlaymodeStore } = useStores();
 
     const buildRef = useRef();
     const [active, setActive] = useState(false);
-    //const [open, setOpen] = useState(false);
+    // const { camera } = useThree();
+
+    // const modalEl = useRef();
+    // const [isOpen, setOpen] = useState(false);
+    // const handleClickOutside = ({ target }) => {
+    //     if (isOpen && !modalEl.current.contains(target)) setOpen(false);
+    // };
+    // useEffect(() => {
+    //     window.addEventListener("click", handleClickOutside);
+    //     return () => {
+    //         window.removeEventListener("click", handleClickOutside);
+    //     };
+    // }, []);
+
+    // const colorMap = useLoader(TextureLoader, 'building_texture.png')
+    // const colorMap = useTexture('BT.jpg')
 
     var velocity = 0;
 
@@ -45,14 +59,19 @@ export default observer( (props) => {
             buildRef.current.scale,
             getFloorShape(buildRef.current.geometry)
         )
+        // event.stopPropagation();
+        SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z)
+
+        // handleChange = ({ target: { value } }) => SidebarStore.distplayer(value);
         //alert(buildRef.current.name);
         //setOpen(true);
     }, []);
 
-    const handleClose = useCallback((event) => {
-        event.stopPropagation();
-        //setOpen(false);
-    }, []);
+    // const handleClose = useCallback((event) => {
+    //     event.stopPropagation();
+    //     SidebarStore.unselect()
+    //     //setOpen(false);
+    // }, []);
 
     useFrame((_, delta) => {
         if (active) {
@@ -81,19 +100,27 @@ export default observer( (props) => {
             receiveShadow
             onPointerOver={(event) => {
                 event.stopPropagation();
-                if (!PlaymodeStore.playMode) {setActive(true);};
+                if (!PlaymodeStore.playMode) { setActive(true); };
             }}
             onPointerOut={(event) => {
                 event.stopPropagation();
-                if (!PlaymodeStore.playMode) {setActive(false);};
+                if (!PlaymodeStore.playMode) { setActive(false); };
+            }}
+            onPointerMissed={(event) => {
+                event.stopPropagation();
+                SidebarStore.unselect();
             }}
             onClick={handleClick}
         >
             <meshStandardMaterial
                 attach="material"
+                // color={props.color}
                 color={active ? "hotpink" : props.color}
+            // map={active ? colorMap : null}
+            // map={colorMap}
             />
         </mesh>
+
     </>
     );
 
