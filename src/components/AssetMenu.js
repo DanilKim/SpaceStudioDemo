@@ -30,8 +30,8 @@ const AssetBank = {
 function IconList(props) {
 
     var iconList = [];
-    { Object.keys(AssetBank).map( (category) => { iconList.push(
-        <IconButton value={category} onClick={props.handleClick} sx={IconbuttonSX}>
+    { Object.keys(AssetBank).map( (category, index) => { iconList.push(
+        <IconButton key={index} value={category} onClick={props.handleClick} sx={IconbuttonSX}>
             <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_' + category + '.png'} variant='rounded'/>
             <Typography>{category}</Typography>
         </IconButton>
