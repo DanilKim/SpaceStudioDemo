@@ -381,6 +381,7 @@ export default async function CreateModel(city, objects, firstMed) {
             groups_by_types[color_idx].push(
                 <Building
                     key={city+'_'+g}
+                    id={city+'_'+g}
                     category={building_types[g]}
                     geometry={geom_total[g]}
                     color={pallet[0][color_idx]}

@@ -91,7 +91,7 @@ export default observer( (props) => {
                         {
                             localStorage.getItem(SidebarStore.building.name) !== null ?
                             <PlanPreview buildingName={SidebarStore.building.name} /> :
-                            <g></g>
+                            <></>
                         }
                     </Card>
                     <Button onClick={handleClick} sx={{ color: 'inherit', width: 1, height: 1/3, mt:3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center'}}>
