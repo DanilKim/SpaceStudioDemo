@@ -2,14 +2,11 @@ import * as Three from 'three';
 import React from 'react';
 
 const PI_2 = Math.PI / 2;
-const paintedtexture = require('./painted.jpg');
-const brickTexture = require('./bricks.jpg');
 const scale = 100;
 
 let textureLoader = new Three.TextureLoader();
-textureLoader.setPath('./');
-let mat = textureLoader.load(paintedtexture);
-let mat2 = textureLoader.load(brickTexture);
+let mat = textureLoader.load(require('./painted.jpg'));
+let mat2 = textureLoader.load(require('./bricks.jpg'));
 
 function makeObject(newWidth, newHeight, newDepth) {
 
