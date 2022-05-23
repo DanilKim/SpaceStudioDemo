@@ -1,11 +1,11 @@
 import { useFrame } from '@react-three/fiber';
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useStores } from '../../stores/Context';
 import { Vector2 } from 'three';
 
 function getFloorShape(geometry) {
-    const lineCurves = geometry.parameters.shapes.curves;
+    const lineCurves = geometry.userData.shapes.curves;
 
     // compute mean vector
     let avg = new Vector2(0, 0);
@@ -29,22 +29,6 @@ export default observer((props) => {
 
     const buildRef = useRef();
     const [active, setActive] = useState(false);
-    // const { camera } = useThree();
-
-    // const modalEl = useRef();
-    // const [isOpen, setOpen] = useState(false);
-    // const handleClickOutside = ({ target }) => {
-    //     if (isOpen && !modalEl.current.contains(target)) setOpen(false);
-    // };
-    // useEffect(() => {
-    //     window.addEventListener("click", handleClickOutside);
-    //     return () => {
-    //         window.removeEventListener("click", handleClickOutside);
-    //     };
-    // }, []);
-
-    // const colorMap = useLoader(TextureLoader, 'building_texture.png')
-    // const colorMap = useTexture('BT.jpg')
 
     var velocity = 0;
 
@@ -59,19 +43,10 @@ export default observer((props) => {
             buildRef.current.scale,
             getFloorShape(buildRef.current.geometry)
         )
-        // event.stopPropagation();
+ 
         SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z)
 
-        // handleChange = ({ target: { value } }) => SidebarStore.distplayer(value);
-        //alert(buildRef.current.name);
-        //setOpen(true);
     }, []);
-
-    // const handleClose = useCallback((event) => {
-    //     event.stopPropagation();
-    //     SidebarStore.unselect()
-    //     //setOpen(false);
-    // }, []);
 
     useFrame((_, delta) => {
         if (active) {
@@ -111,13 +86,12 @@ export default observer((props) => {
                 SidebarStore.unselect();
             }}
             onClick={handleClick}
-        >
+        >  
             <meshStandardMaterial
                 attach="material"
-                // color={props.color}
                 color={active ? "hotpink" : props.color}
-            // map={active ? colorMap : null}
-            // map={colorMap}
+                //map={active ? colorMap : null}
+                //map={colorMap}
             />
         </mesh>
 
@@ -126,6 +100,13 @@ export default observer((props) => {
 
 })
 
+/* <meshStandardMaterial
+    attach="material"
+    // color={props.color}
+    color={active ? "hotpink" : props.color}
+// map={active ? colorMap : null}
+// map={colorMap}
+/> */
 
 //import { Html } from '@react-three/drei';
 //import Button from '@mui/material/Button';

@@ -1,6 +1,8 @@
 import { toJS } from 'mobx';
 
 export default function saveJSON(models, name) {
+    console.log(toJS(models));
+    console.log(JSON.stringify(toJS(models)));
     saveArrayBuffer(JSON.stringify(toJS(models)), '/results/' + name + '.json');
 }
 

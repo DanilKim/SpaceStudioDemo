@@ -35,7 +35,13 @@ function addShape(shape, extrude, color, x, y, z, rx, ry, rz, s) {
     //Create the geometry
     var geometry = new THREE.ExtrudeBufferGeometry(shape, extrudeSettings);
 
-    //console.log(geometry)
+    //geometry.shapeMap = {};
+    //geometry.shapeMap[shape.uuid] = shape;
+    //geometry.shapes = [];
+    //geometry.shapes.push(shape.uuid);
+    //geometry.options = extrudeSettings;
+    //delete geometry.parameters;
+
     return geometry
 
 }
@@ -374,16 +380,19 @@ export default async function CreateModel(city, objects, firstMed) {
         for (var g = 0; g < geom_total.length; g++) {
             //buildRef = useRef();
             var color_idx = types.indexOf(building_types[g])
-            const material = new THREE.MeshPhongMaterial({ color: pallet[0][color_idx] });
+            var geometry = BufferGeometryUtils.mergeBufferGeometries([geom_total[g]], true);
+            geometry.userData.shapes = geom_total[g].parameters.shapes;
+            geometry.userData.options = geom_total[g].parameters.options;
 
             var offset = offsets[g];
 
             groups_by_types[color_idx].push(
                 <Building
-                    key={city+'_'+g}
-                    id={city+'_'+g}
+                    component='Building'
+                    key={city+'_building_'+g}
+                    id={city+'_building_'+g}
                     category={building_types[g]}
-                    geometry={geom_total[g]}
+                    geometry={geometry}
                     color={pallet[0][color_idx]}
                     position={[scale_factor * scale_x * (offset[0] - med[0]), 0, scale_factor * scale_y * (offset[1] - med[1])]}
                     scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}

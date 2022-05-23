@@ -19,9 +19,13 @@ import MenuBtn from './components/MenuBtnView.js'
 import SpaceModelView from './components/SpaceModelView.js';
 import OutdoorSidebar from './components/OutdoorSidebar';
 import FirstPersonControl from './FirstPersonControl';
-import Decorator from './components/Objects/Decorator';
 import PortalPopup from "./components/PortalPopup";
+import textToComponent from "./utils/text-component-mappings";
+import Building from "./components/Objects/Building";
 import Asset from "./components/Objects/Asset";
+import Decorator from "./components/Objects/Decorator";
+import City from "./components/Objects/City";
+
 
 export {
   StoreProvider,
@@ -47,7 +51,10 @@ export {
   SpaceModelView,
   OutdoorSidebar,
   FirstPersonControl,
-  Decorator,
   PortalPopup,
-  Asset
+  textToComponent,
+  Building,
+  Asset,
+  Decorator,
+  City
 };

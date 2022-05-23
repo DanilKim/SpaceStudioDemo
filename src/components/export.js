@@ -11,7 +11,7 @@ export {
   SidebarComponents,
   FooterBarComponents,
   Viewer2DComponents,
-  StyleComponents
+  StyleComponents,
 };
 
 export default {
@@ -20,5 +20,5 @@ export default {
   SidebarComponents,
   FooterBarComponents,
   Viewer2DComponents,
-  StyleComponents
+  StyleComponents,
 };

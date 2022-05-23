@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { BufferGeometryUtils } from 'https://cdn.jsdelivr.net/npm/three@0.122.0/examples/jsm/utils/BufferGeometryUtils.js';
+import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import Building from './Objects/Building';
 import { useAsync } from "react-async";
 import { Html } from "@react-three/drei";
@@ -36,9 +36,8 @@ function addShape(shape, extrude, color, x, y, z, rx, ry, rz, s) {
     };
 
     //Create the geometry
-    var geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    var geometry = new THREE.ExtrudeBufferGeometry(shape, extrudeSettings);
 
-    //console.log(geometry)
     return geometry
 
 }
@@ -74,7 +73,7 @@ const getJsonAsync = async ({file}) => {
 }
 
 
-export default function OutdoorViewModel (props) {
+export default function CityModel (props) {
 
     var json, json_road, json_water;
     var jsonFile, fnName;
@@ -366,15 +365,20 @@ export default function OutdoorViewModel (props) {
             // add each of the buildings
             for (var g = 0; g < geom_total.length; g++) {
                 //buildRef = useRef();
-                var color_idx = types.indexOf(building_types[g])
-                const material = new THREE.MeshPhongMaterial({ color: pallet[0][color_idx] });
+                var color_idx = types.indexOf(building_types[g]);
+                var geometry = BufferGeometryUtils.mergeBufferGeometries([geom_total[g]], true);
+                geometry.userData.shapes = geom_total[g].parameters.shapes;
+                geometry.userData.options = geom_total[g].parameters.options;
     
                 var offset = offsets[g];
     
                 groups_by_types[color_idx].push(
                     <Building
-                        key={g}
-                        geometry={geom_total[g]}
+                        component='Building'
+                        key={props.city+'_building_'+g}
+                        id={props.city+'_building_'+g}
+                        category={building_types[g]}
+                        geometry={geometry}
                         color={pallet[0][color_idx]}
                         position={[scale_factor * scale_x * (offset[0] - med[0]), 0, scale_factor * scale_y * (offset[1] - med[1])]}
                         scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
@@ -469,10 +473,9 @@ export default function OutdoorViewModel (props) {
     }
     
     const { data: data, error, isLoading } = useAsync({promiseFn: getJsonAsync, file:jsonFile})
-    if (isLoading) return <Html><div>loading...</div></Html>;
-	if (error || !data) return <Html><div>error!</div></Html>;
+    if (isLoading) return <Html><h1>loading...</h1></Html>;
+	if (error || !data) return <Html><h1>error!</h1></Html>;
 
-    console.log(data);
     return Add_object[fnName](data);
 
 }

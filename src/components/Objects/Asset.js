@@ -7,7 +7,7 @@ const BASE_URL_FBX = window.location.protocol + '//' + window.location.hostname 
 const TEST_FBX = '/assets/trees/tree.fbx';
 
 function Asset(props) {
-    
+    //props.component = 'Asset';    
     const { SidebarStore, PlaymodeStore } = useStores();
     const assetRef = useRef();
 
@@ -26,7 +26,7 @@ function Asset(props) {
             assetRef.current.position,
             assetRef.current.scale
         )
-        
+
         SidebarStore.setcampos(assetRef.current.position.x, assetRef.current.position.y, assetRef.current.position.z)
 
     }

@@ -5,6 +5,7 @@ import { useStores, StoreProvider, StoreConsumer } from './stores/Context';
 import { observer } from 'mobx-react';
 import Decorator from './components/Objects/Decorator';
 import SaveBot from './components/SaveBot';
+import { toJS } from 'mobx';
 
 
 function Loader() {
@@ -15,7 +16,7 @@ function Loader() {
 
 function MyWorld() {
     const { ModelStore } = useStores();
-    ModelStore.model;
+    console.log(toJS(ModelStore.model));
 
     const canvas_style = { background: "white" };
     const camera_settings = { position: [0, 5, 10] };
