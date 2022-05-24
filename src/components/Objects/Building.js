@@ -2,7 +2,7 @@ import { useFrame } from '@react-three/fiber';
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useStores } from '../../stores/Context';
-import { Vector2 } from 'three';
+import { Vector2, Color } from 'three';
 
 function getFloorShape(geometry) {
     const lineCurves = geometry.userData.shapes.curves;
@@ -29,12 +29,14 @@ export default observer((props) => {
 
     const buildRef = useRef();
     const [active, setActive] = useState(false);
+    const [selected, setSelected] = useState(false);
 
     var velocity = 0;
 
     const handleClick = useCallback((event) => {
         event.stopPropagation();
 
+        setSelected(true);
         SidebarStore.selectBuilding(
             buildRef.current.userData.id,
             buildRef.current.name,
@@ -48,19 +50,32 @@ export default observer((props) => {
 
     }, []);
 
-    useFrame((_, delta) => {
-        if (active) {
-            if (buildRef.current.position.y < 0.01) {
-                velocity = 2;
-            } else {
-                velocity -= 0.1;
-            }
-            buildRef.current.position.y += velocity * delta;
-        } else {
+    //useFrame((_, delta) => {
+    //    if (!selected) {
+    //        if (active) {
+    //            if (buildRef.current.position.y < 0.01) {
+    //                velocity = 2;
+    //            } else {
+    //                velocity -= 0.1;
+    //            }
+    //            buildRef.current.position.y += velocity * delta;
+    //        } else {
+    //            buildRef.current.position.y = 0;
+    //            velocity = 0;
+    //        }
+    //    } else {
+    //        buildRef.current.position.y = 0;
+    //    }
+    //})
+
+    useEffect( () => {
+        if (selected) {
             buildRef.current.position.y = 0;
-            velocity = 0;
+            buildRef.current.material.color = new Color("#48B108");
+        } else {
+            buildRef.current.material.color = active ? new Color('hotpink') : new Color(props.color);
         }
-    })
+    }, [selected, active])
 
     return (<>
         <mesh
@@ -84,12 +99,13 @@ export default observer((props) => {
             onPointerMissed={(event) => {
                 event.stopPropagation();
                 SidebarStore.unselect();
+                setSelected(false);
             }}
             onClick={handleClick}
         >  
             <meshStandardMaterial
                 attach="material"
-                color={active ? "hotpink" : props.color}
+                color={props.color}
                 //map={active ? colorMap : null}
                 //map={colorMap}
             />
