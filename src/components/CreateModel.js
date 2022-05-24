@@ -353,12 +353,6 @@ export default async function CreateModel(city, objects, firstMed) {
 
 
     function Add_building(data) {
-        //[active, setActive] = useState(false);
-        //[ref, setRef] = useState(null);
-        //
-        //const handleHover = (event) => {
-        //
-        //}
 
         var geom_total = buildShape_building(data);
         var groups_by_types = [];

@@ -6,9 +6,11 @@ import { observer } from 'mobx-react';
 
 import {
   useStores,
-  City
+  ReactPlannerComponents
 } from 'space-studio';
 
+const {SpaceComponents} = ReactPlannerComponents;
+const {City} = SpaceComponents;
 
 function App() {
   const { PlaymodeStore } = useStores();
