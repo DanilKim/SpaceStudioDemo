@@ -43,7 +43,7 @@ export class SidebarStore {
 
     selected = false;
     item = null;
-    current = null; // [building, asset];
+    current = ''; // [building, asset];
     distance = 1;
     var;
     cameraposition = [0, 5, 10];
@@ -80,7 +80,7 @@ export class SidebarStore {
 
     unselect = () => {
         this.selected = false;
-        this.current = null;
+        this.current = '';
         this.item = null;
     }
 
