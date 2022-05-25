@@ -32,6 +32,14 @@ export default observer((props) => {
         alert(`Entering Distance: ${SidebarStore.distance}`);
     };
 
+    const eulerToDegree = (euler) => {
+        let degree = euler * 180.0 / Math.PI;
+        if (degree < 0) {
+            degree += 360.0;
+        }
+        return degree;
+    }
+
     // const [dist, setDist] = useState();
 
     // const handleChange = ({ target: { value } }) => setDist(value);
@@ -91,15 +99,15 @@ export default observer((props) => {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="center">rotation</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>0</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>0</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>0</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.building.rotation.x).toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.building.rotation.y).toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.building.rotation.z).toFixed(2)}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="center">scale</TableCell>
                                         <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.building.scale.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.building.scale.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.building.scale.x.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.building.scale.y.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.building.scale.z.toFixed(2)}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>

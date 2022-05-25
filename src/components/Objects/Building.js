@@ -56,12 +56,13 @@ export default observer((props) => {
             buildRef.current.buildingname,
             buildRef.current.userData.category,
             buildRef.current.position,
+            buildRef.current.rotation,
             buildRef.current.scale,
             getFloorShape(buildRef.current.geometry)
         )
         // event.stopPropagation();
         SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z);
-
+        
         // handleChange = ({ target: { value } }) => SidebarStore.distplayer(value);
         //alert(buildRef.current.name);
         //setOpen(true);
