@@ -12,25 +12,44 @@ import {
     TableRow,
     Paper,
     TableCell,
-    TextField
+    FormControl,
+    MenuItem,
+    InputLabel,
+    Select
 } from '@mui/material';
 import { observer } from 'mobx-react';
 import { useStores } from '../stores/Context';
 import PlanPreview from './planPreview';
+import {toJS} from 'mobx';
+
+const actions = ['rotation', 'hover', 'alien atack'];
 
 export default observer((props) => {
     const { SidebarStore, IndoormodeStore } = useStores();
-    
-    const handleClick = () => {
+    const [act, setAct] = useState();
+
+    const handleClickIndoor = () => {
         IndoormodeStore.setValue();
     };
 
-    const handleChange = ({ target: { value } }) => SidebarStore.distplayer(value);
+    const handleChangeDistance = ({ target: { value } }) => SidebarStore.distplayer(value);
 
-    const handleSubmit = (event) => {
+    const handleSubmitDistance = (event) => {
         event.preventDefault();
         alert(`Entering Distance: ${SidebarStore.distance}`);
     };
+
+    const actChange = (event) => {
+        setAct(event.target.value);
+    }
+
+    const eulerToDegree = (euler) => {
+        let degree = euler * 180.0 / Math.PI;
+        if (degree < 0) {
+            degree += 360.0;
+        }
+        return degree;
+    }
 
     // const [dist, setDist] = useState();
 
@@ -39,11 +58,6 @@ export default observer((props) => {
     // const handleSubmit = (event) => {
     //     event.preventDefault();
     //     alert(`Entering Distance: ${dist}`);
-    // };
-
-    // const handleChange = (event) => {
-    //     setDist(event.target.value);
-    //     console.log(dist, "here")
     // };
 
     return (<>
@@ -61,11 +75,11 @@ export default observer((props) => {
                                 <TableBody>
                                     <TableRow>
                                         <TableCell align="center" sx={{ width: 30 }}>명칭</TableCell>
-                                        <TableCell align="right" >{SidebarStore.building.name}</TableCell>
+                                        <TableCell align="right" >{SidebarStore.item.name}</TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell align="center">용도</TableCell>
-                                        <TableCell align="right" >{SidebarStore.building.category}</TableCell>
+                                        <TableCell align="center">종류</TableCell>
+                                        <TableCell align="right" >{SidebarStore.item.category}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -85,21 +99,21 @@ export default observer((props) => {
                                 <TableBody>
                                     <TableRow>
                                         <TableCell align="center">position</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.building.position.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.building.position.y.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.building.position.z.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.position.x.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.position.y.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.position.z.toFixed(2)}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="center">rotation</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>0</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>0</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>0</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.item.rotation.x).toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.item.rotation.y).toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.item.rotation.z).toFixed(2)}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="center">scale</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.building.scale.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.building.scale.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.building.scale.x.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.scale.x.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.scale.y.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.scale.z.toFixed(2)}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -107,28 +121,49 @@ export default observer((props) => {
                     </Card>
                     {/* <TextField id="outlined-basic" label="Distance" variant="outlined" onChange={handleChange}></TextField> */}
                     <br />
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmitDistance}>
                         <label>
                             Entering Distance:
                             <input
                                 type="distance"
                                 name="distance"
                                 value={SidebarStore.distance}
-                                onChange={handleChange}
+                                onChange={handleChangeDistance}
                             />
                         </label>
                     </form>
 
-                    <Card variant='elevation' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'row', boxShadow: 0, mt: 2 }}>
+                    { SidebarStore.current === 'building' && 
+                        <Card variant='elevation' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'row', boxShadow: 0, mt: 2 }}>
                         {
-                            localStorage.getItem(SidebarStore.building.name) !== null ?
-                            <PlanPreview buildingName={SidebarStore.building.name} /> :
+                            localStorage.getItem(SidebarStore.item.name) !== null ?
+                            <PlanPreview buildingName={SidebarStore.item.name} /> :
                             <></>
                         }
-                    </Card>
-                    <Button onClick={handleClick} sx={{ color: 'inherit', width: 1, height: 1 / 3, mt: 3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center' }}>
-                        실내 공간 스튜디오
-                    </Button>
+                        </Card>
+                    }
+
+                    { SidebarStore.current === 'building' && 
+                        <Button onClick={handleClickIndoor} sx={{ color: 'inherit', width: 1, height: 1 / 3, mt: 3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center' }}>
+                            실내 공간 스튜디오
+                        </Button>
+                    }
+
+                    { SidebarStore.current === 'asset' &&
+                        <FormControl sx={{ m: 3, width: 200, flexGrow: 1 }}>
+                            <InputLabel htmlFor="action-select">Choose Effect</InputLabel>
+                            <Select 
+                            defaultValue="" 
+                            id="action-select" 
+                            label="Action"
+                            value={act}
+                            onChange={actChange}
+                            >
+                            {actions.map((a, index) => (<MenuItem key={index} value={a}>{a}</MenuItem>))}
+                            </Select>
+                        </FormControl>
+                    }
+
                 </CardContent>
             }
         </Card>

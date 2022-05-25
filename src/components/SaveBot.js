@@ -38,7 +38,7 @@ export default function SaveBot() {
             anchorX="center" 
             anchorY="middle"
             {...fontProps}
-            position={[0,5,0]}
+            position={[0,7,0]}
             scale={0.5}
             onPointerOver={over}
             onPointerOut={out}

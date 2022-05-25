@@ -108,7 +108,6 @@ export default function PlanPreview(props) {
 
   let plannerState = getPlannerState(props.buildingName);
   let selectedLayer = getLayer(plannerState);
-  console.log(selectedLayer);
 
   const ref = useRef(null);
 

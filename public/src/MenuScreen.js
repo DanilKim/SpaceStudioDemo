@@ -38,6 +38,8 @@ import {createStore} from 'redux';
 
 import MyCatalog from './catalog/mycatalog';
 import ToolbarScreenshotButton from './ui/toolbar-screenshot-button';
+import saveGLB from './ui/saveGLB';
+import saveJSON from './ui/saveJSON';
 
 let plugins = [
   PlannerPlugins.Keyboard(),
@@ -88,7 +90,7 @@ let store = createStore(
 const localStorage = window.hasOwnProperty('localStorage') ? window.localStorage : false;
 
 function MenuScreen(props) {
-  const { PlaymodeStore, SidebarStore, IndoormodeStore } = useStores();
+  const { PlaymodeStore, SidebarStore, IndoormodeStore, ModelStore } = useStores();
 
   const handleChange = () => {
     IndoormodeStore.setValue();
@@ -101,6 +103,10 @@ function MenuScreen(props) {
 
   const localStorageClear = () => {
     localStorage.clear();
+  }
+
+  const exportModel = () => {
+    saveJSON(ModelStore.model, 'city');
   }
   
   return (
@@ -115,7 +121,7 @@ function MenuScreen(props) {
               <Redo sx={{color: '#7c7c7c'}} />
             </IconButton>
             <Typography component={'div'} variant="h6" sx={{ mr: 10 ,color: '#7c7c7c' }}>
-              Tivine Space Studio
+              Space Studio
             </Typography>
             <Tabs value={IndoormodeStore.value} onChange={handleChange} sx={{ flexGrow: 1 }} textColor="secondary" indicatorColor="secondary">
               <Tab label="실외 공간 생성" index='0' />
@@ -130,8 +136,8 @@ function MenuScreen(props) {
             <IconButton edge="start" sx={{ mr: 3 }}>
               <Settings sx={{color: '#7c7c7c'}} />
             </IconButton>
-            <IconButton edge="start" sx={{ mr: 1 }}>
-              <ExitToApp sx={{color: '#7c7c7c'}} />
+            <IconButton edge="start" sx={{ mr: 1 }} onClick={exportModel}>
+              <ExitToApp sx={{color: '#7c7c7c'}}/>
             </IconButton>
           </Toolbar>
         </AppBar>

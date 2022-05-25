@@ -22,14 +22,14 @@ function Decorator() {
     const vec = new THREE.Vector3();
     const step = 0.05;
 
-    useFrame((state) => {
-        if (SidebarStore.selected) {
-            vec.set(SidebarStore.cameraposition[0] + 1, SidebarStore.cameraposition[1] + 3, SidebarStore.cameraposition[2] + 3)
-            state.camera.position.lerp(vec, step);
-            state.camera.lookAt(SidebarStore.cameraposition[0], SidebarStore.cameraposition[1], SidebarStore.cameraposition[2]);
-            state.camera.updateProjectionMatrix();
-        }
-    })
+    //useFrame((state) => {
+    //    if (SidebarStore.selected) {
+    //        vec.set(SidebarStore.cameraposition[0] + 4, SidebarStore.cameraposition[1] + 4, SidebarStore.cameraposition[2] + 4)
+    //        state.camera.position.lerp(vec, step);
+    //        state.camera.lookAt(SidebarStore.cameraposition[0], SidebarStore.cameraposition[1], SidebarStore.cameraposition[2]);
+    //        state.camera.updateProjectionMatrix();
+    //    }
+    //})
 
     useEffect(() => {
 

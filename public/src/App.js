@@ -1,15 +1,16 @@
-import React  from 'react'
+import React from 'react'
 import { Box } from '@mui/material';
 import MenuScreen from './MenuScreen';
 import MyWorld from './PlayWorld';
 import { observer } from 'mobx-react';
 
 import {
-  useStores
+  useStores,
+  ReactPlannerComponents
 } from 'space-studio';
 
-//<FirstPersonControl model={model} sUp={setUserPlaying} controlsRef={controlsRef}/>
-//<PointerLockControls ref={controlsRef}/>
+const {SpaceComponents} = ReactPlannerComponents;
+const {City} = SpaceComponents;
 
 function App() {
   const { PlaymodeStore } = useStores();
@@ -19,9 +20,12 @@ function App() {
       <Box sx={{ width: '100vw', height: '100vh' }}>
         <MyWorld />
       </Box> :
-      <MenuScreen/>}
+      <MenuScreen/>
+    }
   </>
   );
 }
+
+//<City city='gumi' object='도로'/>
 
 export default observer(App);

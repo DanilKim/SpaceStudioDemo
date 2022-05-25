@@ -7,7 +7,7 @@ const BASE_URL_FBX = window.location.protocol + '//' + window.location.hostname 
 const TEST_FBX = '/assets/trees/tree.fbx';
 
 function Asset(props) {
-    
+    //props.component = 'Asset';    
     const { SidebarStore, PlaymodeStore } = useStores();
     const assetRef = useRef();
 
@@ -19,15 +19,16 @@ function Asset(props) {
 
     const handleClick = (event) => {
         event.stopPropagation();
-        SidebarStore.select(
-            buildRef.current.userData.id,
-            buildRef.current.name,
-            buildRef.current.userData.category,
-            buildRef.current.position,
-            buildRef.current.scale
+        SidebarStore.selectAsset(
+            assetRef.current.userData.id,
+            assetRef.current.userData.id,
+            assetRef.current.userData.category,
+            assetRef.current.position,
+            assetRef.current.rotation,
+            assetRef.current.scale
         )
-        // event.stopPropagation();
-        SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z)
+
+        SidebarStore.setcampos(assetRef.current.position.x, assetRef.current.position.y, assetRef.current.position.z)
 
     }
 
@@ -38,7 +39,7 @@ function Asset(props) {
         <mesh
             ref={assetRef}
             key={props.name}
-            userData={{ id: props.name , category: 'asset' }} 
+            userData={{ id: props.name , category: props.category }} 
             position={props.position ? props.position : [0,3,0]} 
             scale={active ? 0.06 : 0.05}
             onPointerOver={(event) => {
@@ -50,7 +51,11 @@ function Asset(props) {
                 event.stopPropagation();
                 if (!PlaymodeStore.playMode) {setActive(false);};
             }}
-            
+            onPointerMissed={(event) => {
+                event.stopPropagation();
+                SidebarStore.unselect();
+            }}
+
             onClick={handleClick}
 
             onDoubleClick={(event) => {

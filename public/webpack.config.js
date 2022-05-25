@@ -3,7 +3,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const webpack = require('webpack');
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
-const PAGE_TITLE = 'Tmax metaverse';
+const PAGE_TITLE = 'Space Studio';
 
 module.exports = (env, self) => {
   let isProduction = self.hasOwnProperty('mode') ? ( self.mode === 'production' ) : true;
