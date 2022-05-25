@@ -20,6 +20,7 @@ import {
 import { observer } from 'mobx-react';
 import { useStores } from '../stores/Context';
 import PlanPreview from './planPreview';
+import {toJS} from 'mobx';
 
 const actions = ['rotation', 'hover', 'alien atack'];
 
@@ -42,10 +43,22 @@ export default observer((props) => {
         setAct(event.target.value);
     }
 
-    let item;
-    if (SidebarStore.selected) {
-        item = SidebarStore.current === 'building' ? SidebarStore.building : SidebarStore.asset;
+    const eulerToDegree = (euler) => {
+        let degree = euler * 180.0 / Math.PI;
+        if (degree < 0) {
+            degree += 360.0;
+        }
+        return degree;
     }
+
+    // const [dist, setDist] = useState();
+
+    // const handleChange = ({ target: { value } }) => setDist(value);
+
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     alert(`Entering Distance: ${dist}`);
+    // };
 
     return (<>
         <Card variant='elevation' sx={{ width: '100%', height: '99%', m: '0%', mt: 1, bgcolor: '#e4ddfa' }}>
@@ -62,11 +75,11 @@ export default observer((props) => {
                                 <TableBody>
                                     <TableRow>
                                         <TableCell align="center" sx={{ width: 30 }}>명칭</TableCell>
-                                        <TableCell align="right" >{item.name}</TableCell>
+                                        <TableCell align="right" >{SidebarStore.item.name}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="center">종류</TableCell>
-                                        <TableCell align="right" >{item.category}</TableCell>
+                                        <TableCell align="right" >{SidebarStore.item.category}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -86,21 +99,21 @@ export default observer((props) => {
                                 <TableBody>
                                     <TableRow>
                                         <TableCell align="center">position</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{item.position.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{item.position.y.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{item.position.z.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.position.x.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.position.y.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.position.z.toFixed(2)}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="center">rotation</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>0</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>0</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>0</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.item.rotation.x).toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.item.rotation.y).toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.item.rotation.z).toFixed(2)}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="center">scale</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{item.scale.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{item.scale.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{item.scale.x.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.scale.x.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.scale.y.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.scale.z.toFixed(2)}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -123,8 +136,8 @@ export default observer((props) => {
                     { SidebarStore.current === 'building' && 
                         <Card variant='elevation' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'row', boxShadow: 0, mt: 2 }}>
                         {
-                            localStorage.getItem(SidebarStore.building.name) !== null ?
-                            <PlanPreview buildingName={SidebarStore.building.name} /> :
+                            localStorage.getItem(SidebarStore.item.name) !== null ?
+                            <PlanPreview buildingName={SidebarStore.item.name} /> :
                             <></>
                         }
                         </Card>

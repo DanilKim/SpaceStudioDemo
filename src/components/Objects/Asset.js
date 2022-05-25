@@ -24,6 +24,7 @@ function Asset(props) {
             assetRef.current.userData.id,
             assetRef.current.userData.category,
             assetRef.current.position,
+            assetRef.current.rotation,
             assetRef.current.scale
         )
 

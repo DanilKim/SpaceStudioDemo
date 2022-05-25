@@ -39,9 +39,10 @@ export default observer((props) => {
         setSelected(true);
         SidebarStore.selectBuilding(
             buildRef.current.userData.id,
-            buildRef.current.name,
+            buildRef.current.buildingname,
             buildRef.current.userData.category,
             buildRef.current.position,
+            buildRef.current.rotation,
             buildRef.current.scale,
             getFloorShape(buildRef.current.geometry)
         )
@@ -70,7 +71,7 @@ export default observer((props) => {
 
     useEffect( () => {
         if (selected) {
-            buildRef.current.position.y = 0;
+            //buildRef.current.position.y = 0;
             buildRef.current.material.color = new Color("#48B108");
         } else {
             buildRef.current.material.color = active ? new Color('hotpink') : new Color(props.color);
@@ -85,7 +86,8 @@ export default observer((props) => {
             geometry={props.geometry}
             position={props.position}
             scale={props.scale}
-            name={props.name}
+            buildingname={props.name}
+            name={props.id}
             castShadow
             receiveShadow
             onPointerOver={(event) => {

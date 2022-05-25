@@ -5,14 +5,16 @@ class BuildingInfo {
     name;
     category;
     position;
+    rotation;
     scale;
     floorShape;
 
-    constructor(id, name, category, position, scale, floorShape) {
+    constructor(id, name, category, position, rotation, scale, floorShape) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.position = position;
+        this.rotation = rotation;
         this.scale = scale;
         this.floorShape = floorShape;
     }
@@ -23,13 +25,15 @@ class AssetInfo {
     name;
     category;
     position;
+    rotation;
     scale;
 
-    constructor(id, name, category, position, scale) {
+    constructor(id, name, category, position, rotation, scale) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.position = position;
+        this.rotation = rotation;
         this.scale = scale;
     }
 }
@@ -38,8 +42,7 @@ export class SidebarStore {
     rootStore;
 
     selected = false;
-    building = null;
-    asset = null;
+    item = null;
     current = null; // [building, asset];
     distance = 1;
     var;
@@ -48,8 +51,7 @@ export class SidebarStore {
     constructor(root) {
         makeObservable(this, {
             selected: observable,
-            building: observable,
-            asset: observable,
+            item: observable,
             current: observable,
             selectBuilding: action,
             selectAsset: action,
@@ -64,23 +66,22 @@ export class SidebarStore {
         this.rootStore = root;
     }
 
-    selectBuilding = (id, name, category, position, scale, floorShape) => {
+    selectBuilding = (id, name, category, position, rotation, scale, floorShape) => {
         this.selected = true;
         this.current = 'building';
-        this.building = new BuildingInfo(id, name, category, position, scale, floorShape);
+        this.item = new BuildingInfo(id, name, category, position, rotation, scale, floorShape);
     }
 
-    selectAsset = (id, name, category, position, scale) => {
+    selectAsset = (id, name, category, position, rotation, scale) => {
         this.selected = true;
         this.current = 'asset';
-        this.asset = new AssetInfo(id, name, category, position, scale);
+        this.item = new AssetInfo(id, name, category, position, rotation, scale);
     }
 
     unselect = () => {
         this.selected = false;
         this.current = null;
-        this.building = null;
-        this.asset = null;
+        this.item = null;
     }
 
     distplayer = (val) => {
