@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useRef }  from "react";
 import { DragControls } from 'three/examples/jsm/controls/DragControls'
-import { OrbitControls, useProgress, Html } from "@react-three/drei";
+import { OrbitControls, useProgress, Html, TransformControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { useStores, StoreProvider, StoreConsumer } from './stores/Context';
 import { observer } from 'mobx-react';

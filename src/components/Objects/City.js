@@ -33,6 +33,7 @@ function renderModelFromJson(json_model) {
             }
             if (comp.props.material) {
                 let uuid = comp.props.material.uuid;
+                console.log(comp.props.material);
                 comp.props.material = objectLoader.parseMaterials( [comp.props.material] )[uuid];
             }
             siblings.push(<mesh key={comp.key} {...comp.props}/>); 
