@@ -53,14 +53,14 @@ export default observer((props) => {
 
         SidebarStore.select(
             buildRef.current.userData.id,
-            buildRef.current.name,
+            buildRef.current.buildingname,
             buildRef.current.userData.category,
             buildRef.current.position,
             buildRef.current.scale,
             getFloorShape(buildRef.current.geometry)
         )
         // event.stopPropagation();
-        SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z)
+        SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z);
 
         // handleChange = ({ target: { value } }) => SidebarStore.distplayer(value);
         //alert(buildRef.current.name);
@@ -95,7 +95,8 @@ export default observer((props) => {
             geometry={props.geometry}
             position={props.position}
             scale={props.scale}
-            name={props.name}
+            buildingname={props.name}
+            name={props.id}
             castShadow
             receiveShadow
             onPointerOver={(event) => {
