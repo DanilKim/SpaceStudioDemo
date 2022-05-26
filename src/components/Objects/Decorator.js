@@ -18,20 +18,55 @@ function Loader() {
 function Decorator() {
     const { scene, gl, camera } = useThree();
     const { PlaymodeStore, SidebarStore } = useStores();
+    const [ camMode, setCamMode ] = useState('orbit');
+    const [ lastCamPos, setLastCamPos ] = useState({
+        x: 0,
+        y: 5,
+        z: 10
+    });
+    // let lastCamPos = new THREE.Vector3(0, 5, 10);
 
-    const vec = new THREE.Vector3();
+    const topViewVec = new THREE.Vector3(0, 25, 0);
     const step = 0.05;
 
-    //useFrame((state) => {
-    //    if (SidebarStore.selected) {
-    //        vec.set(SidebarStore.cameraposition[0] + 4, SidebarStore.cameraposition[1] + 4, SidebarStore.cameraposition[2] + 4)
-    //        state.camera.position.lerp(vec, step);
-    //        state.camera.lookAt(SidebarStore.cameraposition[0], SidebarStore.cameraposition[1], SidebarStore.cameraposition[2]);
-    //        state.camera.updateProjectionMatrix();
-    //    }
-    //})
+    let start = Date.now();
+    let end;
+    
+    // for camera debugging
+    const keyBoardEvent = () => {
+        switch(window.event.code) {
+            case 'KeyE':
+                start = Date.now();
+                setLastCamPos({x: camera.position.x, y:camera.position.y, z: camera.position.z});
+                setCamMode('edit');
+                break;
+            case 'KeyO':
+                start = Date.now();
+                console.log(lastCamPos);
+                setCamMode('orbit');
+                break;
+            default:
+                break;
+        }
+    }
+
+    // camera action
+    useFrame((state) => {
+        // console.log(state.camera.position);
+        end = Date.now();
+
+        if (end - start < 1000 && camMode === 'edit') {
+            state.camera.position.lerp(topViewVec, step);
+        }
+        if (end - start < 1000 && camMode === 'orbit') {
+            console.log(lastCamPos);
+            state.camera.position.lerp(lastCamPos, step);
+        }
+    })
 
     useEffect(() => {
+        // for camera debugging
+        window.addEventListener('keydown', keyBoardEvent);
 
         const setBackground = () => {
             if (HDRI) {
@@ -66,7 +101,7 @@ function Decorator() {
             //setBackground();
         }
 
-    }, []);
+    }, [camera]);
 
     return (<>
         <ambientLight intensity={0.1} />

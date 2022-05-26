@@ -18,15 +18,17 @@ const Transformable = () => {
     const [ mode, setMode ] = useState('translate');
     const keyBoardEvent = () => {
         switch(window.event.code) {
-            case 'KeyG':
+            case 'KeyT':
                 setMode('translate');
-                break
+                break;
             case 'KeyR':
                 setMode('rotate');
-                break
+                break;
             case 'KeyS':
                 setMode('scale');
-                break
+                break;
+            default:
+                break;
         }
     }
 
