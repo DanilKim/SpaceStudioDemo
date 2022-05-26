@@ -23,7 +23,7 @@ const AssetBank = {
     'benches': ['bench_1'],
     'street_lights' : ['street_light_1','street_light_2','street_light_3'],
     'traffic_lights' : ['traffic_light_1','traffic_light_2']
-    //'buildings': [],
+    //';buildings': [],
     //'roads': []
 };
 
@@ -53,9 +53,9 @@ export default function AssetMenu(props) {
         <CardHeader title="Asset Bank" sx={{ color: '#5f5f5f', textAlign: 'center', mb:-1 }} />
         <Box sx={CategoryboxSX}> 
             <Box sx={ItemboxSX}>
-                <IconButton onClick={(e) => {handleClick('trees', e)}} sx={IconbuttonSX}>
-                    <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_trees.png'} variant='rounded'/>
-                    <Typography>trees</Typography>
+                <IconButton onClick={(e) => {handleClick('buildings', e)}} sx={IconbuttonSX}>
+                    <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_buildings.png'} variant='rounded'/>
+                    <Typography>buildings</Typography>
                 </IconButton>
                 <IconButton onClick={(e) => {handleClick('cars', e)}} sx={IconbuttonSX}>
                     <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_cars.png'} variant='rounded'/>
@@ -65,21 +65,22 @@ export default function AssetMenu(props) {
                     <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_benches.png'} variant='rounded'/>
                     <Typography>benches</Typography>
                 </IconButton>
+                <IconButton onClick={(e) => {handleClick('other_effects', e)}} sx={IconbuttonSX}>
+                    <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_other_effects.png'} variant='rounded'/>
+                    <Typography>effects</Typography>
+                </IconButton>
                 <IconButton onClick={(e) => {handleClick('street_lights', e)}} sx={IconbuttonSX}>
                     <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_street_lights.png'} variant='rounded'/>
-                    <Typography>street_lights</Typography>
+                    <Typography>lights</Typography>
+                </IconButton>
+                {/* 
+                <IconButton onClick={(e) => {handleClick('trees', e)}} sx={IconbuttonSX}>
+                <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_trees.png'} variant='rounded'/>
+                <Typography>trees</Typography>
                 </IconButton>
                 <IconButton onClick={(e) => {handleClick('traffic_lights', e)}} sx={IconbuttonSX}>
                     <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_traffic_lights.png'} variant='rounded'/>
                     <Typography>traffic_lights</Typography>
-                </IconButton>
-                <IconButton onClick={(e) => {handleClick('other_effects', e)}} sx={IconbuttonSX}>
-                    <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_other_effects.png'} variant='rounded'/>
-                    <Typography>other effects</Typography>
-                </IconButton>
-                {/* <IconButton onClick={(e) => {handleClick('buildings', e)}} sx={IconbuttonSX}>
-                    <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_buildings.png'} variant='rounded'/>
-                    <Typography>buildings</Typography>
                 </IconButton>
                 <IconButton onClick={(e) => {handleClick('roads', e)}} sx={IconbuttonSX}>
                     <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_roads.png'} variant='rounded'/>
@@ -87,8 +88,8 @@ export default function AssetMenu(props) {
                 </IconButton> */}
             </Box>
             <Box sx={{ minWidth: '150px', width: '60%', heigth: '95%', justifyContent: 'center', flexGrow: 1 }}>
-                <TabPanel value={value} index={'trees'} sx={{display:'flex', flexFlow: 'row wrap'}}>
-                    <AssetMenuTabPanel type='trees' name='trees' items={AssetBank.trees}/>
+                <TabPanel value={value} index={'buildings'} sx={{display:'flex', flexFlow: 'row wrap'}}>
+                    <AssetMenuTabPanel name='buildings' items={AssetBank.buildings}/>
                 </TabPanel>
                 <TabPanel value={value} index={'cars'} sx={{display:'flex', flexFlow: 'row wrap'}}>
                     <AssetMenuTabPanel type='cars' name='cars' items={AssetBank.cars}/>
@@ -99,18 +100,19 @@ export default function AssetMenu(props) {
                 <TabPanel value={value} index={'street_lights'} sx={{display:'flex', flexFlow: 'row wrap'}}>
                     <AssetMenuTabPanel type='street_lights' name='street_lights' items={AssetBank.street_lights}/>
                 </TabPanel>
-                <TabPanel value={value} index={'traffic_lights'} sx={{display:'flex', flexFlow: 'row wrap'}}>
-                    <AssetMenuTabPanel type='traffic_lights' name='traffic_lights' items={AssetBank.traffic_lights}/>
-                </TabPanel>
                 <TabPanel value={value} index={'other_effects'} sx={{display:'flex', flexFlow: 'row wrap'}}>
                     <AssetMenuTabPanel type='other_effects' name='other_effects' items={AssetBank.other_effects}/>
                 </TabPanel>
-                {/* </TabPanel>
-                <TabPanel value={value} index={'buildings'} sx={{display:'flex', flexFlow: 'row wrap'}}>
-                    <AssetMenuTabPanel name='buildings' items={AssetBank.buildings}/>
+                {/* 
+                <TabPanel value={value} index={'traffic_lights'} sx={{display:'flex', flexFlow: 'row wrap'}}>
+                    <AssetMenuTabPanel type='traffic_lights' name='traffic_lights' items={AssetBank.traffic_lights}/>
+                </TabPanel>
+                <TabPanel value={value} index={'trees'} sx={{display:'flex', flexFlow: 'row wrap'}}>
+                    <AssetMenuTabPanel type='trees' name='trees' items={AssetBank.trees}/>
                 </TabPanel>
                 <TabPanel value={value} index={'roads'} sx={{display:'flex', flexFlow: 'row wrap'}}>
-                    <AssetMenuTabPanel name='roads' items={AssetBank.roads}/> */}
+                    <AssetMenuTabPanel name='roads' items={AssetBank.roads}/> 
+                </TabPanel> */}
                 
             </Box>
         </Box>

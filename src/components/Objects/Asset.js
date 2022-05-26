@@ -41,8 +41,8 @@ function Asset(props) {
             key={props.name}
             name={props.name}
             userData={{ id: props.name , category: props.category }} 
-            position={props.position ? props.position : [0,3,0]} 
-            scale={props.scale ? props.scale : 0.05 }
+            position={props.position ? props.position : [0,6,0]} 
+            scale={props.scale ? props.scale : 0.1 }
             onPointerOver={(event) => {
                 event.stopPropagation();
                 event.target.release

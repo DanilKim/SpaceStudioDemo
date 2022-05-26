@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 
 
-export default function SaveBot() {
+export default function SaveBot(props) {
     const { scene, gl } = useThree();
     const [hovered, setHovered] = useState(false);
 
@@ -16,15 +16,16 @@ export default function SaveBot() {
 
     const handleClick = () => {
         console.log(scene);
-        console.log(gl);
-        const exporter = new GLTFExporter();
-        exporter.parse(
-            scene,
-            function (result) {
-                saveArrayBuffer(result, '/results/city.glb');
-            },
-            { binary : true }
-        )
+        console.log(props.model);
+        //console.log(gl);
+        //const exporter = new GLTFExporter();
+        //exporter.parse(
+        //    scene,
+        //    function (result) {
+        //        saveArrayBuffer(result, '/results/city.glb');
+        //    },
+        //    { binary : true }
+        //)
     }
 
     useEffect(() => {
@@ -38,7 +39,7 @@ export default function SaveBot() {
             anchorX="center" 
             anchorY="middle"
             {...fontProps}
-            position={[0,7,0]}
+            position={[0,15,0]}
             scale={0.5}
             onPointerOver={over}
             onPointerOut={out}

@@ -4,6 +4,7 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { useStores, StoreProvider, StoreConsumer } from './stores/Context';
 import { observer } from 'mobx-react';
 import Decorator from './components/Objects/Decorator';
+import SaveBot from './components/SaveBot';
 import { toJS } from 'mobx';
 
 function Loader() {
@@ -42,10 +43,10 @@ const Transformable = () => {
 function MyWorld() {
     const { ModelStore, SidebarStore } = useStores();
     ModelStore.model;
-    SidebarStore.selected;
+    console.log(toJS(SidebarStore.item));
 
     const canvas_style = { background: "white" };
-    const camera_settings = { position: [0, 5, 10] };
+    const camera_settings = { position: [0, 10, 20] };
 
     return (
         <StoreConsumer>
@@ -62,6 +63,7 @@ function MyWorld() {
                     <gridHelper args={[100, 100, 0xff0000]} />
                     {ModelStore.model}
                     {SidebarStore.selected && <Transformable />}
+                    <SaveBot model={toJS(ModelStore.model)}/>
                 </Suspense>
             </StoreProvider>
             </Canvas>

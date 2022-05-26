@@ -31,8 +31,6 @@ export default observer((props) => {
     const [active, setActive] = useState(false);
     const [selected, setSelected] = useState(false);
 
-    var velocity = 0;
-
     const handleClick = useCallback((event) => {
         event.stopPropagation();
 
@@ -45,29 +43,11 @@ export default observer((props) => {
             buildRef.current.rotation,
             buildRef.current.scale,
             getFloorShape(buildRef.current.geometry)
-        )
+        );
  
         SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z)
 
     }, []);
-
-    //useFrame((_, delta) => {
-    //    if (!selected) {
-    //        if (active) {
-    //            if (buildRef.current.position.y < 0.01) {
-    //                velocity = 2;
-    //            } else {
-    //                velocity -= 0.1;
-    //            }
-    //            buildRef.current.position.y += velocity * delta;
-    //        } else {
-    //            buildRef.current.position.y = 0;
-    //            velocity = 0;
-    //        }
-    //    } else {
-    //        buildRef.current.position.y = 0;
-    //    }
-    //})
 
     useEffect( () => {
         if (selected) {
@@ -77,6 +57,17 @@ export default observer((props) => {
             buildRef.current.material.color = active ? new Color('hotpink') : new Color(props.color);
         }
     }, [selected, active])
+
+    useFrame( (_, delta) => {
+        if (selected) {
+            SidebarStore.update3D(
+                buildRef.current.position,
+                buildRef.current.rotation,
+                buildRef.current.scale,
+            )
+        }
+    })
+
 
     return (<>
         <mesh
