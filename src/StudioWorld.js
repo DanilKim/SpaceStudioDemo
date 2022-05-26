@@ -43,7 +43,7 @@ const Transformable = () => {
 function MyWorld() {
     const { ModelStore, SidebarStore } = useStores();
     ModelStore.model;
-    console.log(toJS(SidebarStore.item));
+    SidebarStore.selected;
 
     const canvas_style = { background: "white" };
     const camera_settings = { position: [0, 10, 20] };

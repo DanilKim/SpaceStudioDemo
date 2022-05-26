@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
 import { useFBX } from '@react-three/drei'; 
 import { useStores } from '../../stores/Context';
 import { observer } from 'mobx-react';
@@ -12,6 +13,7 @@ function Asset(props) {
     const assetRef = useRef();
 
     const [active, setActive] = useState(false);
+    const [selected, setSelected] = useState(false);
     //첫 번째 원소는 현재 상태, 두번째 원소는 Setter 함수
 
     let fbx_fn = props.fn ? props.fn : BASE_URL_FBX + TEST_FBX;
@@ -19,6 +21,8 @@ function Asset(props) {
 
     const handleClick = (event) => {
         event.stopPropagation();
+
+        setSelected(true);
         SidebarStore.selectAsset(
             assetRef.current.userData.id,
             assetRef.current.userData.id,
@@ -32,8 +36,16 @@ function Asset(props) {
 
     }
 
+    useFrame( (_, delta) => {
+        if (selected) {
+            SidebarStore.update3D(
+                assetRef.current.position,
+                assetRef.current.rotation,
+                assetRef.current.scale,
+            )
+        }
+    })
 
-    //onpointover=> 
 
     return (
         <mesh
@@ -55,6 +67,7 @@ function Asset(props) {
             onPointerMissed={(event) => {
                 event.stopPropagation();
                 SidebarStore.unselect();
+                setSelected(false);
             }}
 
             onClick={handleClick}

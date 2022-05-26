@@ -58,10 +58,7 @@ export class SidebarStore {
     item = null;
     current = ''; // [building, asset];
     distance = 1;
-    transform = new Transform(new Vector3(0,0,0), new Vector3(0,0,0), new Vector3(0,0,0))
-    //position = new Vector3(0,0,0);
-    //rotation = new Vector3(0,0,0);
-    //scale = new Vector3(0,0,0);
+    transform = new Transform(new Vector3(0,0,0), new Vector3(0,0,0), new Vector3(0,0,0));
     cameraposition = [0, 5, 10];
 
     constructor(root) {
@@ -70,9 +67,6 @@ export class SidebarStore {
             item: observable,
             current: observable,
             transform: observable,
-            //position: observable,
-            //rotation: observable,
-            //scale: observable,
             selectBuilding: action,
             selectAsset: action,
             unselect: action,
@@ -106,13 +100,7 @@ export class SidebarStore {
     }
 
     update3D = (position, rotation, scale) => {
-        //if (this.position !== position || this.rotation !== rotation || this.scale !== scale) {
         this.transform = new Transform(position, rotation, scale);
-        //this.position = position;
-        //this.rotation = rotation;
-        //this.scale = scale;
-        //console.log(position);
-        //}
     }
 
     distplayer = (val) => {
