@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useRef, useState }  from "react";
-import { OrbitControls, TransformControls, useProgress, Html } from "@react-three/drei";
+import { OrbitControls, TransformControls, MapControls, useProgress, Html } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { useStores, StoreProvider, StoreConsumer } from './stores/Context';
 import { observer } from 'mobx-react';
@@ -43,9 +43,11 @@ const Transformable = () => {
 }
 
 function MyWorld() {
-    const { ModelStore, SidebarStore } = useStores();
+    const { ModelStore, SidebarStore, EditmodeStore } = useStores();
     ModelStore.model;
     SidebarStore.selected;
+    EditmodeStore.isEdit;
+
 
     const canvas_style = { background: "white" };
     const camera_settings = { position: [0, 10, 20] };
@@ -64,6 +66,7 @@ function MyWorld() {
                     <Decorator/>
                     <gridHelper args={[100, 100, 0xff0000]} />
                     {ModelStore.model}
+                    {EditmodeStore.isEdit && !SidebarStore.selected && <MapControls />}
                     {SidebarStore.selected && <Transformable />}
                     <SaveBot model={toJS(ModelStore.model)}/>
                 </Suspense>

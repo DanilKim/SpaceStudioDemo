@@ -17,20 +17,13 @@ function Loader() {
 
 function Decorator() {
     const { scene, gl, camera } = useThree();
-    const { PlaymodeStore, SidebarStore } = useStores();
-    const [ camMode, setCamMode ] = useState('orbit');
-    const [ lastCamPos, setLastCamPos ] = useState({
-        x: 0,
-        y: 5,
-        z: 10
-    });
-    // let lastCamPos = new THREE.Vector3(0, 5, 10);
+    const { PlaymodeStore, EditmodeStore } = useStores();
+    const [ lastCamPos, setLastCamPos ] = useState({ x: 0, y: 5, z: 10 });
 
     const topViewVec = new THREE.Vector3(0, 25, 0);
     const step = 0.05;
 
     let start = Date.now();
-    let end;
     
     // for camera debugging
     const keyBoardEvent = () => {
@@ -38,12 +31,13 @@ function Decorator() {
             case 'KeyE':
                 start = Date.now();
                 setLastCamPos({x: camera.position.x, y:camera.position.y, z: camera.position.z});
-                setCamMode('edit');
+                EditmodeStore.setIsEdit(true);
+                scene.orbitControls.enabled = false;
                 break;
             case 'KeyO':
                 start = Date.now();
-                console.log(lastCamPos);
-                setCamMode('orbit');
+                EditmodeStore.setIsEdit(false);
+                scene.orbitControls.enabled = true;
                 break;
             default:
                 break;
@@ -53,13 +47,12 @@ function Decorator() {
     // camera action
     useFrame((state) => {
         // console.log(state.camera.position);
-        end = Date.now();
+        let end = Date.now();
 
-        if (end - start < 1000 && camMode === 'edit') {
+        if (end - start < 1000 && EditmodeStore.isEdit) {
             state.camera.position.lerp(topViewVec, step);
         }
-        if (end - start < 1000 && camMode === 'orbit') {
-            console.log(lastCamPos);
+        if (end - start < 1000 && !EditmodeStore.isEdit) {
             state.camera.position.lerp(lastCamPos, step);
         }
     })
