@@ -23,19 +23,19 @@ function Decorator() {
     const topViewVec = new THREE.Vector3(0, 25, 0);
     const step = 0.05;
 
-    let start = Date.now();
+    const [ start, setStart ] = useState(0);
     
     // for camera debugging
     const keyBoardEvent = () => {
         switch(window.event.code) {
             case 'KeyE':
-                start = Date.now();
+                setStart(Date.now());
                 setLastCamPos({x: camera.position.x, y:camera.position.y, z: camera.position.z});
                 EditmodeStore.setIsEdit(true);
                 scene.orbitControls.enabled = false;
                 break;
             case 'KeyO':
-                start = Date.now();
+                setStart(Date.now());
                 EditmodeStore.setIsEdit(false);
                 scene.orbitControls.enabled = true;
                 break;
@@ -46,7 +46,6 @@ function Decorator() {
 
     // camera action
     useFrame((state) => {
-        // console.log(state.camera.position);
         let end = Date.now();
 
         if (end - start < 1000 && EditmodeStore.isEdit) {

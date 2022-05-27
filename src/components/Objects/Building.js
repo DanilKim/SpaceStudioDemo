@@ -47,7 +47,7 @@ export default observer((props) => {
             getFloorShape(buildRef.current.geometry)
         )
  
-        SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z)
+        // SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z)
 
     }, []);
 

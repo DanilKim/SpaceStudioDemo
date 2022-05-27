@@ -28,7 +28,7 @@ function Asset(props) {
             assetRef.current.scale
         )
 
-        SidebarStore.setcampos(assetRef.current.position.x, assetRef.current.position.y, assetRef.current.position.z)
+        // SidebarStore.setcampos(assetRef.current.position.x, assetRef.current.position.y, assetRef.current.position.z)
 
     }
 
