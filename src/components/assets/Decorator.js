@@ -45,17 +45,17 @@ function Decorator() {
     }
 
     // camera action
-    useFrame((state) => {
-        // console.log(state.camera.position);
-        let end = Date.now();
-
-        if (end - start < 1000 && EditmodeStore.isEdit) {
-            state.camera.position.lerp(topViewVec, step);
-        }
-        if (end - start < 1000 && !EditmodeStore.isEdit) {
-            state.camera.position.lerp(lastCamPos, step);
-        }
-    })
+    //useFrame((state) => {
+    //    // console.log(state.camera.position);
+    //    let end = Date.now();
+//
+    //    if (end - start < 1000 && EditmodeStore.isEdit) {
+    //        state.camera.position.lerp(topViewVec, step);
+    //    }
+    //    if (end - start < 1000 && !EditmodeStore.isEdit) {
+    //        state.camera.position.lerp(lastCamPos, step);
+    //    }
+    //})
 
     useEffect(() => {
         // for camera debugging

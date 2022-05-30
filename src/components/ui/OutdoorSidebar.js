@@ -18,8 +18,8 @@ import {
     Select
 } from '@mui/material';
 import { observer } from 'mobx-react';
-import { useStores } from '../stores/Context';
-import PlanPreview from './planPreview';
+import { useStores } from '../../stores/Context';
+import PlanPreview from '../planPreview';
 
 const actions = ['rotation', 'hover', 'alien atack'];
 

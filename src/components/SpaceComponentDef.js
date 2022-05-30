@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
-import Building from './Objects/Building';
+import Building from './assets/Building';
 import { useAsync } from "react-async";
 import { Html } from "@react-three/drei";
 

@@ -9,7 +9,7 @@ import {
     Typography,
     IconButton,
 } from '@mui/material';
-import TabPanel from './TabPanelView';
+import TabPanel from '../TabPanelView';
 import AssetMenuTabPanel from './AssetMenuTabPanel';
 
 const CategoryboxSX = { width: '100%', heigth: '95%', display: 'flex', justifyContent: 'center' };
@@ -20,10 +20,11 @@ const AssetBank = {
     'cars': ['car_1'],
     'trees' : ['tree_1'],
     'other_effects' : ['doughnut'],
-    'benches': ['bench_1'],
+    'benches': ['bench_1', 'bench_2'],
     'street_lights' : ['street_light_1','street_light_2','street_light_3'],
-    'traffic_lights' : ['traffic_light_1','traffic_light_2']
-    //';buildings': [],
+    'traffic_lights' : ['traffic_light_1','traffic_light_2'],
+    'airplanes': ['A5'],
+    'buildings': ['custom'],
     //'roads': []
 };
 
@@ -61,6 +62,10 @@ export default function AssetMenu(props) {
                     <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_cars.png'} variant='rounded'/>
                     <Typography>cars</Typography>
                 </IconButton>
+                <IconButton onClick={(e) => {handleClick('airplanes', e)}} sx={IconbuttonSX}>
+                    <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_airplanes.png'} variant='rounded'/>
+                    <Typography>airplanes</Typography>
+                </IconButton>
                 <IconButton onClick={(e) => {handleClick('benches', e)}} sx={IconbuttonSX}>
                     <Avatar sx={{width: '3vw', height: '3vw', bgcolor: '#e5e7e9' }} src={'../../icons/asset_benches.png'} variant='rounded'/>
                     <Typography>benches</Typography>
@@ -89,19 +94,22 @@ export default function AssetMenu(props) {
             </Box>
             <Box sx={{ minWidth: '150px', width: '60%', heigth: '95%', justifyContent: 'center', flexGrow: 1 }}>
                 <TabPanel value={value} index={'buildings'} sx={{display:'flex', flexFlow: 'row wrap'}}>
-                    <AssetMenuTabPanel name='buildings' items={AssetBank.buildings}/>
+                    <AssetMenuTabPanel type='Building' name='buildings' items={AssetBank.buildings}/>
                 </TabPanel>
                 <TabPanel value={value} index={'cars'} sx={{display:'flex', flexFlow: 'row wrap'}}>
-                    <AssetMenuTabPanel type='cars' name='cars' items={AssetBank.cars}/>
+                    <AssetMenuTabPanel type='Ridable' name='cars' items={AssetBank.cars}/>
+                </TabPanel>
+                <TabPanel value={value} index={'airplanes'} sx={{display:'flex', flexFlow: 'row wrap'}}>
+                    <AssetMenuTabPanel type='Flyable' name='airplanes' items={AssetBank.airplanes}/>
                 </TabPanel>
                 <TabPanel value={value} index={'benches'} sx={{display:'flex', flexFlow: 'row wrap'}}>
-                    <AssetMenuTabPanel type='benches' name='benches' items={AssetBank.benches}/>
+                    <AssetMenuTabPanel type='Sittable' name='benches' items={AssetBank.benches}/>
                 </TabPanel>
                 <TabPanel value={value} index={'street_lights'} sx={{display:'flex', flexFlow: 'row wrap'}}>
-                    <AssetMenuTabPanel type='street_lights' name='street_lights' items={AssetBank.street_lights}/>
+                    <AssetMenuTabPanel type='Lightable' name='street_lights' items={AssetBank.street_lights}/>
                 </TabPanel>
                 <TabPanel value={value} index={'other_effects'} sx={{display:'flex', flexFlow: 'row wrap'}}>
-                    <AssetMenuTabPanel type='other_effects' name='other_effects' items={AssetBank.other_effects}/>
+                    <AssetMenuTabPanel type='Asset' name='other_effects' items={AssetBank.other_effects}/>
                 </TabPanel>
                 {/* 
                 <TabPanel value={value} index={'traffic_lights'} sx={{display:'flex', flexFlow: 'row wrap'}}>
@@ -129,3 +137,4 @@ export default function AssetMenu(props) {
 // <a target="_blank" href="https://icons8.com/icon/yCL3d4j8qTIj/traffic-light">Traffic Light</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 // <a target="_blank" href="https://icons8.com/icon/n3mkaWHuThGE/street-light">Street Light</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 // <a target="_blank" href="https://icons8.com/icon/waFKMEVA7Mey/bench">Bench</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+// <a target="_blank" href="https://icons8.com/icon/KMJ5AjR81bDs/airplane">Airplane</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>

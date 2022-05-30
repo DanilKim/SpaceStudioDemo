@@ -1,8 +1,8 @@
 import React from 'react';
 import * as THREE from 'three';
-import Building from './Objects/Building';
-import Road from './Objects/Road';
-import Water from './Objects/Water';
+import Building from './assets/Building';
+import Road from './assets/Road';
+import Water from './assets/Water';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 
 const heightAttr = "층수";

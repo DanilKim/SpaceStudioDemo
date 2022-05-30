@@ -3,8 +3,8 @@ import { OrbitControls, TransformControls, MapControls, useProgress, Html } from
 import { Canvas, useThree } from "@react-three/fiber";
 import { useStores, StoreProvider, StoreConsumer } from './stores/Context';
 import { observer } from 'mobx-react';
-import Decorator from './components/Objects/Decorator';
-import SaveBot from './components/SaveBot';
+import Decorator from './components/assets/Decorator';
+import SaveBot from './components/ui/SaveBot';
 import { toJS } from 'mobx';
 
 function Loader() {
