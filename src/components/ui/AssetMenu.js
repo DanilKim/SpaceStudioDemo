@@ -17,13 +17,13 @@ const ItemboxSX = { minWidth: '80px', width: '30%', heigth: '95%', display: 'fle
 const IconbuttonSX = {display: 'flex', flexDirection: 'column'};
 
 const AssetBank = {
-    'cars': ['car_1'],
+    'cars': ['car_1', 'dodge_challenger', 'cute_horse'],
     'trees' : ['tree_1'],
     'other_effects' : ['doughnut'],
     'benches': ['bench_1', 'bench_2'],
     'street_lights' : ['street_light_1','street_light_2','street_light_3'],
     'traffic_lights' : ['traffic_light_1','traffic_light_2'],
-    'airplanes': ['A5'],
+    'airplanes': ['A5', 'airplane_1'],
     'buildings': ['custom'],
     //'roads': []
 };

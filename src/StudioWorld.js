@@ -48,9 +48,16 @@ function MyWorld() {
     SidebarStore.selected;
     EditmodeStore.isEdit;
 
-
     const canvas_style = { background: "white" };
     const camera_settings = { position: [0, 10, 20] };
+    const unselectEvent = () => {
+        if (window.event.key === "Escape" && SidebarStore.selected) {SidebarStore.unselect();}
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', unselectEvent);
+        return () => window.removeEventListener('keydown', unselectEvent);
+    });
 
     return (
         <StoreConsumer>
