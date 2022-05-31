@@ -18,15 +18,15 @@ import {
     Select
 } from '@mui/material';
 import { observer } from 'mobx-react';
-import { useStores } from '../stores/Context';
-import PlanPreview from './planPreview';
-import {toJS} from 'mobx';
+import { useStores } from '../../stores/Context';
+import PlanPreview from '../planPreview';
 
 const actions = ['rotation', 'hover', 'alien atack'];
 
 export default observer((props) => {
     const { SidebarStore, IndoormodeStore } = useStores();
     const [act, setAct] = useState();
+    //console.log(SidebarStore.transform);
 
     const handleClickIndoor = () => {
         IndoormodeStore.setValue();
@@ -99,21 +99,21 @@ export default observer((props) => {
                                 <TableBody>
                                     <TableRow>
                                         <TableCell align="center">position</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.position.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.position.y.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.position.z.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.position.x.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.position.y.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.position.z.toFixed(2)}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="center">rotation</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.item.rotation.x).toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.item.rotation.y).toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.item.rotation.z).toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.transform.rotation.x).toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.transform.rotation.y).toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.transform.rotation.z).toFixed(2)}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="center">scale</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.scale.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.scale.y.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.item.scale.z.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.scale.x.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.scale.y.toFixed(2)}</TableCell>
+                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.scale.z.toFixed(2)}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>

@@ -15,16 +15,16 @@ import ReactPlannerClasses from './class/export';
 import ElementsFactories from './catalog/factories/export';
 import ReactPlannerUtils from './utils/export';
 import TabPanel from './components/TabPanelView'
-import MenuBtn from './components/MenuBtnView.js'
-import SpaceModelView from './components/SpaceModelView.js';
-import OutdoorSidebar from './components/OutdoorSidebar';
+import MenuBtn from './components/ui/MenuBtnView.js'
+import SpaceModelView from './components/ui/SpaceModelView.js';
+import OutdoorSidebar from './components/ui/OutdoorSidebar';
 import FirstPersonControl from './FirstPersonControl';
-import PortalPopup from "./components/PortalPopup";
+import PortalPopup from "./components/ui/PortalPopup";
 import textToComponent from "./utils/text-component-mappings";
-import Building from "./components/Objects/Building";
-import Asset from "./components/Objects/Asset";
-import Decorator from "./components/Objects/Decorator";
-import City from "./components/Objects/City";
+import Building from "./components/assets/Building";
+import Asset from "./components/assets/Asset";
+import Decorator from "./components/assets/Decorator";
+import City from "./components/City";
 
 
 export {

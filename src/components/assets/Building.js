@@ -2,7 +2,34 @@ import { useFrame } from '@react-three/fiber';
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useStores } from '../../stores/Context';
-import { Vector2, Color } from 'three';
+import { Vector2, Color, ExtrudeBufferGeometry, Shape } from 'three';
+import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
+
+
+function dummyBuilding() {
+    let points = [];
+
+    points.push(new Vector2(-10,-5));
+    points.push(new Vector2(-10,5));
+    points.push(new Vector2(10,5));
+    points.push(new Vector2(10,-5));
+    points.push(new Vector2(-10,-5));
+
+    const geom = new ExtrudeBufferGeometry(new Shape(points), {
+        depth: 40,
+        steps: 1,
+        material: 0,
+        extrudeMaterial: 1,
+        bevelEnabled: false
+    }).rotateX(-0.5 * Math.PI);
+
+    var geometry = BufferGeometryUtils.mergeBufferGeometries([geom], true);
+    geometry.userData.shapes = geom.parameters.shapes;
+    geometry.userData.options = geom.parameters.options;
+
+    return geometry;
+}
+
 
 function getFloorShape(geometry) {
     const lineCurves = geometry.userData.shapes.curves;
@@ -24,14 +51,13 @@ function getFloorShape(geometry) {
     return lineSegments;
 };
 
+
 export default observer((props) => {
     const { SidebarStore, PlaymodeStore } = useStores();
 
     const buildRef = useRef();
     const [active, setActive] = useState(false);
     const [selected, setSelected] = useState(false);
-
-    var velocity = 0;
 
     const handleClick = useCallback((event) => {
         event.stopPropagation();
@@ -45,29 +71,11 @@ export default observer((props) => {
             buildRef.current.rotation,
             buildRef.current.scale,
             getFloorShape(buildRef.current.geometry)
-        )
+        );
  
         SidebarStore.setcampos(buildRef.current.position.x, buildRef.current.position.y, buildRef.current.position.z)
 
     }, []);
-
-    //useFrame((_, delta) => {
-    //    if (!selected) {
-    //        if (active) {
-    //            if (buildRef.current.position.y < 0.01) {
-    //                velocity = 2;
-    //            } else {
-    //                velocity -= 0.1;
-    //            }
-    //            buildRef.current.position.y += velocity * delta;
-    //        } else {
-    //            buildRef.current.position.y = 0;
-    //            velocity = 0;
-    //        }
-    //    } else {
-    //        buildRef.current.position.y = 0;
-    //    }
-    //})
 
     useEffect( () => {
         if (selected) {
@@ -78,14 +86,24 @@ export default observer((props) => {
         }
     }, [selected, active])
 
+    useFrame( (_, delta) => {
+        if (selected) {
+            SidebarStore.update3D(
+                buildRef.current.position,
+                buildRef.current.rotation,
+                buildRef.current.scale,
+            )
+        }
+    })
+
     return (<>
         <mesh
             key={props.id}
             ref={buildRef}
             userData={{id:props.id, category:props.category}}
-            geometry={props.geometry}
-            position={props.position}
-            scale={props.scale}
+            geometry={props.geometry ? props.geometry : dummyBuilding()}
+            position={props.position ? props.position : [0,0,0]}
+            scale={props.scale ? props.scale : [0.3, 0.3, 0.3]}
             buildingname={props.name}
             name={props.id}
             castShadow

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import PortalPopup from './components/PortalPopup';
+import PortalPopup from './components/ui/PortalPopup';
 import { useThree, useFrame } from "@react-three/fiber";
 import { PointerLockControls, Html } from "@react-three/drei";
 import { observer } from 'mobx-react';
@@ -181,7 +181,7 @@ function FirstPersonControl(props) {
         if (intersects.length > 0 && intersects[0].distance < SidebarStore.distance && intersects[0].object.userData.category) {
             // if (intersects.length > 0 && intersects[0].distance < 1 && intersects[0].object.userData.category) {
             //console.log(intersects[0].object.userData.category);
-            console.log(SidebarStore.distance, "distance choosed by player")
+            //console.log(SidebarStore.distance, "distance choosed by player")
             fp.moveForward = false;
             PortalStore.setPortal(intersects[0].object.name);
             //console.log(portal)

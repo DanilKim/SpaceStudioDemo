@@ -1,6 +1,8 @@
 import React from 'react';
 import * as THREE from 'three';
-import Building from './Objects/Building';
+import Building from './assets/Building';
+import Road from './assets/Road';
+import Water from './assets/Water';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 
 const heightAttr = "층수";
@@ -11,8 +13,8 @@ const z_rel = 0.07;
 const r = 0;
 const scale_x = 300;
 const scale_y = 300;
-const scale_factor = 0.0001;
-const heightScaler = 0.03;
+const scale_factor = 0.001;
+const heightScaler = 0.3;
 
 const translateLat = function (lat) {
     return (lat);
@@ -429,7 +431,7 @@ export default async function CreateModel(city, objects, firstMed) {
         var geom_total_road = buildShape_road(data);
 
         // add road
-        const material_road = new THREE.MeshPhongMaterial({ color: 0x121526 });
+        //const material_road = new THREE.MeshPhongMaterial({ color: 0x121526 });
         // ----------------- three.js < 0.125.0 ------------------- //
         //const merged_mesh_road = new THREE.BufferGeometry();
         //for (var i = 0; i < geom_total_road.length + 0; i++) {
@@ -453,23 +455,30 @@ export default async function CreateModel(city, objects, firstMed) {
             var med = firstMed;
         }
 
-        //mesh_road.position.set( scale_factor * scale_x * (offset_road.x - med[0]), 0, scale_factor * scale_y * (offset_road.z - med[1]));
-        //mesh_road.scale.set(scale_factor * scale_x , heightScaler, scale_factor * scale_y);
-        //
-        //mesh_road.name = city + ' road';
-        //mesh_road.castShadow = true;
-        //mesh_road.receiveShadow = true;
         return (
-            <mesh
+            <Road
+                component='Road'
                 key={data.name}
                 geometry={merged_mesh_road}
-                material={material_road}
                 position={[scale_factor * scale_x * (offset_road.x - med[0]), 0, scale_factor * scale_y * (offset_road.z - med[1])]}
                 scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
                 name={city + ' road'}
                 castShadow={true}
                 receiveShadow={true}
+                color={"#001e57"}
             />
+            //<mesh
+            //    key={data.name}
+            //    geometry={merged_mesh_road}
+            //    //material={material_road}
+            //    position={[scale_factor * scale_x * (offset_road.x - med[0]), 0, scale_factor * scale_y * (offset_road.z - med[1])]}
+            //    scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
+            //    name={city + ' road'}
+            //    castShadow={true}
+            //    receiveShadow={true}
+            //>
+            //    <meshPhongMaterial attach="material" color="#001e57"/>
+            //</mesh>
         )
 
     }
@@ -502,16 +511,29 @@ export default async function CreateModel(city, objects, firstMed) {
         }
 
         return (
-            <mesh
+            <Water
+                component="Water"
                 key={data.name}
                 geometry={merged_mesh_water}
-                material={material_water}
                 position={[scale_factor * scale_x * (offset_water.x - med[0]), 0, scale_factor * scale_y * (offset_water.z - med[1])]}
                 scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
-                name={city + ' river'}
+                name={city + ' water'}
                 castShadow={true}
                 receiveShadow={true}
+                color={"#0AC9FF"}
             />
+            //<mesh
+            //    key={data.name}
+            //    geometry={merged_mesh_water}
+            //    //material={material_water}
+            //    position={[scale_factor * scale_x * (offset_water.x - med[0]), 0, scale_factor * scale_y * (offset_water.z - med[1])]}
+            //    scale={[scale_factor * scale_x, heightScaler, scale_factor * scale_y]}
+            //    name={city + ' river'}
+            //    castShadow={true}
+            //    receiveShadow={true}
+            //>
+            //    <meshPhongMaterial attach="material" color="#0AC9FF"/>
+            //</mesh>
         )
 
     }

@@ -4,7 +4,7 @@ import {
     Typography
 } from '@mui/material';
 import { observer } from 'mobx-react';
-import { useStores } from '../stores/Context';
+import { useStores } from '../../stores/Context';
 
 function PortalPopup(props) {
     const { PortalStore } = useStores();
