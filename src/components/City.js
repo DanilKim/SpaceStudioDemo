@@ -1,11 +1,11 @@
 import React, { useState, Suspense, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import Decorator from './Decorator';
+import Decorator from './assets/Decorator';
 import { OrbitControls, Html } from "@react-three/drei";
 import { Box } from '@mui/material';
-import textToComponent from '../../utils/text-component-mappings';
+import textToComponent from '../utils/text-component-mappings';
 import { ObjectLoader } from 'three/src/loaders/ObjectLoader';
-import CityModel from '../SpaceComponentDef';
+import CityModel from './SpaceComponentDef';
 
 const template_city = ['gumi', 'geumgok', 'dongchun'];
 

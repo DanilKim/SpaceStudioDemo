@@ -23,7 +23,7 @@ function MyWorld() {
     ModelStore.model;
 
     const canvas_style = { background: "#2f2f2f" };
-    const camera_settings = { position: [0, 0.1, 10], fov: 50 };
+    const camera_settings = { position: [0, 0.5, 50], fov: 50 };
 
     return ( <>
         <StoreConsumer>

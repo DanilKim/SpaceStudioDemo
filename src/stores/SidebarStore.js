@@ -1,4 +1,5 @@
 import { action, makeObservable, observable } from "mobx";
+import { Vector3 } from 'three';
 
 class BuildingInfo {
     id;
@@ -38,14 +39,26 @@ class AssetInfo {
     }
 }
 
+class Transform {
+    position;
+    rotation;
+    scale;
+
+    constructor(position, rotation, scale) {
+        this.position = position,
+        this.rotation = rotation,
+        this.scale = scale
+    }
+}
+
 export class SidebarStore {
     rootStore;
 
     selected = false;
     item = null;
-    current = null; // [building, asset];
+    current = ''; // [building, asset];
     distance = 1;
-    var;
+    transform = new Transform(new Vector3(0,0,0), new Vector3(0,0,0), new Vector3(0,0,0));
     cameraposition = [0, 5, 10];
 
     constructor(root) {
@@ -53,9 +66,11 @@ export class SidebarStore {
             selected: observable,
             item: observable,
             current: observable,
+            transform: observable,
             selectBuilding: action,
             selectAsset: action,
             unselect: action,
+            update3D: action,
             distance: observable,
             distplayer: action,
             cameraposition: observable,
@@ -80,8 +95,12 @@ export class SidebarStore {
 
     unselect = () => {
         this.selected = false;
-        this.current = null;
+        this.current = '';
         this.item = null;
+    }
+
+    update3D = (position, rotation, scale) => {
+        this.transform = new Transform(position, rotation, scale);
     }
 
     distplayer = (val) => {

@@ -3,7 +3,8 @@ import { OrbitControls, TransformControls, MapControls, useProgress, Html } from
 import { Canvas, useThree } from "@react-three/fiber";
 import { useStores, StoreProvider, StoreConsumer } from './stores/Context';
 import { observer } from 'mobx-react';
-import Decorator from './components/Objects/Decorator';
+import Decorator from './components/assets/Decorator';
+import SaveBot from './components/ui/SaveBot';
 import { toJS } from 'mobx';
 
 function Loader() {
@@ -47,9 +48,16 @@ function MyWorld() {
     SidebarStore.selected;
     ModeStore.isEdit;
 
-
     const canvas_style = { background: "white" };
-    const camera_settings = { position: [0, 5, 10] };
+    const camera_settings = { position: [0, 10, 20] };
+    const unselectEvent = () => {
+        if (window.event.key === "Escape" && SidebarStore.selected) {SidebarStore.unselect();}
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', unselectEvent);
+        return () => window.removeEventListener('keydown', unselectEvent);
+    });
 
     return (
         <StoreConsumer>
@@ -67,6 +75,7 @@ function MyWorld() {
                     {ModelStore.model}
                     {ModeStore.isEdit && !SidebarStore.selected && <MapControls />}
                     {SidebarStore.selected && <Transformable />}
+                    <SaveBot model={toJS(ModelStore.model)}/>
                 </Suspense>
             </StoreProvider>
             </Canvas>

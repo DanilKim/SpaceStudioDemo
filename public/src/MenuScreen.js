@@ -158,8 +158,8 @@ function MenuScreen(props) {
                     height={890}
                     plugins={plugins}
                     toolbarButtons={toolbarButtons}
-                    autosaveKey={SidebarStore.selected ? SidebarStore.item.name : 'temp'}
-                    initialObject={SidebarStore.selected && SidebarStore.current === 'building' && SidebarStore.item.floorShape}
+                    autosaveKey={SidebarStore.current === 'building' ? SidebarStore.item.name : 'temp'}
+                    initialObject={SidebarStore.current === 'building' && SidebarStore.item.floorShape}
                     stateExtractor={state => state.get('space-studio')}
                   />
                 }
