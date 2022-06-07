@@ -17,13 +17,15 @@ function Loader() {
 
 function Decorator() {
     const { scene, gl, camera } = useThree();
-    const { ModeStore } = useStores();
+    const { ModeStore, SceneStore } = useStores();
     const [ lastCamPos, setLastCamPos ] = useState({ x: 0, y: 5, z: 10 });
 
-    const topViewVec = new THREE.Vector3(0, 25, 0);
+    const topViewVec = new THREE.Vector3(0, 100, 0);
     const step = 0.05;
 
     const [ start, setStart ] = useState(0);
+
+    window.addEventListener('click', () => { SceneStore.setScene(scene) });
     
     // for camera debugging
     const keyBoardEvent = () => {
@@ -55,22 +57,15 @@ function Decorator() {
             state.camera.position.lerp(lastCamPos, step);
         }
     })
-    //useFrame((state) => {
-    //    // console.log(state.camera.position);
-    //    let end = Date.now();
-//
-    //    if (end - start < 1000 && EditmodeStore.isEdit) {
-    //        state.camera.position.lerp(topViewVec, step);
-    //    }
-    //    if (end - start < 1000 && !EditmodeStore.isEdit) {
-    //        state.camera.position.lerp(lastCamPos, step);
-    //    }
-    //})
 
     useEffect(() => {
-        // for camera debugging
-        window.addEventListener('keydown', keyBoardEvent);
+        if (!ModeStore.isPlay) {
+            window.addEventListener('keydown', keyBoardEvent);
+            return () => window.removeEventListener('keydown', keyBoardEvent);
+        }
+    })
 
+    useEffect(() => {
         const setBackground = () => {
             if (HDRI) {
                 const filepath = BASE_URL_HDRI + HDRI;

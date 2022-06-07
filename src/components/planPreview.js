@@ -30,7 +30,7 @@ const getVertex = function(selectedLayer, widthRatio, heightRatio, height) {
     vertexComponent.push(
       <g
       transform={`translate(${selectedLayer.vertices[vertex].x * widthRatio}, ${height - selectedLayer.vertices[vertex].y * heightRatio})`}
-      data-id={vertex.id}>
+      key={vertex.id}>
         <circle cx="0" cy="0" r={thickness/2} style={VERTEX_STYLE}/>
       </g>
     );
@@ -54,7 +54,7 @@ const getLine = function (selectedLayer, widthRatio, heightRatio, height) {
     lineComponent.push(
       <g
       transform={`translate(${x1}, ${y1}) rotate(${angle}, 0, 0)`}
-      data-id={line.id}>
+      key={line.id}>
         <rect x="0" y={-half_thickness} rx="1" ry="1" width={length} height={thickness} style={STYLE_RECT} />
       </g>
     )
@@ -73,7 +73,7 @@ const getArea = function (selectedLayer, widthRatio, heightRatio, height) {
     });
     areaComponent.push(
       <g
-      data-id={area.id}>
+      key={area.id}>
         <path d={path} fill={STYLE_AREA} />
       </g>
     );

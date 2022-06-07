@@ -24,13 +24,17 @@ import PlanPreview from '../planPreview';
 const actions = ['rotation', 'hover', 'alien atack'];
 
 export default observer((props) => {
-    const { SidebarStore, ModeStore } = useStores();
+    const { SidebarStore, ModeStore, SceneStore } = useStores();
     const [act, setAct] = useState();
     //console.log(SidebarStore.transform);
 
     const handleClickIndoor = () => {
         ModeStore.setIndoorValue();
     };
+
+    const handleClickScene = (id) => {
+        console.log(SceneStore.scene.getObjectByName(id, true));
+    }
 
     const handleChangeDistance = ({ target: { value } }) => SidebarStore.distplayer(value);
 
@@ -150,7 +154,7 @@ export default observer((props) => {
                     }
 
                     { SidebarStore.current === 'asset' &&
-                        <FormControl sx={{ m: 3, width: 200, flexGrow: 1 }}>
+                        <FormControl sx={{ m:3, width: 200, flexGrow: 1 }}>
                             <InputLabel htmlFor="action-select">Choose Effect</InputLabel>
                             <Select 
                             defaultValue="" 
@@ -162,6 +166,12 @@ export default observer((props) => {
                             {actions.map((a, index) => (<MenuItem key={index} value={a}>{a}</MenuItem>))}
                             </Select>
                         </FormControl>
+                    }
+
+                    { SidebarStore.selected &&
+                        <Button onClick={() => { handleClickScene(SidebarStore.item.id) }} sx={{ color: 'inherit', width: 1, height: 1 / 3, mt: 3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center' }}>
+                        SceneStatus
+                        </Button>
                     }
 
                 </CardContent>
