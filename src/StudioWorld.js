@@ -42,10 +42,10 @@ const Transformable = () => {
 }
 
 function MyWorld() {
-    const { ModelStore, SidebarStore, EditmodeStore } = useStores();
+    const { ModelStore, SidebarStore, ModeStore } = useStores();
     ModelStore.model;
     SidebarStore.selected;
-    EditmodeStore.isEdit;
+    ModeStore.isEdit;
 
 
     const canvas_style = { background: "white" };
@@ -65,7 +65,7 @@ function MyWorld() {
                     <Decorator/>
                     <gridHelper args={[100, 100, 0xff0000]} />
                     {ModelStore.model}
-                    {EditmodeStore.isEdit && !SidebarStore.selected && <MapControls />}
+                    {ModeStore.isEdit && !SidebarStore.selected && <MapControls />}
                     {SidebarStore.selected && <Transformable />}
                 </Suspense>
             </StoreProvider>

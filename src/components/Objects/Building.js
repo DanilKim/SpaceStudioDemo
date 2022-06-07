@@ -25,7 +25,7 @@ function getFloorShape(geometry) {
 };
 
 export default observer((props) => {
-    const { SidebarStore, PlaymodeStore } = useStores();
+    const { SidebarStore, ModeStore } = useStores();
 
     const buildRef = useRef();
     const [active, setActive] = useState(false);
@@ -92,11 +92,11 @@ export default observer((props) => {
             receiveShadow
             onPointerOver={(event) => {
                 event.stopPropagation();
-                if (!PlaymodeStore.playMode) { setActive(true); };
+                if (!ModeStore.isPlay) { setActive(true); };
             }}
             onPointerOut={(event) => {
                 event.stopPropagation();
-                if (!PlaymodeStore.playMode) { setActive(false); };
+                if (!ModeStore.isPlay) { setActive(false); };
             }}
             onPointerMissed={(event) => {
                 event.stopPropagation();

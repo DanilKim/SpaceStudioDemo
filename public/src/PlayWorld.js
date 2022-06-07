@@ -19,8 +19,8 @@ function Loader() {
 
 
 function MyWorld() {
-    const { ModelStore, PlaymodeStore, PortalStore } = useStores();
-    console.log(ModelStore.model);
+    const { ModelStore, ModeStore, PortalStore } = useStores();
+    ModelStore.model;
 
     const canvas_style = { background: "#2f2f2f" };
     const camera_settings = { position: [0, 0.1, 10], fov: 50 };
@@ -35,7 +35,7 @@ function MyWorld() {
             >
             <StoreProvider value={value}>
                 <Suspense fallback={<Loader/>}>
-                    <FirstPersonControl exit={PlaymodeStore.exitPm}/>
+                    <FirstPersonControl exit={ModeStore.exitPm}/>
                     <Decorator/>
                     {ModelStore.model}
                 </Suspense>

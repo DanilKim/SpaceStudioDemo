@@ -25,11 +25,11 @@ import {toJS} from 'mobx';
 const actions = ['rotation', 'hover', 'alien atack'];
 
 export default observer((props) => {
-    const { SidebarStore, IndoormodeStore } = useStores();
+    const { SidebarStore, ModeStore } = useStores();
     const [act, setAct] = useState();
 
     const handleClickIndoor = () => {
-        IndoormodeStore.setValue();
+        ModeStore.setIndoorValue();
     };
 
     const handleChangeDistance = ({ target: { value } }) => SidebarStore.distplayer(value);

@@ -17,7 +17,7 @@ function Loader() {
 
 function Decorator() {
     const { scene, gl, camera } = useThree();
-    const { PlaymodeStore, EditmodeStore } = useStores();
+    const { ModeStore } = useStores();
     const [ lastCamPos, setLastCamPos ] = useState({ x: 0, y: 5, z: 10 });
 
     const topViewVec = new THREE.Vector3(0, 25, 0);
@@ -31,12 +31,12 @@ function Decorator() {
             case 'KeyE':
                 setStart(Date.now());
                 setLastCamPos({x: camera.position.x, y:camera.position.y, z: camera.position.z});
-                EditmodeStore.setIsEdit(true);
+                ModeStore.setIsEdit(true);
                 scene.orbitControls.enabled = false;
                 break;
             case 'KeyO':
                 setStart(Date.now());
-                EditmodeStore.setIsEdit(false);
+                ModeStore.setIsEdit(false);
                 scene.orbitControls.enabled = true;
                 break;
             default:
@@ -48,10 +48,10 @@ function Decorator() {
     useFrame((state) => {
         let end = Date.now();
 
-        if (end - start < 1000 && EditmodeStore.isEdit) {
+        if (end - start < 1000 && ModeStore.isEdit) {
             state.camera.position.lerp(topViewVec, step);
         }
-        if (end - start < 1000 && !EditmodeStore.isEdit) {
+        if (end - start < 1000 && !ModeStore.isEdit) {
             state.camera.position.lerp(lastCamPos, step);
         }
     })
@@ -89,7 +89,7 @@ function Decorator() {
 
         //setLight(props);
         //setGround(props);
-        if (PlaymodeStore.playMode) {
+        if (ModeStore.isPlay) {
             //setBackground();
         }
 
@@ -104,9 +104,9 @@ function Decorator() {
             args={[1000, 1000]}
             name="Plane"
         >
-            <meshStandardMaterial color={PlaymodeStore.playMode ? "green" : "white"} />
+            <meshStandardMaterial color={ModeStore.isPlay ? "green" : "white"} />
         </Plane>
-        {!PlaymodeStore.playMode &&
+        {!ModeStore.isPlay &&
             <Suspense fallback={null}>
                 <Sky distance={45000} sunPosition={[0, 1, 0]} inclination={0} azimuth={0.25} />
                 <Stars radius={5} depth={100} count={100} factor={4} saturation={0} fade speed={0.1} />
@@ -127,7 +127,7 @@ function Decorator() {
             shadow-blurSamples={5}
             position={[15, 22, 10]}
             intensity={1} />
-        {PlaymodeStore.playMode &&
+        {ModeStore.isPlay &&
             <Suspense fallback={<Loader />}>
                 <Environment files={HDRI} path={BASE_URL_HDRI} background />
             </Suspense>

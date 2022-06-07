@@ -8,7 +8,7 @@ const TEST_FBX = '/assets/trees/tree.fbx';
 
 function Asset(props) {
     //props.component = 'Asset';    
-    const { SidebarStore, PlaymodeStore } = useStores();
+    const { SidebarStore, ModeStore } = useStores();
     const assetRef = useRef();
 
     const [active, setActive] = useState(false);
@@ -46,11 +46,11 @@ function Asset(props) {
             onPointerOver={(event) => {
                 event.stopPropagation();
                 event.target.release
-                if (!PlaymodeStore.playMode) {setActive(true);};
+                if (!ModeStore.isPlay) {setActive(true);};
             }}
             onPointerOut={(event) => {
                 event.stopPropagation();
-                if (!PlaymodeStore.playMode) {setActive(false);};
+                if (!ModeStore.isPlay) {setActive(false);};
             }}
             onPointerMissed={(event) => {
                 event.stopPropagation();
