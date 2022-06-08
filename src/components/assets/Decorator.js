@@ -47,14 +47,14 @@ function Decorator() {
     }
 
     // camera action
-    useFrame((state) => {
+    useFrame(({ camera }) => {
         let end = Date.now();
 
         if (end - start < 1000 && ModeStore.isEdit) {
-            state.camera.position.lerp(topViewVec, step);
+            camera.position.lerp(topViewVec, step);
         }
         if (end - start < 1000 && !ModeStore.isEdit) {
-            state.camera.position.lerp(lastCamPos, step);
+            camera.position.lerp(lastCamPos, step);
         }
     })
 
