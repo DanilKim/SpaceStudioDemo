@@ -7,7 +7,7 @@ const PAGE_TITLE = 'Space Studio';
 
 module.exports = (env, self) => {
   let isProduction = self.hasOwnProperty('mode') ? ( self.mode === 'production' ) : true;
-  let port = self.hasOwnProperty('port') ? self.port : 8080;
+  let port = self.hasOwnProperty('port') ? self.port : 3001;
 
   if (isProduction) console.info('Webpack: Production mode'); else console.info('Webpack: Development mode');
 

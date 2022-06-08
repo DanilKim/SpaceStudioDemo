@@ -21,6 +21,7 @@ function Lightable(props) {
         SidebarStore.selectAsset(
             assetRef.current.userData.id,
             assetRef.current.userData.id,
+            'Lightable',
             assetRef.current.userData.category,
             assetRef.current.position,
             assetRef.current.rotation,

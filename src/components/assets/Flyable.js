@@ -21,6 +21,7 @@ function Flyable(props) {
         SidebarStore.selectAsset(
             assetRef.current.userData.id,
             assetRef.current.userData.id,
+            'Flyable',
             assetRef.current.userData.category,
             assetRef.current.position,
             assetRef.current.rotation,

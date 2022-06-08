@@ -21,6 +21,7 @@ function Ridable(props) {
         SidebarStore.selectAsset(
             assetRef.current.userData.id,
             assetRef.current.userData.id,
+            'Ridable',
             assetRef.current.userData.category,
             assetRef.current.position,
             assetRef.current.rotation,

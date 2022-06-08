@@ -4,7 +4,7 @@ import { useFBX } from '@react-three/drei';
 import { useStores } from '../../stores/Context';
 import { observer } from 'mobx-react';
 
-function Screen(props) {
+function Board(props) {
     const { SidebarStore, PlaymodeStore } = useStores();
     const assetRef = useRef();
 
@@ -79,4 +79,4 @@ function Screen(props) {
     
 }
 
-export default observer(Screen);
+export default observer(Board);

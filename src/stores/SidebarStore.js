@@ -24,6 +24,7 @@ class BuildingInfo {
 class AssetInfo {
     id;
     name;
+    component;
     category;
     position;
     rotation;
@@ -32,6 +33,7 @@ class AssetInfo {
     constructor(id, name, category, position, rotation, scale) {
         this.id = id;
         this.name = name;
+        this.component = component;
         this.category = category;
         this.position = position;
         this.rotation = rotation;
@@ -87,10 +89,10 @@ export class SidebarStore {
         this.item = new BuildingInfo(id, name, category, position, rotation, scale, floorShape);
     }
 
-    selectAsset = (id, name, category, position, rotation, scale) => {
+    selectAsset = (id, name, component, category, position, rotation, scale) => {
         this.selected = true;
         this.current = 'asset';
-        this.item = new AssetInfo(id, name, category, position, rotation, scale);
+        this.item = new AssetInfo(id, name, component, category, position, rotation, scale);
     }
 
     unselect = () => {

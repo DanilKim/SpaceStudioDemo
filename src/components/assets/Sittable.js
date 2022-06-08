@@ -21,6 +21,7 @@ function Sittable(props) {
         SidebarStore.selectAsset(
             assetRef.current.userData.id,
             assetRef.current.userData.id,
+            'Sittable',
             assetRef.current.userData.category,
             assetRef.current.position,
             assetRef.current.rotation,
