@@ -43,10 +43,11 @@ const Transformable = () => {
 }
 
 function MyWorld() {
-    const { ModelStore, SidebarStore, EditmodeStore } = useStores();
+    const { ModelStore, SidebarStore, ModeStore, SceneStore } = useStores();
     ModelStore.model;
     SidebarStore.selected;
-    EditmodeStore.isEdit;
+    ModeStore.isEdit;
+    SceneStore.scene;
 
     const canvas_style = { background: "white" };
     const camera_settings = { position: [0, 10, 20] };
@@ -66,16 +67,17 @@ function MyWorld() {
             style={canvas_style}
             camera={camera_settings}
             id="canvas"
+            onCreated={({ scene }) => SceneStore.setScene( scene )}
             >
             <StoreProvider value={value}>
                 <Suspense fallback={<Loader/>}>
                     <OrbitControls makeDefault attach="orbitControls"/>
                     <Decorator/>
-                    <gridHelper args={[100, 100, 0xff0000]} />
+                    <gridHelper name="gridHelper" args={[1000, 100, 0xff0000]} />
                     {ModelStore.model}
-                    {EditmodeStore.isEdit && !SidebarStore.selected && <MapControls />}
+                    {ModeStore.isEdit && !SidebarStore.selected && <MapControls />}
                     {SidebarStore.selected && <Transformable />}
-                    <SaveBot model={toJS(ModelStore.model)}/>
+                    <SaveBot name="saveBot" model={toJS(ModelStore.model)}/>
                 </Suspense>
             </StoreProvider>
             </Canvas>

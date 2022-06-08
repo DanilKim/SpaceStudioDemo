@@ -13,10 +13,10 @@ const {SpaceComponents} = ReactPlannerComponents;
 const {City} = SpaceComponents;
 
 function App() {
-  const { PlaymodeStore } = useStores();
+  const { ModeStore } = useStores();
 
   return (<>
-    {PlaymodeStore.playMode ?
+    {ModeStore.isPlay ?
       <Box sx={{ width: '100vw', height: '100vh' }}>
         <MyWorld />
       </Box> :

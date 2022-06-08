@@ -15,7 +15,8 @@ import {
     FormControl,
     MenuItem,
     InputLabel,
-    Select
+    Select,
+    Input
 } from '@mui/material';
 import { observer } from 'mobx-react';
 import { useStores } from '../../stores/Context';
@@ -24,13 +25,17 @@ import PlanPreview from '../planPreview';
 const actions = ['rotation', 'hover', 'alien atack'];
 
 export default observer((props) => {
-    const { SidebarStore, IndoormodeStore } = useStores();
+    const { SidebarStore, ModeStore, SceneStore } = useStores();
     const [act, setAct] = useState();
     //console.log(SidebarStore.transform);
 
     const handleClickIndoor = () => {
-        IndoormodeStore.setValue();
+        ModeStore.setIndoorValue();
     };
+
+    const handleClickScene = (id) => {
+        console.log(SceneStore.scene.getObjectByName(id, true));
+    }
 
     const handleChangeDistance = ({ target: { value } }) => SidebarStore.distplayer(value);
 
@@ -49,6 +54,17 @@ export default observer((props) => {
             degree += 360.0;
         }
         return degree;
+    }
+
+    const degreeToEuler = (degree) => {
+        return degree * (Math.PI / 180);
+    }
+
+    const onEnterValue = (event, target) => {
+        if (event.key === "Enter"){
+            console.log(event.target.value);
+            console.log(target);
+        }
     }
 
     // const [dist, setDist] = useState();
@@ -99,21 +115,138 @@ export default observer((props) => {
                                 <TableBody>
                                     <TableRow>
                                         <TableCell align="center">position</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.position.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.position.y.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.position.z.toFixed(2)}</TableCell>
+                                        <TableCell align="right">
+                                            <Input
+                                            disableUnderline={true}
+                                            placeholder={SidebarStore.transform.position.x.toFixed(0)} 
+                                            onKeyDown={(event) => {
+                                                if (event.key === "Enter"){
+                                                    if(!isNaN(event.target.value)){
+                                                        SceneStore.scene.getObjectByName(SidebarStore.item.id, true).position.setX(Number(event.target.value));
+                                                    }
+                                                    event.currentTarget.value = '';
+                                                    event.target.blur();
+                                            }}}
+                                            inputProps={{style: {fontSize: 14, textAlign: 'right'}}} />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Input
+                                                disableUnderline={true}
+                                                placeholder={SidebarStore.transform.position.y.toFixed(0)} 
+                                                onKeyDown={(event) => {
+                                                    if (event.key === "Enter"){
+                                                        if(!isNaN(event.target.value)){
+                                                            SceneStore.scene.getObjectByName(SidebarStore.item.id, true).position.setY(Number(event.target.value));
+                                                        }
+                                                        event.currentTarget.value = '';
+                                                        event.target.blur();
+                                                }}}
+                                                inputProps={{style: {fontSize: 14, textAlign: 'right'}}} />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Input
+                                                disableUnderline={true}
+                                                placeholder={SidebarStore.transform.position.z.toFixed(0)} 
+                                                onKeyDown={(event) => {
+                                                    if (event.key === "Enter"){
+                                                        if(!isNaN(event.target.value)){
+                                                            SceneStore.scene.getObjectByName(SidebarStore.item.id, true).position.setZ(Number(event.target.value));
+                                                        }
+                                                        event.currentTarget.value = '';
+                                                        event.target.blur();
+                                                }}}
+                                                inputProps={{style: {fontSize: 14, textAlign: 'right'}}} />
+                                        </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="center">rotation</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.transform.rotation.x).toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.transform.rotation.y).toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{eulerToDegree(SidebarStore.transform.rotation.z).toFixed(2)}</TableCell>
+                                        <TableCell align="right">
+                                            <Input
+                                                disableUnderline={true}
+                                                placeholder={eulerToDegree(SidebarStore.transform.rotation.x).toFixed(0)}
+                                                onKeyDown={(event) => {
+                                                    if (event.key === "Enter"){
+                                                        if(!isNaN(event.target.value)){
+                                                            SceneStore.scene.getObjectByName(SidebarStore.item.id, true).rotateX(degreeToEuler(event.target.value) - SceneStore.scene.getObjectByName(SidebarStore.item.id, true).rotation.x);
+                                                        }
+                                                        event.currentTarget.value = '';
+                                                        event.target.blur();
+                                                }}}
+                                                inputProps={{style: {fontSize: 14, textAlign: 'right'}}} />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Input
+                                                disableUnderline={true}
+                                                placeholder={eulerToDegree(SidebarStore.transform.rotation.y).toFixed(0)}
+                                                onKeyDown={(event) => {
+                                                    if (event.key === "Enter"){
+                                                        if(!isNaN(event.target.value)){
+                                                            SceneStore.scene.getObjectByName(SidebarStore.item.id, true).rotateY(degreeToEuler(event.target.value) - SceneStore.scene.getObjectByName(SidebarStore.item.id, true).rotation.y);
+                                                        }
+                                                        event.currentTarget.value = '';
+                                                        event.target.blur();
+                                                }}}
+                                                inputProps={{style: {fontSize: 14, textAlign: 'right'}}} />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Input
+                                                disableUnderline={true}
+                                                placeholder={eulerToDegree(SidebarStore.transform.rotation.z).toFixed(0)}
+                                                onKeyDown={(event) => {
+                                                    if (event.key === "Enter"){
+                                                        if(!isNaN(event.target.value)){
+                                                            SceneStore.scene.getObjectByName(SidebarStore.item.id, true).rotateZ(degreeToEuler(event.target.value) - SceneStore.scene.getObjectByName(SidebarStore.item.id, true).rotation.z);
+                                                        }
+                                                        event.currentTarget.value = '';
+                                                        event.target.blur();
+                                                }}}
+                                                inputProps={{style: {fontSize: 14, textAlign: 'right'}}} />
+                                        </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="center">scale</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.scale.x.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.scale.y.toFixed(2)}</TableCell>
-                                        <TableCell align="right" sx={{ color: 'blue' }}>{SidebarStore.transform.scale.z.toFixed(2)}</TableCell>
+                                        <TableCell align="right">
+                                            <Input
+                                                disableUnderline={true}
+                                                placeholder={SidebarStore.transform.scale.x.toFixed(2)}
+                                                onKeyDown={(event) => {
+                                                    if (event.key === "Enter"){
+                                                        if(!isNaN(event.target.value)){
+                                                            SceneStore.scene.getObjectByName(SidebarStore.item.id, true).scale.setX(Number(event.target.value));
+                                                        }
+                                                        event.currentTarget.value = '';
+                                                        event.target.blur();
+                                                }}}
+                                                inputProps={{style: {fontSize: 14, textAlign: 'right'}}} />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Input
+                                                disableUnderline={true}
+                                                placeholder={SidebarStore.transform.scale.y.toFixed(2)}
+                                                onKeyDown={(event) => {
+                                                    if (event.key === "Enter"){
+                                                        if(!isNaN(event.target.value)){
+                                                            SceneStore.scene.getObjectByName(SidebarStore.item.id, true).scale.setY(Number(event.target.value));
+                                                        }
+                                                        event.currentTarget.value = '';
+                                                        event.target.blur();
+                                                }}}
+                                                inputProps={{style: {fontSize: 14, textAlign: 'right'}}} />
+                                        </TableCell>                                     
+                                        <TableCell align="right">
+                                            <Input
+                                                disableUnderline={true}
+                                                placeholder={SidebarStore.transform.scale.z.toFixed(2)}
+                                                onKeyDown={(event) => {
+                                                    if (event.key === "Enter"){
+                                                        if(!isNaN(event.target.value)){
+                                                            SceneStore.scene.getObjectByName(SidebarStore.item.id, true).scale.setZ(Number(event.target.value));
+                                                        }
+                                                        event.currentTarget.value = '';
+                                                        event.target.blur();
+                                                }}}
+                                                inputProps={{style: {fontSize: 14, textAlign: 'right'}}} />
+                                        </TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -150,7 +283,7 @@ export default observer((props) => {
                     }
 
                     { SidebarStore.current === 'asset' &&
-                        <FormControl sx={{ m: 3, width: 200, flexGrow: 1 }}>
+                        <FormControl sx={{ m:3, width: 200, flexGrow: 1 }}>
                             <InputLabel htmlFor="action-select">Choose Effect</InputLabel>
                             <Select 
                             defaultValue="" 
@@ -162,6 +295,13 @@ export default observer((props) => {
                             {actions.map((a, index) => (<MenuItem key={index} value={a}>{a}</MenuItem>))}
                             </Select>
                         </FormControl>
+                    }
+
+                    { SidebarStore.selected &&
+                        <Button onClick={() => { handleClickScene(SidebarStore.item.id) }} sx={{ color: 'inherit', width: 1, height: 1 / 3, mt: 3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center' }}>
+                        getObjectByName
+                        ({SidebarStore.item.id})
+                        </Button>
                     }
 
                 </CardContent>

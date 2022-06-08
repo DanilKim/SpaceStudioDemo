@@ -17,26 +17,28 @@ function Loader() {
 
 function Decorator() {
     const { scene, gl, camera } = useThree();
-    const { PlaymodeStore, EditmodeStore } = useStores();
+    const { ModeStore, SceneStore } = useStores();
     const [ lastCamPos, setLastCamPos ] = useState({ x: 0, y: 5, z: 10 });
 
-    const topViewVec = new THREE.Vector3(0, 25, 0);
+    const topViewVec = new THREE.Vector3(0, 100, 0);
     const step = 0.05;
 
-    let start = Date.now();
+    const [ start, setStart ] = useState(0);
+
+    window.addEventListener('click', () => { SceneStore.setScene(scene) });
     
     // for camera debugging
     const keyBoardEvent = () => {
         switch(window.event.code) {
             case 'KeyE':
-                start = Date.now();
+                setStart(Date.now());
                 setLastCamPos({x: camera.position.x, y:camera.position.y, z: camera.position.z});
-                EditmodeStore.setIsEdit(true);
+                ModeStore.setIsEdit(true);
                 scene.orbitControls.enabled = false;
                 break;
             case 'KeyO':
-                start = Date.now();
-                EditmodeStore.setIsEdit(false);
+                setStart(Date.now());
+                ModeStore.setIsEdit(false);
                 scene.orbitControls.enabled = true;
                 break;
             default:
@@ -45,22 +47,25 @@ function Decorator() {
     }
 
     // camera action
-    //useFrame((state) => {
-    //    // console.log(state.camera.position);
-    //    let end = Date.now();
-//
-    //    if (end - start < 1000 && EditmodeStore.isEdit) {
-    //        state.camera.position.lerp(topViewVec, step);
-    //    }
-    //    if (end - start < 1000 && !EditmodeStore.isEdit) {
-    //        state.camera.position.lerp(lastCamPos, step);
-    //    }
-    //})
+    useFrame(({ camera }) => {
+        let end = Date.now();
+
+        if (end - start < 1000 && ModeStore.isEdit) {
+            camera.position.lerp(topViewVec, step);
+        }
+        if (end - start < 1000 && !ModeStore.isEdit) {
+            camera.position.lerp(lastCamPos, step);
+        }
+    })
 
     useEffect(() => {
-        // for camera debugging
-        window.addEventListener('keydown', keyBoardEvent);
+        if (!ModeStore.isPlay) {
+            window.addEventListener('keydown', keyBoardEvent);
+            return () => window.removeEventListener('keydown', keyBoardEvent);
+        }
+    })
 
+    useEffect(() => {
         const setBackground = () => {
             if (HDRI) {
                 const filepath = BASE_URL_HDRI + HDRI;
@@ -90,7 +95,7 @@ function Decorator() {
 
         //setLight(props);
         //setGround(props);
-        if (PlaymodeStore.playMode) {
+        if (ModeStore.isPlay) {
             //setBackground();
         }
 
@@ -105,9 +110,9 @@ function Decorator() {
             args={[1000, 1000]}
             name="Plane"
         >
-            <meshStandardMaterial color={PlaymodeStore.playMode ? "green" : "white"} />
+            <meshStandardMaterial color={ModeStore.isPlay ? "green" : "white"} />
         </Plane>
-        {!PlaymodeStore.playMode &&
+        {!ModeStore.isPlay &&
             <Suspense fallback={null}>
                 <Sky distance={45000} sunPosition={[0, 1, 0]} inclination={0} azimuth={0.25} />
                 <Stars radius={5} depth={100} count={100} factor={4} saturation={0} fade speed={0.1} />
@@ -128,7 +133,7 @@ function Decorator() {
             shadow-blurSamples={5}
             position={[15, 22, 10]}
             intensity={1} />
-        {PlaymodeStore.playMode &&
+        {ModeStore.isPlay &&
             <Suspense fallback={<Loader />}>
                 <Environment files={HDRI} path={BASE_URL_HDRI} background />
             </Suspense>
