@@ -90,14 +90,14 @@ let store = createStore(
 const localStorage = window.hasOwnProperty('localStorage') ? window.localStorage : false;
 
 function MenuScreen(props) {
-  const { PlaymodeStore, SidebarStore, IndoormodeStore, ModelStore } = useStores();
+  const { ModeStore, SidebarStore, ModelStore } = useStores();
 
   const handleChange = () => {
-    IndoormodeStore.setValue();
+    ModeStore.setIndoorValue();
   };
 
   const enterPlayMode = () => {
-    PlaymodeStore.enterPm();
+    ModeStore.enterPm();
       //props.sUp(true);
   };
 
@@ -123,7 +123,7 @@ function MenuScreen(props) {
             <Typography component={'div'} variant="h6" sx={{ mr: 10 ,color: '#7c7c7c' }}>
               Space Studio
             </Typography>
-            <Tabs value={IndoormodeStore.value} onChange={handleChange} sx={{ flexGrow: 1 }} textColor="secondary" indicatorColor="secondary">
+            <Tabs value={ModeStore.indoorValue} onChange={handleChange} sx={{ flexGrow: 1 }} textColor="secondary" indicatorColor="secondary">
               <Tab label="실외 공간 생성" index='0' />
               <Tab label="실내 공간 생성" index='1' />
             </Tabs>
@@ -142,13 +142,13 @@ function MenuScreen(props) {
           </Toolbar>
         </AppBar>
         <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', pt: '5vh'}}>
-          <TabPanel value={IndoormodeStore.value} index={0} width='100vw' sx={{display: 'flex', flexFlow: 'row nowrap'}}>
+          <TabPanel value={ModeStore.indoorValue} index={0} width='100vw' sx={{display: 'flex', flexFlow: 'row nowrap'}}>
             <SpaceModelView/>
             <Box sx={{ minWidth: '200px', width: '16vw'}}>
               <OutdoorSidebar catalog={MyCatalog}/>
             </Box>
           </TabPanel>
-          <TabPanel value={IndoormodeStore.value} index={1} width='100vw'>
+          <TabPanel value={ModeStore.indoorValue} index={1} width='100vw'>
             <Provider store={store}>
               <SizeMe monitorHeight>
                 {({size}) =>
