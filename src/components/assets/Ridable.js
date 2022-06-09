@@ -5,7 +5,7 @@ import { useStores } from '../../stores/Context';
 import { observer } from 'mobx-react';
 
 function Ridable(props) {
-    const { SidebarStore, PlaymodeStore } = useStores();
+    const { SidebarStore, ModeStore } = useStores();
     const assetRef = useRef();
 
     const [active, setActive] = useState(false);
@@ -54,11 +54,11 @@ function Ridable(props) {
             onPointerOver={(event) => {
                 event.stopPropagation();
                 event.target.release
-                if (!PlaymodeStore.playMode) {setActive(true);};
+                if (!ModeStore.isPlay) {setActive(true);};
             }}
             onPointerOut={(event) => {
                 event.stopPropagation();
-                if (!PlaymodeStore.playMode) {setActive(false);};
+                if (!ModeStore.isPlay) {setActive(false);};
             }}
             onPointerMissed={(event) => {
                 event.stopPropagation();

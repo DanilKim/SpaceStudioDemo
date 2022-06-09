@@ -20,33 +20,32 @@ import {
 } from '@mui/material';
 import { observer } from 'mobx-react';
 import { useStores } from '../../stores/Context';
-import PlanPreview from '../planPreview';
+import CreateSidebarOptions from "./CreateSidebarOptions";
 
 const actions = ['rotation', 'hover', 'alien atack'];
 
 export default observer((props) => {
     const { SidebarStore, ModeStore, SceneStore } = useStores();
     const [act, setAct] = useState();
-    //console.log(SidebarStore.transform);
 
-    const handleClickIndoor = () => {
-        ModeStore.setIndoorValue();
-    };
+    //const handleClickIndoor = () => {
+    //    ModeStore.setIndoorValue();
+    //};
 
     const handleClickScene = (id) => {
         console.log(SceneStore.scene.getObjectByName(id, true));
     }
 
-    const handleChangeDistance = ({ target: { value } }) => SidebarStore.distplayer(value);
+    //const handleChangeDistance = ({ target: { value } }) => SidebarStore.distplayer(value);
 
-    const handleSubmitDistance = (event) => {
-        event.preventDefault();
-        alert(`Entering Distance: ${SidebarStore.distance}`);
-    };
+    //const handleSubmitDistance = (event) => {
+    //    event.preventDefault();
+    //    alert(`Entering Distance: ${SidebarStore.distance}`);
+    //};
 
-    const actChange = (event) => {
-        setAct(event.target.value);
-    }
+    //const actChange = (event) => {
+    //    setAct(event.target.value);
+    //}
 
     const eulerToDegree = (euler) => {
         let degree = euler * 180.0 / Math.PI;
@@ -84,7 +83,7 @@ export default observer((props) => {
                 sx={{ color: '#5f5f5f', m: '3%', mb: -3 }}
             />
             {SidebarStore.selected &&
-                <CardContent>
+                <CardContent align="center">
                     <Card variant='elevation' sx={{ bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', boxShadow: 0, mt: 2 }}>
                         <TableContainer component={Paper}>
                             <Table size="small" aria-label="a dense table">
@@ -167,7 +166,7 @@ export default observer((props) => {
                                                 onKeyDown={(event) => {
                                                     if (event.key === "Enter"){
                                                         if(!isNaN(event.target.value)){
-                                                            SceneStore.scene.getObjectByName(SidebarStore.item.id, true).rotateX(degreeToEuler(event.target.value) - SceneStore.scene.getObjectByName(SidebarStore.item.id, true).rotation.x);
+                                                            SceneStore.scene.getObjectByName(SidebarStore.item.id, true).rotation.setX(degreeToEuler(event.target.value) - SceneStore.scene.getObjectByName(SidebarStore.item.id, true).rotation.x);
                                                         }
                                                         event.currentTarget.value = '';
                                                         event.target.blur();
@@ -254,48 +253,8 @@ export default observer((props) => {
                     </Card>
                     {/* <TextField id="outlined-basic" label="Distance" variant="outlined" onChange={handleChange}></TextField> */}
                     <br />
-                    <form onSubmit={handleSubmitDistance}>
-                        <label>
-                            Entering Distance:
-                            <input
-                                type="distance"
-                                name="distance"
-                                value={SidebarStore.distance}
-                                onChange={handleChangeDistance}
-                            />
-                        </label>
-                    </form>
-
-                    { SidebarStore.current === 'building' && 
-                        <Card variant='elevation' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'row', boxShadow: 0, mt: 2 }}>
-                        {
-                            localStorage.getItem(SidebarStore.item.name) !== null ?
-                            <PlanPreview buildingName={SidebarStore.item.name} /> :
-                            <></>
-                        }
-                        </Card>
-                    }
-
-                    { SidebarStore.current === 'building' && 
-                        <Button onClick={handleClickIndoor} sx={{ color: 'inherit', width: 1, height: 1 / 3, mt: 3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center' }}>
-                            실내 공간 스튜디오
-                        </Button>
-                    }
-
-                    { SidebarStore.current === 'asset' &&
-                        <FormControl sx={{ m:3, width: 200, flexGrow: 1 }}>
-                            <InputLabel htmlFor="action-select">Choose Effect</InputLabel>
-                            <Select 
-                            defaultValue="" 
-                            id="action-select" 
-                            label="Action"
-                            value={act}
-                            onChange={actChange}
-                            >
-                            {actions.map((a, index) => (<MenuItem key={index} value={a}>{a}</MenuItem>))}
-                            </Select>
-                        </FormControl>
-                    }
+                    
+                    <CreateSidebarOptions/>
 
                     { SidebarStore.selected &&
                         <Button onClick={() => { handleClickScene(SidebarStore.item.id) }} sx={{ color: 'inherit', width: 1, height: 1 / 3, mt: 3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center' }}>
@@ -312,3 +271,48 @@ export default observer((props) => {
 
 
 })
+
+/*
+<form onSubmit={handleSubmitDistance}>
+    <label>
+        Entering Distance:
+        <input
+            type="distance"
+            name="distance"
+            value={SidebarStore.distance}
+            onChange={handleChangeDistance}
+        />
+    </label>
+</form>
+
+{ SidebarStore.current === 'asset' &&
+    <FormControl sx={{ m:3, width: 200, flexGrow: 1 }}>
+        <InputLabel htmlFor="action-select">Choose Effect</InputLabel>
+        <Select 
+        defaultValue="" 
+        id="action-select" 
+        label="Action"
+        value={act}
+        onChange={actChange}
+        >
+        {actions.map((a, index) => (<MenuItem key={index} value={a}>{a}</MenuItem>))}
+        </Select>
+    </FormControl>
+}
+
+{ SidebarStore.current === 'building' && 
+    <Card variant='elevation' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'row', boxShadow: 0, mt: 2 }}>
+    {
+        localStorage.getItem(SidebarStore.item.name) !== null ?
+        <PlanPreview buildingName={SidebarStore.item.name} /> :
+        <></>
+    }
+    </Card>
+}
+
+{ SidebarStore.current === 'building' && 
+    <Button onClick={handleClickIndoor} sx={{ color: 'inherit', width: 1, height: 1 / 3, mt: 3, bgcolor: '#dbdbdb', borderRadius: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', align: 'center' }}>
+        실내 공간 스튜디오
+    </Button>
+}
+*/

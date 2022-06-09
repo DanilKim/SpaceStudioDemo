@@ -77,7 +77,6 @@ function MyWorld() {
                     {ModelStore.model}
                     {ModeStore.isEdit && !SidebarStore.selected && <MapControls />}
                     {SidebarStore.selected && <Transformable />}
-                    <SaveBot name="saveBot" model={toJS(ModelStore.model)}/>
                 </Suspense>
             </StoreProvider>
             </Canvas>

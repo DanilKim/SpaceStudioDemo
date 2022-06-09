@@ -30,7 +30,7 @@ class AssetInfo {
     rotation;
     scale;
 
-    constructor(id, name, category, position, rotation, scale) {
+    constructor(id, name, component, category, position, rotation, scale) {
         this.id = id;
         this.name = name;
         this.component = component;
