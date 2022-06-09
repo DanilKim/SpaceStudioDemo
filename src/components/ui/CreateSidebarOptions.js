@@ -16,15 +16,16 @@ import {
 } from '@mui/material';
 import PlanPreview from '../planPreview';
 
-const inputProps = {width: '12%', style: {fontSize: 15, textAlign: 'right', bgcolor: 'white'}}
-const inputSx = {width: '12%', fontSize: 15, textAlign: 'center', bgcolor: 'white'};
+const inputSx = {width: '18%', fontSize: 15, textAlign: 'center', bgcolor: 'white'};
 
 function CreateSidebarOptions() {
-    const { SidebarStore, ModeStore } = useStores();
+    const { SidebarStore, ModeStore, SceneStore } = useStores();
     
     const [ridable, setRidable] = useState(false);
     const [sittable, setSittable] = useState(false);
     const [flyableFunc, setFlyFunc] = useState('');
+
+    let item = SceneStore.scene.getObjectByName(SidebarStore.item.id, true);
 
     let optionList = [];
 
@@ -59,28 +60,40 @@ function CreateSidebarOptions() {
                     {ridable && <>
                         <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Forward </Typography> 
-                            <Input id='ridable-forward-key' disableUnderline={true} placeholder="J" sx={inputSx}/>
+                            <Input id='ridable-forward-key' disableUnderline={true} placeholder={item.key_control.forward} sx={inputSx}
+                                onChange={(event) => {item.key_control.forward = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Backward </Typography> 
-                            <Input id='ridable-backward-key' disableUnderline={true} placeholder="K" sx={inputSx}/>
+                            <Input id='ridable-backward-key' disableUnderline={true} placeholder={item.key_control.backward} sx={inputSx}
+                                onChange={(event) => {item.key_control.backward = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Left </Typography> 
-                            <Input id='ridable-left-key' disableUnderline={true} placeholder="H" sx={inputSx}/>
+                            <Input id='ridable-left-key' disableUnderline={true} placeholder={item.key_control.left} sx={inputSx}
+                                onChange={(event) => {item.key_control.left = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Right </Typography> 
-                            <Input id='ridable-right-key' disableUnderline={true} placeholder="L" sx={inputSx}/>
+                            <Input id='ridable-right-key' disableUnderline={true} placeholder={item.key_control.right} sx={inputSx}
+                                onChange={(event) => {item.key_control.right = event.target.value}}
+                            />
                         </Box>
                         
                         <Box sx={{ display: 'flex', mt: 1, mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Entering Distance </Typography> 
-                            <Input id='ridable-reacting-distance' disableUnderline={true} placeholder="1" sx={inputSx}/>
+                            <Input id='ridable-reacting-distance' disableUnderline={true} placeholder={item.entering_distance} sx={inputSx}
+                                onChange={(event) => {item.entering_distance = event.target.value}}
+                            />
                         </Box> 
                         <Box sx={{ display: 'flex', justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Speed </Typography> 
-                            <Input id='ridable-speed' disableUnderline={true} placeholder="1" sx={inputSx}/>
+                            <Input id='ridable-speed' disableUnderline={true} placeholder={item.speed} sx={inputSx}
+                                onChange={(event) => {item.speed = event.target.value}}
+                            />
                         </Box> </>
                     }
                 </Box>
@@ -97,7 +110,9 @@ function CreateSidebarOptions() {
                     {sittable &&
                         <Box sx={{ display: 'flex', mt: 1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Entering Distance </Typography> 
-                            <Input id='sittable-reacting-distance' disableUnderline={true} placeholder="1" sx={inputSx}/>
+                            <Input id='sittable-reacting-distance' disableUnderline={true} placeholder={item.entering_distance} sx={inputSx}
+                                onChange={(event) => {item.entering_distance = event.target.value}}
+                            />
                         </Box>
                     }
                 </Box>
@@ -130,50 +145,72 @@ function CreateSidebarOptions() {
                     {flyableFunc === 'Enable Riding' && <>
                         <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Forward </Typography> 
-                            <Input id='ridable-forward-key' disableUnderline={true} placeholder="J" sx={inputSx}/>
+                            <Input id='ridable-forward-key' placeholder={item.key_control.forward} sx={inputSx} disableUnderline
+                                onChange={(event) => {item.key_control.forward = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Backward </Typography> 
-                            <Input id='ridable-backward-key' disableUnderline={true} placeholder="K" sx={inputSx}/>
+                            <Input id='ridable-backward-key' placeholder={item.key_control.backward} sx={inputSx} disableUnderline
+                                onChange={(event) => {item.key_control.backward = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Left </Typography> 
-                            <Input id='ridable-left-key' disableUnderline={true} placeholder="H" sx={inputSx}/>
+                            <Input id='ridable-left-key' placeholder={item.key_control.left} sx={inputSx} disableUnderline
+                                onChange={(event) => {item.key_control.left = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Right </Typography> 
-                            <Input id='ridable-right-key' disableUnderline={true} placeholder="L" sx={inputSx}/>
+                            <Input id='ridable-right-key' placeholder={item.key_control.right} sx={inputSx}  disableUnderline
+                                onChange={(event) => {item.key_control.right = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', mt: 1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Speed </Typography> 
-                            <Input id='ridable-speed' disableUnderline={true} placeholder="1" sx={inputSx}/>
+                            <Input id='ridable-speed' placeholder={item.speed} sx={inputSx} disableUnderline
+                                onChange={(event) => {item.speed = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', mt: 1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Entering Distance </Typography> 
-                            <Input id='flyable-reacting-distance' disableUnderline={true} placeholder="1" sx={inputSx}/>
+                            <Input id='flyable-reacting-distance' placeholder={item.entering_distance} sx={inputSx} disableUnderline
+                                onChange={(event) => {item.entering_distance = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', mt: 1, mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Boosting Key </Typography> 
-                            <Input id='boosting-key' disableUnderline={true} placeholder="1" sx={inputSx}/>
+                            <Input id='boosting-key' placeholder={item.key_control.boosting} sx={inputSx} disableUnderline
+                                onChange={(event) => {item.key_control.boosting = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Boosting Power </Typography> 
-                            <Input id='boosting-power' disableUnderline={true} placeholder="1" sx={inputSx}/>
+                            <Input id='boosting-power' placeholder={item.power} sx={inputSx} disableUnderline
+                                onChange={(event) => {item.power = event.target.value}}
+                            />
                         </Box> </>
                     }
                     {flyableFunc === 'Fixed Animation' && <>
                         <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Rotation Radius </Typography> 
-                            <Input id='flyable-rotation-radius' disableUnderline={true} placeholder="15" sx={inputSx}/>
+                            <Input id='flyable-rotation-radius' placeholder={item.anim_config.rotation_radius} sx={inputSx} disableUnderline
+                                onChange={(event) => {item.anim_config.rotation_radius = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Rotation Speed </Typography> 
-                            <Input id='flyable-rotation-speed' disableUnderline={true} placeholder="10" sx={inputSx}/>
+                            <Input id='flyable-rotation-speed' placeholder={item.anim_config.rotation_speed} sx={inputSx} disableUnderline
+                                onChange={(event) => {item.anim_config.rotation_speed = event.target.value}}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', 
                         justifyContent: 'space-evenly'}}>
                             <Typography sx={{width: '80%', textAlign:'left'}}> Flying height </Typography> 
-                            <Input id='flyable-flying-height' disableUnderline={true} placeholder="10" sx={inputSx}/>
+                            <Input id='flyable-flying-height' placeholder={item.anim_config.flying_height} sx={inputSx} disableUnderline
+                                onChange={(event) => {item.anim_config.flying_height = event.target.value}}
+                            />
                         </Box> </>
                     }
                 </Box>

@@ -4,6 +4,10 @@ import { useFBX } from '@react-three/drei';
 import { useStores } from '../../stores/Context';
 import { observer } from 'mobx-react';
 
+const DEFAULT_KEY_CONTROL = {forward: 'j', backward: 'k', left: 'h', right: 'l'};
+const DEFAULT_ENTERING_DISTANCE = 1;
+const DEFAULT_SPEED = 10;
+
 function Ridable(props) {
     const { SidebarStore, ModeStore } = useStores();
     const assetRef = useRef();
@@ -27,9 +31,7 @@ function Ridable(props) {
             assetRef.current.rotation,
             assetRef.current.scale
         )
-
         SidebarStore.setcampos(assetRef.current.position.x, assetRef.current.position.y, assetRef.current.position.z)
-
     }
 
     useFrame( (_, delta) => {
@@ -42,24 +44,22 @@ function Ridable(props) {
         }
     })
 
-
     return (
         <mesh
             ref={assetRef}
             key={props.name}
             name={props.name}
-            userData={{ id: props.name , category: props.category }} 
+            userData={{ 
+                id: props.name, 
+                category: props.category,
+            }}
             position={props.position ? props.position : [0,0,0]} 
             scale={props.scale ? props.scale : 0.1 }
-            onPointerOver={(event) => {
-                event.stopPropagation();
-                event.target.release
-                if (!ModeStore.isPlay) {setActive(true);};
-            }}
-            onPointerOut={(event) => {
-                event.stopPropagation();
-                if (!ModeStore.isPlay) {setActive(false);};
-            }}
+
+            key_control={DEFAULT_KEY_CONTROL}
+            entering_distance={DEFAULT_ENTERING_DISTANCE}
+            speed={DEFAULT_SPEED}
+
             onPointerMissed={(event) => {
                 event.stopPropagation();
                 SidebarStore.unselect();
@@ -67,12 +67,6 @@ function Ridable(props) {
             }}
 
             onClick={handleClick}
-
-            onDoubleClick={(event) => {
-                event.stopPropagation();
-                console.log('Sittable')
-            }}
-            
         >
             <primitive object={fbx} dispose={null}/>
         </mesh>

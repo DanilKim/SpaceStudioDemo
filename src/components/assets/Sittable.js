@@ -4,6 +4,8 @@ import { useFBX } from '@react-three/drei';
 import { useStores } from '../../stores/Context';
 import { observer } from 'mobx-react';
 
+const DEFAULT_ENTERING_DISTANCE = 1;
+
 function Sittable(props) {
     const { SidebarStore, ModeStore } = useStores();
     const assetRef = useRef();
@@ -48,18 +50,15 @@ function Sittable(props) {
             ref={assetRef}
             key={props.name}
             name={props.name}
-            userData={{ id: props.name , category: props.category }} 
+            userData={{ 
+                id: props.name, 
+                category: props.category
+            }} 
             position={props.position ? props.position : [0,0,0]} 
             scale={props.scale ? props.scale : 0.1 }
-            onPointerOver={(event) => {
-                event.stopPropagation();
-                event.target.release
-                if (!ModeStore.isPlay) {setActive(true);};
-            }}
-            onPointerOut={(event) => {
-                event.stopPropagation();
-                if (!ModeStore.isPlay) {setActive(false);};
-            }}
+
+            entering_distance={DEFAULT_ENTERING_DISTANCE}
+
             onPointerMissed={(event) => {
                 event.stopPropagation();
                 SidebarStore.unselect();
@@ -67,12 +66,6 @@ function Sittable(props) {
             }}
 
             onClick={handleClick}
-
-            onDoubleClick={(event) => {
-                event.stopPropagation();
-                console.log('Sittable')
-            }}
-            
         >
             <primitive object={fbx} dispose={null}/>
         </mesh>
