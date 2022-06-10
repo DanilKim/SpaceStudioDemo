@@ -4,8 +4,8 @@ import { useFBX } from '@react-three/drei';
 import { useStores } from '../../stores/Context';
 import { observer } from 'mobx-react';
 
-function Screen(props) {
-    const { SidebarStore, PlaymodeStore } = useStores();
+function Board(props) {
+    const { SidebarStore, ModeStore } = useStores();
     const assetRef = useRef();
 
     const [active, setActive] = useState(false);
@@ -53,11 +53,11 @@ function Screen(props) {
             onPointerOver={(event) => {
                 event.stopPropagation();
                 event.target.release
-                if (!PlaymodeStore.playMode) {setActive(true);};
+                if (!ModeStore.isPlay) {setActive(true);};
             }}
             onPointerOut={(event) => {
                 event.stopPropagation();
-                if (!PlaymodeStore.playMode) {setActive(false);};
+                if (!ModeStore.isPlay) {setActive(false);};
             }}
             onPointerMissed={(event) => {
                 event.stopPropagation();
@@ -79,4 +79,4 @@ function Screen(props) {
     
 }
 
-export default observer(Screen);
+export default observer(Board);

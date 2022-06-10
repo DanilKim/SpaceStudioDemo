@@ -4,8 +4,13 @@ import { useFBX } from '@react-three/drei';
 import { useStores } from '../../stores/Context';
 import { observer } from 'mobx-react';
 
+const DEFAULT_KEY_CONTROL = {forward: 'j', backward: 'k', left: 'h', right: 'l'};
+const DEFAULT_ENTERING_DISTANCE = 1;
+const DEFAULT_MAX_SPEED = 20;
+const DEFAULT_POWER = 5;
+
 function Ridable(props) {
-    const { SidebarStore, PlaymodeStore } = useStores();
+    const { SidebarStore, ModeStore } = useStores();
     const assetRef = useRef();
 
     const [active, setActive] = useState(false);
@@ -21,18 +26,17 @@ function Ridable(props) {
         SidebarStore.selectAsset(
             assetRef.current.userData.id,
             assetRef.current.userData.id,
+            'Ridable',
             assetRef.current.userData.category,
             assetRef.current.position,
             assetRef.current.rotation,
             assetRef.current.scale
         )
-
         SidebarStore.setcampos(assetRef.current.position.x, assetRef.current.position.y, assetRef.current.position.z)
-
     }
 
     useFrame( (_, delta) => {
-        if (selected) {
+        if (selected && !ModeStore.isPlay) {
             SidebarStore.update3D(
                 assetRef.current.position,
                 assetRef.current.rotation,
@@ -41,24 +45,23 @@ function Ridable(props) {
         }
     })
 
-
     return (
         <mesh
             ref={assetRef}
             key={props.name}
             name={props.name}
-            userData={{ id: props.name , category: props.category }} 
+            userData={{ 
+                id: props.name, 
+                category: props.category,
+            }}
             position={props.position ? props.position : [0,0,0]} 
             scale={props.scale ? props.scale : 0.1 }
-            onPointerOver={(event) => {
-                event.stopPropagation();
-                event.target.release
-                if (!PlaymodeStore.playMode) {setActive(true);};
-            }}
-            onPointerOut={(event) => {
-                event.stopPropagation();
-                if (!PlaymodeStore.playMode) {setActive(false);};
-            }}
+
+            key_control={DEFAULT_KEY_CONTROL}
+            entering_distance={DEFAULT_ENTERING_DISTANCE}
+            max_speed={DEFAULT_MAX_SPEED}
+            power={DEFAULT_POWER}
+
             onPointerMissed={(event) => {
                 event.stopPropagation();
                 SidebarStore.unselect();
@@ -66,12 +69,6 @@ function Ridable(props) {
             }}
 
             onClick={handleClick}
-
-            onDoubleClick={(event) => {
-                event.stopPropagation();
-                console.log('Sittable')
-            }}
-            
         >
             <primitive object={fbx} dispose={null}/>
         </mesh>

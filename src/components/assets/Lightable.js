@@ -5,7 +5,7 @@ import { useStores } from '../../stores/Context';
 import { observer } from 'mobx-react';
 
 function Lightable(props) {
-    const { SidebarStore, PlaymodeStore } = useStores();
+    const { SidebarStore, ModeStore } = useStores();
     const assetRef = useRef();
 
     const [active, setActive] = useState(false);
@@ -21,6 +21,7 @@ function Lightable(props) {
         SidebarStore.selectAsset(
             assetRef.current.userData.id,
             assetRef.current.userData.id,
+            'Lightable',
             assetRef.current.userData.category,
             assetRef.current.position,
             assetRef.current.rotation,
@@ -53,11 +54,11 @@ function Lightable(props) {
             onPointerOver={(event) => {
                 event.stopPropagation();
                 event.target.release
-                if (!PlaymodeStore.playMode) {setActive(true);};
+                if (!ModeStore.isPlay) {setActive(true);};
             }}
             onPointerOut={(event) => {
                 event.stopPropagation();
-                if (!PlaymodeStore.playMode) {setActive(false);};
+                if (!ModeStore.isPlay) {setActive(false);};
             }}
             onPointerMissed={(event) => {
                 event.stopPropagation();
