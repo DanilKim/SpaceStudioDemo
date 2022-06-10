@@ -6,7 +6,8 @@ import { observer } from 'mobx-react';
 
 const DEFAULT_KEY_CONTROL = {forward: 'j', backward: 'k', left: 'h', right: 'l'};
 const DEFAULT_ENTERING_DISTANCE = 1;
-const DEFAULT_SPEED = 10;
+const DEFAULT_MAX_SPEED = 20;
+const DEFAULT_POWER = 5;
 
 function Ridable(props) {
     const { SidebarStore, ModeStore } = useStores();
@@ -35,7 +36,7 @@ function Ridable(props) {
     }
 
     useFrame( (_, delta) => {
-        if (selected) {
+        if (selected && !ModeStore.isPlay) {
             SidebarStore.update3D(
                 assetRef.current.position,
                 assetRef.current.rotation,
@@ -58,7 +59,8 @@ function Ridable(props) {
 
             key_control={DEFAULT_KEY_CONTROL}
             entering_distance={DEFAULT_ENTERING_DISTANCE}
-            speed={DEFAULT_SPEED}
+            max_speed={DEFAULT_MAX_SPEED}
+            power={DEFAULT_POWER}
 
             onPointerMissed={(event) => {
                 event.stopPropagation();

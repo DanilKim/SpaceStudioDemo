@@ -89,10 +89,16 @@ function CreateSidebarOptions() {
                                 onChange={(event) => {item.entering_distance = event.target.value}}
                             />
                         </Box> 
-                        <Box sx={{ display: 'flex', justifyContent: 'space-evenly'}}>
-                            <Typography sx={{width: '80%', textAlign:'left'}}> Speed </Typography> 
+                        <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
+                            <Typography sx={{width: '80%', textAlign:'left'}}> Max Speed </Typography> 
                             <Input id='ridable-speed' disableUnderline={true} placeholder={item.speed} sx={inputSx}
-                                onChange={(event) => {item.speed = event.target.value}}
+                                onChange={(event) => {item.max_speed = event.target.value}}
+                            />
+                        </Box>
+                        <Box sx={{ display: 'flex', mb: 0.1, justifyContent: 'space-evenly'}}>
+                            <Typography sx={{width: '80%', textAlign:'left'}}> Power </Typography> 
+                            <Input id='ridable-speed' disableUnderline={true} placeholder={item.speed} sx={inputSx}
+                                onChange={(event) => {item.power = event.target.value}}
                             />
                         </Box> </>
                     }

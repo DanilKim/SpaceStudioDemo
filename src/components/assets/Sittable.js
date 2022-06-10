@@ -35,7 +35,7 @@ function Sittable(props) {
     }
 
     useFrame( (_, delta) => {
-        if (selected) {
+        if (selected && !ModeStore.isPlay) {
             SidebarStore.update3D(
                 assetRef.current.position,
                 assetRef.current.rotation,
